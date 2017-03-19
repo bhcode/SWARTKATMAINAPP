@@ -17,7 +17,6 @@ namespace FortunaExcelProcessing
         private FileStream _file;
         private IWorkbook _wb;
         private List<string> _tabNames = new List<string>();
-        FilePaths paths = new FilePaths();
 
         #region public properties
         public IWorkbook Wb
@@ -48,17 +47,17 @@ namespace FortunaExcelProcessing
 
         public void createSQLiteDB()
         {
-            paths.DBFilePath = string.Format((@"\Database\"), DateTime.Now.ToString("dd-MM-yyyy-HH-mm-ss"), "weekly");
-            SQLiteConnection.CreateFile(paths.DBFilePath);
+            FilePaths.DBFilePath = (@"C:\Database\database.sqlite");
+            if (!File.Exists(FilePaths.DBFilePath))
+                SQLiteConnection.CreateFile(FilePaths.DBFilePath);
         }
 
         public void processSheet(string tabName)
         {
-            ITableMaker o = WeeklySheetFactory.CreateSheet(tabName);
+            ITableEditor o = WeeklySheetFactory.CreateSheet(tabName);
             if (o != null)
             {
-                o.MakeTable(_wb.GetSheet(tabName));
-
+                o.EditTable(_wb.GetSheet(tabName));
             }
         }
     }

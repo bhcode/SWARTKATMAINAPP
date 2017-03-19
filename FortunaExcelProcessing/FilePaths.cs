@@ -9,13 +9,13 @@ using System.Data.SQLite;
 
 namespace FortunaExcelProcessing
 {
-    public class FilePaths
+    public static class FilePaths
     {
 
-        private string _reportFilePath;
-        private string _dBFilePath;
+        static private string _reportFilePath;
+        static private string _dBFilePath;
 
-        public string ReportFilePath
+        static public string ReportFilePath
         {
             get
             {
@@ -28,7 +28,7 @@ namespace FortunaExcelProcessing
             }
         }
 
-        public string DBFilePath
+        static public string DBFilePath
         {
             get
             {

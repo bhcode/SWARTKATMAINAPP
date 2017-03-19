@@ -8,17 +8,23 @@ namespace FortunaExcelProcessing
 {
     public class WeeklySheetFactory
     {
-        static public ITableMaker CreateSheet(String sheetName)
+        static public ITableEditor CreateSheet(String sheetName)
         {
-            ITableMaker sheetChoser = null;
+            ITableEditor sheetChoser = null;
 
             switch (sheetName)
             {
                 case "paddocks":
-                    sheetChoser = new WeeklyProcessing.CreatePaddocksTable();
+                    sheetChoser = new WeeklyProcessing.EditPaddocksTable();
                     break;
                 case "Weekly Comments":
-                    sheetChoser = new WeeklyProcessing.CreateCommentsTable();
+                    sheetChoser = new WeeklyProcessing.EditCommentsTable();
+                    break;
+                case "Input Page":
+                    sheetChoser = new WeeklyProcessing.EditInputTable();
+                    break;
+                case "Weekly Data":
+                    sheetChoser = new WeeklyProcessing.EditWeeklyDataTable();
                     break;
             }
 

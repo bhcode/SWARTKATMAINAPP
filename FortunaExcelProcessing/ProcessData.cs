@@ -50,6 +50,10 @@ namespace FortunaExcelProcessing
             if (!File.Exists(@"C:\Database\"))
                 Directory.CreateDirectory(@"C:\Database\");
             FilePaths.DBFilePath = (@"C:\Database\database.sqlite");
+            if (!util.CheckForTable("Formulae"))
+                DBExtras.Formulas.MakeFormulae();
+            if (!util.CheckForTable("Labels"))
+                DBExtras.Formulas.MakeLabels();
             if (!File.Exists(FilePaths.DBFilePath))
                 SQLiteConnection.CreateFile(FilePaths.DBFilePath);
         }

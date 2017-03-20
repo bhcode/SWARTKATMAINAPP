@@ -47,6 +47,8 @@ namespace FortunaExcelProcessing
 
         public void createSQLiteDB()
         {
+            if (!File.Exists(@"C:\Database\"))
+                Directory.CreateDirectory(@"C:\Database\");
             FilePaths.DBFilePath = (@"C:\Database\database.sqlite");
             if (!File.Exists(FilePaths.DBFilePath))
                 SQLiteConnection.CreateFile(FilePaths.DBFilePath);

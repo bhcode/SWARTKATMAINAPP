@@ -86,7 +86,7 @@
     <Compile Include="CheckCellData.cs" />
     <Compile Include="DBExtras\Formulas.cs" />
     <Compile Include="DBExtras\Labels.cs" />
-    <Compile Include="DBExtras\util.cs" />
+    <Compile Include="DBExtras\utils.cs" />
     <Compile Include="dbOperations.cs" />
     <Compile Include="ErrorReporter.cs" />
     <Compile Include="FilePaths.cs" />

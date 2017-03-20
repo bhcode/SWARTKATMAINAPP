@@ -39,7 +39,6 @@ namespace FortunaExcelProcessing.WeeklyProcessing
 
         private void WeeklyDataTable(SQLiteConnection dbConn)
         {
-            bool complete;
             int FarmId = GetFarmID(CheckCellData.CellTypeString(_sheet.GetRow(2).GetCell(1)));
 
             for (int c = 3; c < _sheet.GetRow(6).LastCellNum; c++)

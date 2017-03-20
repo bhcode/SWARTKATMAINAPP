@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace FortunaExcelProcessing.WeeklyProcessing
+namespace FortunaExcelProcessing.DBExtras
 {
     public static class Formulas
     {
@@ -41,7 +41,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
         {
             dBConnection = new SQLiteConnection($"Data Source={filePath};Version=3;");
             dBConnection.Open();
-            if (!util.CheckForTable("Formulae"))
+            if (!utils.CheckForTable("Formulae"))
             {
                 string sql = "CREATE TABLE Formulae(fid INTEGER PRIMARY KEY AUTOINCREMENT, row INTEGER, formula VARCHAR(100));";
                 SQLiteCommand command = new SQLiteCommand(sql, dBConnection);

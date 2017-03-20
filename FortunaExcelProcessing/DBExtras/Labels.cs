@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FortunaExcelProcessing.WeeklyProcessing
+namespace FortunaExcelProcessing.DBExtras
 {
     static public class Labels
     {
@@ -22,7 +22,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
         {
             dBConnection = new SQLiteConnection($"Data Source={filePath};Version=3;");
             dBConnection.Open();
-            if (!util.CheckForTable("Labels"))
+            if (!utils.CheckForTable("Labels"))
             {
                 string sql = "CREATE TABLE Labels(id INTEGER PRIMARY KEY AUTOINCREMENT,  label VARCHAR(100));";
                 SQLiteCommand command = new SQLiteCommand(sql, dBConnection);

@@ -7,9 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace FortunaExcelProcessing.WeeklyProcessing
+namespace FortunaExcelProcessing.DBExtras
 {
-    class util
+    class utils
     {
         static public bool CheckForTable(String tablename)
         {

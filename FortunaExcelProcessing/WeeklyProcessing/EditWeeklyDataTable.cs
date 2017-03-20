@@ -45,7 +45,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
             {
                 if (CheckCellData.CellTypeNumeric(_sheet.GetRow(7).GetCell(c)) != -1)
                 {
-                    Console.WriteLine("I'm working!");
+                    //Console.WriteLine("I'm working!");
                     string date = CheckCellData.CellWeirdDate(_sheet.GetRow(3).GetCell(c)).ToString("yyyy-MM-dd");
 
                     if (!checkForExistingColumn(date, FarmId))

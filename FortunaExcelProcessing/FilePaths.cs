@@ -14,6 +14,7 @@ namespace FortunaExcelProcessing
 
         static private string _reportFilePath;
         static private string _dBFilePath;
+        static private string _dBConString;
 
         static public string ReportFilePath
         {
@@ -41,5 +42,17 @@ namespace FortunaExcelProcessing
             }
         }
 
+        public static string DBConString
+        {
+            get
+            {
+                return _dBConString;
+            }
+
+            set
+            {
+                _dBConString = value;
+            }
+        }
     }
 }

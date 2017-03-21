@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FortunaExcelProcessing
+namespace FortunaExcelProcessing.ConsilidatedReport
 {
     public static class DateTimeExtensions
     {

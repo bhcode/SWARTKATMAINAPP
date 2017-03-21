@@ -13,35 +13,16 @@ namespace FortunaExcelProcessing.ConsilidatedReport
         static ISheet _sheet; static IWorkbook _wb;
         static int _numOfFarms; static string _fullDate; static string _partialDate;
         static string _farmArea; static string _farmName;
-
-        #region rowLabel hardcoded Data
-        //eventually ill stop being lazy and grab the array below from the DB
-        static string[] rowLabels = { "Farm:", "Week Ending:", "Total  Area(ha)", "Area available to milkers","Crop area", "Crop area Available","Area Grazed(avg for last 2 pickups)","Grazing interval","Pre Grazing Cover","Post Grazing Cover(Ave for week)","Average Cover(kgDM/ha)","Growth Rate(kgDM/ha/day)",
-             "Predicted Growth Rate(kgDM/ha/day)","KgDM consumption/cow(Pasture)","Area shut-up for supplements","Total cows wintered","Milked into Vat","NOT milked into Vat", "% not in vat", "Total milking cows", "% cows calved", "Dry cows(On farm)",
-             "Dry cows(Off farm)","Total cows at beginning of week","Kg Liveweight/cow","Kg Liveweight/Ha","Stocking Rate(milkersonly)","Production", "Average MS/day (last 2 pickups)","December DailyTarget","% to target",
-             "KgMS/Cows in vat","Weekly % change","KgMS/total cows milked", "KgMS/Ha", "KgMS month to date", "Avg SCC (000) for last 2pickups","Protein Fat Ratio","Calf Milk (litres)",
-             "Supplements Fed (kgDM/cow/day)","Grain (kgDM)", "Palm kernel (kgDM)", "Silage(kgDM)","Balage (kgDM)","Molasses (kgDM)","Straw(kgDM)","Hay (kgDM)","Other (kgDM)", "Total Consumption(kgDM/cow/day)","Pasture Requirements(Milkers Only)","Demand/ha/day","Predicted Surplus/Deficit(kgDM/ha)","Predicted average cover",
-             "Area N applied(ha)","Rate per hectare(kgN/ha)","Total N applied(kgN/ha)","Total N applied Year To Date(kgN/ha)","Deaths","Deaths to date", "% deaths", "Cows Sold","Cows Sold to date","Total Cows at end of week","Balance Check" };
-        static int[] indent = { 18, 20, 28, 30, 31, 32, 33, 35, 36, 37, 38, 40, 41, 42, 43, 44, 45, 46, 47, 59 };
-        #endregion
-
-        #region help
-        static int[] clumnDeets = { 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
-16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 29, 30, 31, 32, 33, 34,
-35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52,
-53, 54, 55, 56, 57, 58, 59, 60, 101, 102, 103, 104, 105, 106, 107, 109,
-110, 111, 112, 113, 114, 115 };
-        static int[] calcedCells = { 2,3, 7, 13, 15,18, 19,20, 23, 25, 26, 30, 31,
-32,34, 39, 49, 50, 51, 52, 53, 55, 56, 58, 61,62,63 };
-        static int[] dataCells = { 4, 5, 6, 8, 9, 10, 11, 12, 14, 16, 17, 18, 21, 22, 24, 28, 35, 36, 37, 38, 40, 41, 42, 43, 44, 45, 46, 47, 48, 53, 54, 57, 60 };
-        #endregion
-
+        static int [] indent = InitRowLabels.indentation();
+        static List<string> rowLabels = InitRowLabels.labelList();
+        static int[] calcedCells = InitFormulae.calcCellArray();
+        static int[] dataCells = InitFormulae.dataCellArray();
 
         public static void createWorkBook()
         {
             FilePaths.DBFilePath = @"data source = C:\Database\database.sqlite; Version = 3;";
             _wb = new XSSFWorkbook();
-            _sheet = _wb.CreateSheet(consolUtil.getDate(_partialDate, _fullDate));
+            _sheet = _wb.CreateSheet(ConsolUtil.getDate(_partialDate, _fullDate));
             workbookData();
 
             using (FileStream fs = new FileStream(@"C:\Database\testwb.xlsx", FileMode.Create, FileAccess.ReadWrite))
@@ -53,7 +34,7 @@ namespace FortunaExcelProcessing.ConsilidatedReport
 
         private static void workbookData()
         {
-            _numOfFarms = getNumberofFarms();
+            _numOfFarms = ConsolUtil.getNumberofFarms();
 
             for (int row = 0; row < 64; row++)
             {
@@ -61,7 +42,7 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             }
             _sheet.AutoSizeColumn(1);
 
-            Dictionary<int, string> _databaseDatas = consolUtil.getData(_fullDate);
+            Dictionary<int, string> _databaseDatas = ConsolUtil.getData(_fullDate);
 
             for (int col = 2; col < _numOfFarms + 2; col++)
             {
@@ -72,8 +53,8 @@ namespace FortunaExcelProcessing.ConsilidatedReport
                 {
                     string stripper = b.Value.Substring(1, b.Value.Length - 2);
                     string[] sArray = stripper.Split(',');
-                    _farmName = consolUtil.getFarmName(b.Key);
-                    _farmArea = consolUtil.getFarmArea(b.Key);
+                    _farmName = ConsolUtil.getFarmName(b.Key);
+                    _farmArea = ConsolUtil.getFarmArea(b.Key);
 
                     for (int i = 0; i < 33; i++)
                     {
@@ -104,80 +85,33 @@ namespace FortunaExcelProcessing.ConsilidatedReport
                         if (i == 2)
                         {
                             cell = _sheet.GetRow(2).CreateCell(col);
-                            consolUtil.inputDataToSheet(_farmArea, cell);
+                            ConsolUtil.inputDataToSheet(_farmArea, cell);
                         }
 
                         if (i == 15)
                         {
                             cell = _sheet.GetRow(15).CreateCell(col);
-                            inputCellFifteen(cell, 15, b.Key);
+                            FormulaFormatting.inputCellFifteen(cell, 15, b.Key);
                         }
                         else if (i == 55)
                         {
                             cell = _sheet.GetRow(55).CreateCell(col);
-                            inputCellFiftyFive(cell, 55);
+                            FormulaFormatting.inputCellFiftyFive(cell, 55, _farmArea);
                         }
                         cell = _sheet.GetRow(dataCells[i]).CreateCell(col);
-                        consolUtil.inputDataToSheet(sArray[i], cell);
+                        ConsolUtil.inputDataToSheet(sArray[i], cell);
                     }
                 }
-
                 List<FormulaEntry> formulae = InitFormulae.formulaeList(); 
                 Console.WriteLine(formulae.Count);
                 foreach (FormulaEntry formula in formulae)
                 {
                     cell = _sheet.GetRow(formula.Row).CreateCell(col);
-                    inputCellFormula(string.Format(formula.Formula, consolUtil.NumToColName(col)), cell);
+                    FormulaFormatting.inputCellFormula(string.Format(formula.Formula, ConsolUtil.NumToColName(col)), cell);
                 }
-
             }
         }
 
-
-
-
-        private static void inputCellFiftyFive(ICell cell, int col)
-        {
-            string formula = string.Format("=IF({0}53=\"\";\"\";{0}53*{0}54/{1})", consolUtil.NumToColName(col), _farmArea);
-            cell.SetCellType(CellType.Formula);
-            cell.SetCellFormula(formula);
-        }
-
-        private static void inputCellFifteen(ICell cell, int col, int farmId)
-        {
-            string e6 = "", e7 = "";
-            string procString = consolUtil.getCows(farmId);
-            Console.WriteLine(procString);
-            procString = procString.Substring(1, procString.Length - 1);
-            string[] outstring = procString.Split(',');
-
-            e6 = string.Format("{0}", outstring[0]);
-            e7 = string.Format("{0}", outstring[1]);
-
-            Console.WriteLine(e6 + e7);
-            Console.ReadLine();
-            string formula = string.Format("{0}+{1}", e6, e7);
-            cell.SetCellType(CellType.Formula);
-            cell.SetCellFormula(formula);
-        }
-
-        private static void inputCellFormula(string formula, ICell cell)
-        {
-            cell.SetCellType(CellType.Formula);
-            cell.SetCellFormula(formula);
-        }
-
-        private static int getNumberofFarms()
-        {
-            using (SQLiteConnection con = new SQLiteConnection(FilePaths.DBConString))
-            {
-                con.Open();
-                string cstring = "SELECT farmid, COUNT(farmid) FROM farms GROUP BY farmid";
-                SQLiteCommand cmd = new SQLiteCommand(cstring, con);
-                var farms = cmd.ExecuteScalar();
-                return int.Parse(farms.ToString());
-            }
-        }
 
         private static void rowLabeler(int row)
         {

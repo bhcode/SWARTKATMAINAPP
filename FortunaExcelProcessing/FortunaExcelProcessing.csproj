@@ -86,8 +86,10 @@
   <ItemGroup>
     <Compile Include="CheckCellData.cs" />
     <Compile Include="ConsilidatedReport\DateTimeExtensions.cs" />
-    <Compile Include="ConsilidatedReport\consolUtil.cs" />
+    <Compile Include="ConsilidatedReport\ConsolUtil.cs" />
+    <Compile Include="ConsilidatedReport\FormulaFormatting.cs" />
     <Compile Include="ConsilidatedReport\InitFormulae.cs" />
+    <Compile Include="ConsilidatedReport\InitRowLabels.cs" />
     <Compile Include="ConsilidatedReport\processConsolidated.cs" />
     <Compile Include="DBExtras\Formulas.cs" />
     <Compile Include="DBExtras\Labels.cs" />

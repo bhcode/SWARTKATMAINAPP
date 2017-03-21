@@ -10,7 +10,7 @@ using System.Data.SQLite;
 
 namespace FortunaExcelProcessing.ConsilidatedReport
 {
-    class consolUtil
+    class ConsolUtil
     {
         public static string NumToColName(int col)
         {
@@ -113,6 +113,18 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             }
 
             return _databaseDatas;
+        }
+
+        public static int getNumberofFarms()
+        {
+            using (SQLiteConnection con = new SQLiteConnection(FilePaths.DBConString))
+            {
+                con.Open();
+                string cstring = "SELECT farmid, COUNT(farmid) FROM farms GROUP BY farmid";
+                SQLiteCommand cmd = new SQLiteCommand(cstring, con);
+                var farms = cmd.ExecuteScalar();
+                return int.Parse(farms.ToString());
+            }
         }
     }
 }

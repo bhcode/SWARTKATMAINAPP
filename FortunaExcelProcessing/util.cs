@@ -54,7 +54,7 @@ public static class Util {
     }
 
 
-    static public bool CheckForTable(String tablename)
+    public static bool CheckForTable(String tablename)
     {
         SQLiteConnection dBConnection = new SQLiteConnection(string.Format("Data Source={0};Version=3;", FilePaths.DBFilePath));
         dBConnection.Open();
@@ -62,6 +62,16 @@ public static class Util {
         SQLiteCommand command = new SQLiteCommand(sql, dBConnection);
         if (command.ExecuteScalar() != null)
             return true;
+        return false;
+    }
+
+    static public bool CheckForSheet(string sheetName)
+    {
+        //implement to check for sheets in the workbook
+        /*if()
+        {
+            return true;
+        }*/
         return false;
     }
 }

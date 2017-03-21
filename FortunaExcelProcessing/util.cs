@@ -10,7 +10,7 @@ public enum PaddockColumns
     PaddockCropCol = 2
 }
 
-public static class util{
+public static class Util {
     static int farmid;
     static string date;
 

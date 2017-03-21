@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FortunaExcelProcessing.DBExtras
 {
-    class utils
+    class Utils
     {
         static public bool CheckForTable(String tablename)
         {

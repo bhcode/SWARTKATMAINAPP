@@ -22,7 +22,7 @@ namespace FortunaExcelProcessing.DBExtras
         {
             dBConnection = new SQLiteConnection($"Data Source={filePath};Version=3;");
             dBConnection.Open();
-            if (!utils.CheckForTable("Labels"))
+            if (!Utils.CheckForTable("Labels"))
             {
                 string sql = "CREATE TABLE Labels(id INTEGER PRIMARY KEY AUTOINCREMENT,  label VARCHAR(100));";
                 SQLiteCommand command = new SQLiteCommand(sql, dBConnection);

@@ -20,7 +20,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
             _sheet = sheet;
 
             //Create the table if its not in the Database
-            if (!util.CheckForTable("Comments"))
+            if (!Util.CheckForTable("Comments"))
             {
                 sql = "CREATE TABLE Comments(id INTEGER PRIMARY KEY AUTOINCREMENT, farmid INTEGER, date VARCHAR(30), category VARCHAR(30), description BLOB);";
                 command = new SQLiteCommand(sql, dBConnection);
@@ -35,12 +35,12 @@ namespace FortunaExcelProcessing.WeeklyProcessing
         private void CommentsTable(SQLiteConnection dBConnection)
         {         
             bool complete = false;
-            int FarmId = util.GetFarmID(CheckCellData.CellTypeString(_sheet.GetRow(2).GetCell(1)));
+            int FarmId = Util.GetFarmID(CheckCellData.CellTypeString(_sheet.GetRow(2).GetCell(1)));
             Console.WriteLine(FarmId);
             for (int c = 2; c < _sheet.GetRow(3).LastCellNum; c++)
             {
                 string date = CheckCellData.CellWeirdDate(_sheet.GetRow(3).GetCell(c)).ToString("yyyy-MM-dd");
-                util.Date = date;
+                Util.Date = date;
 
                 //check for column
                 if (!checkForExistingColumn(date, FarmId))

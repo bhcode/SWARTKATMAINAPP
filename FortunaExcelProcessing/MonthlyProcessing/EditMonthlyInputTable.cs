@@ -68,7 +68,7 @@ namespace FortunaExcelProcessing.MonthlyProcessing
 
         private void tableCreation(string tableName)
         {
-            if (!util.CheckForTable(tableName))
+            if (!Util.CheckForTable(tableName))
             {
                 //issue: id for farm Betapahu does not exist, id creation is currently dependent on Weekly  excel files. manual input of farm names may be better (via form?)
                 sql = $"CREATE TABLE {tableName} (id INTEGER PRIMARY KEY AUTOINCREMENT, farmid INTEGER, month VARCHAR(15), data varchar(600));";

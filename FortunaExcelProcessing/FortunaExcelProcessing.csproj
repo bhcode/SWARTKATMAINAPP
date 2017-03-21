@@ -94,9 +94,10 @@
     <Compile Include="ConsilidatedReport\processConsolidated.cs" />
     <Compile Include="DBExtras\Formulas.cs" />
     <Compile Include="DBExtras\Labels.cs" />
-    <Compile Include="DBExtras\utils.cs" />
-    <Compile Include="dbOperations.cs" />
+    <Compile Include="DBExtras\Utils.cs" />
+    <Compile Include="DBOperations.cs" />
     <Compile Include="ErrorReporter.cs" />
+    <Compile Include="FarmIdentificationManagement.cs" />
     <Compile Include="FilePaths.cs" />
     <Compile Include="FormulaEntry.cs" />
     <Compile Include="ITableEditor.cs" />
@@ -104,7 +105,7 @@
     <Compile Include="MonthlySheetFactory.cs" />
     <Compile Include="ProcessData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="util.cs" />
+    <Compile Include="Util.cs" />
     <Compile Include="WeeklyProcessing\EditCommentsTable.cs" />
     <Compile Include="WeeklyProcessing\EditInputTable.cs" />
     <Compile Include="WeeklyProcessing\EditPaddocksTable.cs" />

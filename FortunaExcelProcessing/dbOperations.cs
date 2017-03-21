@@ -5,7 +5,7 @@ using System.Data.SQLite;
 
 namespace FortunaExcelProcessing
 {
-    class dbOperations
+    class DBOperations
     {
         public static void ExecuteDatabaseQuery(string command, SQLiteConnection dbConn)
         {

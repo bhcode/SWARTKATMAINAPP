@@ -18,8 +18,8 @@ namespace FortunaExcelProcessing.WeeklyProcessing
 
             _dbCon.Open();
 
-            if (!util.CheckForTable("Paddocks"))
-                dbOperations.ExecuteDatabaseQuery("CREATE TABLE Paddocks (farmid int(11), date VARCHAR(30), paddockID varchar(20), paddockSize float, crop varchar(20))", _dbCon);
+            if (!Util.CheckForTable("Paddocks"))
+                DBOperations.ExecuteDatabaseQuery("CREATE TABLE Paddocks (farmid int(11), date VARCHAR(30), paddockID varchar(20), paddockSize float, crop varchar(20))", _dbCon);
 
             ProcessData(_dbCon);
 
@@ -42,16 +42,16 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                     else
                         tmp = row.GetCell((int)PaddockColumns.PaddockCropCol).ToString();
 
-                    string data = string.Format("{0},'{1}','{2}',{3},'{4}')", util.Farmid, util.Date, row.GetCell((int)PaddockColumns.PaddockIDCol), row.GetCell((int)PaddockColumns.PaddockSizeCol), tmp);
+                    string data = string.Format("{0},'{1}','{2}',{3},'{4}')", Util.Farmid, Util.Date, row.GetCell((int)PaddockColumns.PaddockIDCol), row.GetCell((int)PaddockColumns.PaddockSizeCol), tmp);
 
-                    dbOperations.ExecuteDatabaseQuery("INSERT INTO Paddocks values(" + data, dbCon);
+                    DBOperations.ExecuteDatabaseQuery("INSERT INTO Paddocks values(" + data, dbCon);
                 }
             }
         }
 
         private bool CheckForExistingData()
         {
-            string sql = $"SELECT paddockID FROM Paddocks WHERE date = '{util.Date}' AND  farmid = '{util.Farmid}'";
+            string sql = $"SELECT paddockID FROM Paddocks WHERE date = '{Util.Date}' AND  farmid = '{Util.Farmid}'";
             SQLiteCommand command = new SQLiteCommand(sql, _dbCon);
             if (command.ExecuteScalar() != null)
                 return true;

@@ -41,7 +41,7 @@ namespace FortunaExcelProcessing.DBExtras
         {
             dBConnection = new SQLiteConnection($"Data Source={filePath};Version=3;");
             dBConnection.Open();
-            if (!utils.CheckForTable("Formulae"))
+            if (!Utils.CheckForTable("Formulae"))
             {
                 string sql = "CREATE TABLE Formulae(fid INTEGER PRIMARY KEY AUTOINCREMENT, row INTEGER, formula VARCHAR(100));";
                 SQLiteCommand command = new SQLiteCommand(sql, dBConnection);

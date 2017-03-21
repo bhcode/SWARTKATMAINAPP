@@ -20,7 +20,8 @@ namespace FortunaExcelProcessing.ConsilidatedReport
         public static void createWorkBook(string path)
         {
             ConsolUtil.getDate(); 
-            FilePaths.DBFilePath = @"data source = C:\Database\database.sqlite; Version = 3;";
+            if(FilePaths.DBFilePath == null)
+                FilePaths.DBFilePath = @"data source = C:\Database\database.sqlite; Version = 3;";
             _wb = new XSSFWorkbook();
             _sheet = _wb.CreateSheet(DateStorage.PartialDate);
             workbookData();

@@ -47,12 +47,13 @@ namespace FortunaExcelProcessing
 
         public void createSQLiteDB()
         {
+            //we will be using a collective SQLite DB on the server
             if (!File.Exists(@"C:\Database\"))
                 Directory.CreateDirectory(@"C:\Database\");
             FilePaths.DBFilePath = (@"C:\Database\database.sqlite");
-            if (!util.CheckForTable("Formulae"))
+            if (!Util.CheckForTable("Formulae"))
                 DBExtras.Formulas.MakeFormulae(@"C:\Database\database.sqlite");
-            if (!util.CheckForTable("Labels"))
+            if (!Util.CheckForTable("Labels"))
                 DBExtras.Labels.MakeLabels(@"C:\Database\database.sqlite");
             if (!File.Exists(FilePaths.DBFilePath))
                 SQLiteConnection.CreateFile(FilePaths.DBFilePath);

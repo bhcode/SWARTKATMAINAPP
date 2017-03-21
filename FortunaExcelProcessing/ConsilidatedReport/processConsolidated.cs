@@ -11,21 +11,21 @@ namespace FortunaExcelProcessing.ConsilidatedReport
     public class processConsolidated
     {
         static ISheet _sheet; static IWorkbook _wb;
-        static int _numOfFarms; static string _fullDate; static string _partialDate;
-        static string _farmArea; static string _farmName;
+        static int _numOfFarms; static string _farmArea; static string _farmName;
         static int [] indent = InitRowLabels.indentation();
         static List<string> rowLabels = InitRowLabels.labelList();
         static int[] calcedCells = InitFormulae.calcCellArray();
         static int[] dataCells = InitFormulae.dataCellArray();
 
-        public static void createWorkBook()
+        public static void createWorkBook(string path)
         {
+            ConsolUtil.getDate(); 
             FilePaths.DBFilePath = @"data source = C:\Database\database.sqlite; Version = 3;";
             _wb = new XSSFWorkbook();
-            _sheet = _wb.CreateSheet(ConsolUtil.getDate(_partialDate, _fullDate));
+            _sheet = _wb.CreateSheet(DateStorage.PartialDate);
             workbookData();
 
-            using (FileStream fs = new FileStream(@"C:\Database\testwb.xlsx", FileMode.Create, FileAccess.ReadWrite))
+            using (FileStream fs = new FileStream(path, FileMode.Create, FileAccess.ReadWrite))
             {
                 _wb.Write(fs);
                 _wb.Close();
@@ -42,14 +42,13 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             }
             _sheet.AutoSizeColumn(1);
 
-            Dictionary<int, string> _databaseDatas = ConsolUtil.getData(_fullDate);
+            Dictionary<int, string> databaseDatas = ConsolUtil.getData(DateStorage.FullDate);
 
             for (int col = 2; col < _numOfFarms + 2; col++)
-            {
-                Console.WriteLine("Im attempting to write the datas");
+            { 
                 ICell cell;
 
-                foreach (KeyValuePair<int, string> b in _databaseDatas)
+                foreach (KeyValuePair<int, string> b in databaseDatas)
                 {
                     string stripper = b.Value.Substring(1, b.Value.Length - 2);
                     string[] sArray = stripper.Split(',');
@@ -58,8 +57,7 @@ namespace FortunaExcelProcessing.ConsilidatedReport
 
                     for (int i = 0; i < 33; i++)
                     {
-                        Console.WriteLine(sArray[i]);
-                        if (i == 0)
+                        if (i == 0) //Farm Name
                         {
                             XSSFCellStyle style = (XSSFCellStyle)_wb.CreateCellStyle();
                             XSSFFont font = (XSSFFont)_wb.CreateFont();
@@ -69,7 +67,7 @@ namespace FortunaExcelProcessing.ConsilidatedReport
                             cell.CellStyle = style;
                             cell.SetCellValue(_farmName);
                         }
-                        if (i == 1)
+                        if (i == 1) //Farm Date
                         {
                             XSSFCellStyle style = (XSSFCellStyle)_wb.CreateCellStyle();
                             XSSFFont font = (XSSFFont)_wb.CreateFont();
@@ -79,31 +77,32 @@ namespace FortunaExcelProcessing.ConsilidatedReport
                             style.Alignment = HorizontalAlignment.Center;
                             style.SetFont(font);
                             cell.CellStyle = style;
-                            cell.SetCellValue(_partialDate);
+                            cell.SetCellValue(DateStorage.PartialDate);
                         }
 
-                        if (i == 2)
+                        if (i == 2) //Farm Area
                         {
                             cell = _sheet.GetRow(2).CreateCell(col);
                             ConsolUtil.inputDataToSheet(_farmArea, cell);
                         }
 
-                        if (i == 15)
+                        if (i == 15) //Needs particular formatting
                         {
                             cell = _sheet.GetRow(15).CreateCell(col);
                             FormulaFormatting.inputCellFifteen(cell, 15, b.Key);
                         }
-                        else if (i == 55)
+                        else if (i == 55) //Needs particular formatting
                         {
                             cell = _sheet.GetRow(55).CreateCell(col);
                             FormulaFormatting.inputCellFiftyFive(cell, 55, _farmArea);
                         }
+
                         cell = _sheet.GetRow(dataCells[i]).CreateCell(col);
                         ConsolUtil.inputDataToSheet(sArray[i], cell);
                     }
                 }
+
                 List<FormulaEntry> formulae = InitFormulae.formulaeList(); 
-                Console.WriteLine(formulae.Count);
                 foreach (FormulaEntry formula in formulae)
                 {
                     cell = _sheet.GetRow(formula.Row).CreateCell(col);

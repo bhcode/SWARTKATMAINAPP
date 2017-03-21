@@ -22,13 +22,20 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             return code;
         }
 
-        public static string getDate(string partialDate, string fullDate)
+        public static void getDate()
         {
             DateTime date = DateTime.Now.StartOfWeek(DayOfWeek.Monday);
-            partialDate = date.ToString("dd MMM");
-            fullDate = date.ToString("yyyy-MM-dd");
-            return date.ToString("dd MMM");
+            DateStorage.PartialDate = date.ToString("dd MMM");
+            DateStorage.FullDate = date.ToString("yyyy-MM-dd");
         }
+
+        public static void getDate(DateTime dt)
+        {
+            DateTime date = dt.StartOfWeek(DayOfWeek.Monday);
+            DateStorage.PartialDate = date.ToString("dd MMM");
+            DateStorage.FullDate = date.ToString("yyyy-MM-dd");
+        }
+
 
         public static void inputDataToSheet(string input, ICell cell)
         {

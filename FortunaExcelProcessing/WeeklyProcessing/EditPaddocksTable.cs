@@ -18,8 +18,8 @@ namespace FortunaExcelProcessing.WeeklyProcessing
 
             _dbCon.Open();
 
-            if (!Util.CheckForTable("Paddocks"))
-                DBOperations.ExecuteDatabaseQuery("CREATE TABLE Paddocks (farmid int(11), date VARCHAR(30), paddockID varchar(20), paddockSize float, crop varchar(20))", _dbCon);
+            if (!Util.CheckForTable("paddocks"))
+                DBOperations.ExecuteDatabaseQuery("CREATE TABLE paddocks (farmid int(11), sdate VARCHAR(30), paddockid varchar(20), paddock float, crop varchar(20))", _dbCon);
 
             ProcessData(_dbCon);
 
@@ -28,6 +28,9 @@ namespace FortunaExcelProcessing.WeeklyProcessing
 
         private void ProcessData(SQLiteConnection dbCon)
         {
+            //default the date to the start of current week
+            Util.Date = DateTime.Now.StartOfWeek(DayOfWeek.Monday).ToString("yyyy-MM-dd");
+
             if (!CheckForExistingData())
             {
                 for (int y = 0; y <= paddockSheet.LastRowNum; y++)
@@ -51,7 +54,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
 
         private bool CheckForExistingData()
         {
-            string sql = $"SELECT paddockID FROM Paddocks WHERE date = '{Util.Date}' AND  farmid = '{Util.Farmid}'";
+            string sql = $"SELECT paddockID FROM Paddocks WHERE sdate = '{Util.Date}' AND  farmid = '{Util.Farmid}'";
             SQLiteCommand command = new SQLiteCommand(sql, _dbCon);
             if (command.ExecuteScalar() != null)
                 return true;

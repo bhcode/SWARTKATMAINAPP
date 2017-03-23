@@ -61,10 +61,13 @@ namespace FortunaExcelProcessing
 
         public void processSheet(string tabName)
         {
-            ITableEditor o = WeeklySheetFactory.CreateSheet(tabName);
-            if (o != null)
+            if (Util.CheckForSheet(tabName, _wb))
             {
-                o.EditTable(_wb.GetSheet(tabName));
+                ITableEditor o = WeeklySheetFactory.CreateSheet(tabName);
+                if (o != null)
+                {
+                    o.EditTable(_wb.GetSheet(tabName));
+                }
             }
         }
     }

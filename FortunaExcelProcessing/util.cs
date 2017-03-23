@@ -11,8 +11,14 @@ public enum PaddockColumns
 }
 
 public static class Util {
+
     static int farmid;
     static string date;
+
+    public static string DForm()
+    {
+        return "yyyy-MM-dd hh:mm:ss";
+    }
 
     public static string Date
     {
@@ -65,13 +71,12 @@ public static class Util {
         return false;
     }
 
-    static public bool CheckForSheet(string sheetName)
+    static public bool CheckForSheet(string sheetName, IWorkbook wb)
     {
-        //implement to check for sheets in the workbook
-        /*if()
+        if(wb.GetSheet(sheetName) != null)
         {
             return true;
-        }*/
+        }
         return false;
     }
 }

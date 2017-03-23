@@ -9,8 +9,8 @@ namespace FortunaExcelProcessing.WeeklyProcessing
     public class EditInputTable : ITableEditor
     {
         ISheet _sheet;
-        string name;
-        string sql; SQLiteCommand command; SQLiteConnection dBConnection;
+        string name; string sql;
+        SQLiteCommand command; SQLiteConnection dBConnection;
 
         public void EditTable(ISheet sheet)
         {
@@ -21,7 +21,6 @@ namespace FortunaExcelProcessing.WeeklyProcessing
             SupplementsTable();
 
             dBConnection.Close();
-
         }
 
         private void SupplementsTable()
@@ -29,14 +28,16 @@ namespace FortunaExcelProcessing.WeeklyProcessing
             StringBuilder supplements = new StringBuilder();
             StringBuilder cows = new StringBuilder();
 
-            //need to sort out date
             if (!Util.CheckForTable("farmSupplements"))
             {
-                command = new SQLiteCommand("CREATE TABLE farmSupplements (id  INTEGER PRIMARY KEY AUTOINCREMENT, farmid INTEGER, cows BLOB, supplements BLOB);", dBConnection);
+                command = new SQLiteCommand("CREATE TABLE farmSupplements (id  INTEGER PRIMARY KEY AUTOINCREMENT, sdate VARCHAR(30), farmid INTEGER, cows VARCHAR(512), supplements VARCHAR(512));", dBConnection);
                 command.ExecuteNonQuery();
             }
 
             Util.Farmid = Util.GetFarmID(name);
+
+            //default the date to the start of current week
+            Util.Date = DateTime.Now.StartOfWeek(DayOfWeek.Monday).ToString("yyyy-MM-dd");
 
             if (!CheckForExistingFarm("farmSupplements", "farmid", Util.Farmid.ToString()))
             {
@@ -49,7 +50,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                     supplements.Append((r == 10) ? "[" : "" + CheckCellData.CellTypeNumeric(_sheet.GetRow(r).GetCell(4)) + ((r == 17) ? "]" : ","));
                 }
 
-                command = new SQLiteCommand(($"INSERT INTO farmSupplements(farmid, cows, supplements) values({Util.Farmid}, '{cows}', '{supplements}')"), dBConnection);
+                command = new SQLiteCommand(($"INSERT INTO farmSupplements(farmid, cows, supplements) values({Util.Farmid}, {Util.Date}, '{cows}', '{supplements}')"), dBConnection);
                 command.ExecuteNonQuery();
             }
         }

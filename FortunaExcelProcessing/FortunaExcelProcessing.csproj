@@ -86,7 +86,7 @@
   <ItemGroup>
     <Compile Include="CheckCellData.cs" />
     <Compile Include="ConsilidatedReport\DateStorage.cs" />
-    <Compile Include="ConsilidatedReport\DateTimeExtensions.cs" />
+    <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="ConsilidatedReport\ConsolUtil.cs" />
     <Compile Include="ConsilidatedReport\FormulaFormatting.cs" />
     <Compile Include="ConsilidatedReport\InitFormulae.cs" />

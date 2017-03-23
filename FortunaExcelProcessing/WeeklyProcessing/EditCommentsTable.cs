@@ -22,7 +22,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
             //Create the table if its not in the Database
             if (!Util.CheckForTable("Comments"))
             {
-                sql = "CREATE TABLE Comments(id INTEGER PRIMARY KEY AUTOINCREMENT, farmid INTEGER, date VARCHAR(30), category VARCHAR(30), description BLOB);";
+                sql = "CREATE TABLE Comments(id INTEGER PRIMARY KEY AUTOINCREMENT, farmid INTEGER, sdate VARCHAR(30), category VARCHAR(30), description VARCHAR(512));";
                 command = new SQLiteCommand(sql, dBConnection);
                 command.ExecuteNonQuery();
             }
@@ -54,7 +54,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                         }
                         string cat = category[r - 4];
                         string cellData = "'" + CheckCellData.CellTypeString(_sheet.GetRow(r).GetCell(c)) + "'";
-                        command.CommandText = $"INSERT INTO Comments(farmid,date,category,description) VALUES ({FarmId},@date,{cat},{cellData})";
+                        command.CommandText = $"INSERT INTO Comments(farmid,sdate,category,description) VALUES ({FarmId},@date,{cat},{cellData})";
                         command.Parameters.AddWithValue("@date",date);
                         command.ExecuteNonQuery();
                     }

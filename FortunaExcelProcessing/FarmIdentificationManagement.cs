@@ -1,10 +1,16 @@
-﻿using System.Data.SQLite;
+﻿using System;
+using System.Data.SQLite;
 
 namespace FortunaExcelProcessing
 {
     class FarmIdentificationManagement
     {
         SQLiteConnection dBConnection;
+
+
+        /*---------------------------------------------------------------------------
+         |This needs to be initialized first before other DB/Operations are performed|
+         --------------------------------------------------------------------------- */
 
         public void EditTable(string farmName, double area)
         {
@@ -13,6 +19,7 @@ namespace FortunaExcelProcessing
     
             if (!CheckForExistingFarm(farmName))
             {
+                string date = DateTime.Now.ToString(Util.DForm());
                 SQLiteCommand command = new SQLiteCommand($"INSERT INTO farms(name, area) values('{farmName}', {area})", dBConnection);
                 command.ExecuteNonQuery();
             }

@@ -10,7 +10,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
     {
         ISheet _sheet;
         string sql; SQLiteCommand command; SQLiteConnection dBConnection;
-        public string[] category = {"'Animal Health'", "'Fertiliser Application'", "'Jobs Last Week'", "'Jobs This Week'", "'Stock'", "'General'", "'Resource Management Issues'"};
+        public string[] category = { "'Animal Health'", "'Fertiliser Application'", "'Jobs Last Week'", "'Jobs This Week'", "'Stock'", "'General'", "'Resource Management Issues'" };
 
 
         public void EditTable(ISheet sheet)
@@ -33,35 +33,39 @@ namespace FortunaExcelProcessing.WeeklyProcessing
         }
 
         private void CommentsTable(SQLiteConnection dBConnection)
-        {         
-            bool complete = false;
+        {
+
             int FarmId = Util.GetFarmID(CheckCellData.CellTypeString(_sheet.GetRow(2).GetCell(1)));
             Console.WriteLine(FarmId);
+
+            //Go through each column, to the last column with a date available
             for (int c = 2; c < _sheet.GetRow(3).LastCellNum; c++)
             {
                 string date = CheckCellData.CellWeirdDate(_sheet.GetRow(3).GetCell(c)).ToString("yyyy-MM-dd");
                 Util.Date = date;
 
-                //check for column
-                if (!checkForExistingColumn(date, FarmId))
+                //check for empty column, if 'emptycount' == 0 then column is empty
+                int emptycount = 0;               
+                for (int r = 4; r < 11; r++)
+                {
+                    ICell checkCell = _sheet.GetRow(r).GetCell(c);
+                    if (CheckCellData.CellTypeString(checkCell) == "" || checkCell == null)
+                    {
+                        emptycount++;
+                    }
+                }
+                //check for column and make sure empty column is not read
+                if (!checkForExistingColumn(date, FarmId) && emptycount < 6)
                 {
                     for (int r = 4; r < 11; r++)
                     {
-                        if (CheckCellData.CellTypeString(_sheet.GetRow(r).GetCell(c)) == "" && CheckCellData.CellTypeString(_sheet.GetRow(r + 1).GetCell(c)) == "")
-                        {
-                            complete = true;
-                            break;
-                        }
                         string cat = category[r - 4];
                         string cellData = "'" + CheckCellData.CellTypeString(_sheet.GetRow(r).GetCell(c)) + "'";
                         command.CommandText = $"INSERT INTO Comments(farmid,sdate,category,description) VALUES ({FarmId},@date,{cat},{cellData})";
-                        command.Parameters.AddWithValue("@date",date);
+                        command.Parameters.AddWithValue("@date", date);
                         command.ExecuteNonQuery();
                     }
-
-                    if (complete == true)
-                        break;
-                }          
+                }
             }
         }
 

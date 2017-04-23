@@ -50,7 +50,8 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                     supplements.Append((r == 10) ? "[" : "" + CheckCellData.CellTypeNumeric(_sheet.GetRow(r).GetCell(4)) + ((r == 17) ? "]" : ","));
                 }
 
-                command = new SQLiteCommand(($"INSERT INTO farmSupplements(farmid, cows, supplements) values({Util.Farmid}, {Util.Date}, '{cows}', '{supplements}')"), dBConnection);
+                command = new SQLiteCommand(($"INSERT INTO farmSupplements(farmid, cows, supplements) values({Util.Farmid}, @date, '{cows}', '{supplements}')"), dBConnection);
+                command.Parameters.AddWithValue("@date", Util.Date);
                 command.ExecuteNonQuery();
             }
         }

@@ -28,7 +28,6 @@ namespace FortunaExcelProcessing.WeeklyProcessing
             }
 
             CommentsTable(dBConnection);
-
             dBConnection.Close();
         }
 

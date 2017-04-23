@@ -14,6 +14,7 @@ namespace FortunaExcelProcessing
 
         public void EditTable(string farmName, double area)
         {
+            Util.Date = DateTime.Now.StartOfWeek(DayOfWeek.Monday).ToString("yyyy-MM-dd");
             dBConnection = new SQLiteConnection($"Data Source={FilePaths.DBFilePath};Version=3;");
             dBConnection.Open();
     

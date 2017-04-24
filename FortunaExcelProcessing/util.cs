@@ -49,9 +49,10 @@ public static class Util {
 
     static public int GetFarmID(string name)
     {
+        string fn = name.Trim();
         SQLiteConnection dBConnection = new SQLiteConnection(string.Format("Data Source={0};Version=3;", FilePaths.DBFilePath));
         dBConnection.Open();
-        string sql = $"SELECT farmid FROM farms where name = '{name}';";
+        string sql = $"SELECT farmid FROM farms where name = '{fn}';";
         SQLiteCommand command = new SQLiteCommand(sql, dBConnection);
         if (command.ExecuteScalar() != null)
             return int.Parse(command.ExecuteScalar().ToString());

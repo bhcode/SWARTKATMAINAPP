@@ -48,21 +48,27 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                 for (int r = 4; r < 11; r++)
                 {
                     ICell checkCell = _sheet.GetRow(r).GetCell(c);
-                    if (CheckCellData.CellTypeString(checkCell) == "" || checkCell == null)
+                    if (CheckCellData.CellTypeString(checkCell).Trim() == "" || checkCell == null)
                     {
                         emptycount++;
                     }
                 }
                 //check for column and make sure empty column is not read
-                if (!checkForExistingColumn(date, FarmId) && emptycount < 6)
+                if (!checkForExistingColumn(date, FarmId) && emptycount < 7)
                 {
                     for (int r = 4; r < 11; r++)
                     {
                         string cat = category[r - 4];
-                        string cellData = "'" + CheckCellData.CellTypeString(_sheet.GetRow(r).GetCell(c)) + "'";
-                        command.CommandText = $"INSERT INTO Comments(farmid,sdate,category,description) VALUES ({FarmId},@date,{cat},{cellData})";
-                        command.Parameters.AddWithValue("@date", date);
-                        command.ExecuteNonQuery();
+
+                        string cellData = CheckCellData.CellTypeString(_sheet.GetRow(r).GetCell(c)).Trim();
+                        if (cellData != null && cellData != "")
+                        {
+                            //string cellData = "'" + CheckCellData.CellTypeString(_sheet.GetRow(r).GetCell(c)).Trim() + "'";
+                            cellData = "'" + cellData + "'";
+                            command.CommandText = $"INSERT INTO Comments(farmid,sdate,category,description) VALUES ({FarmId},@date,{cat},{cellData})";
+                            command.Parameters.AddWithValue("@date", date);
+                            command.ExecuteNonQuery();
+                        }
                     }
                 }
             }
@@ -70,7 +76,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
 
         private bool checkForExistingColumn(string date, int farmID)
         {
-            sql = $"SELECT date FROM Comments where date = '{date}' AND farmid = '{farmID}'";
+            sql = $"SELECT sdate FROM Comments where sdate = '{date}' AND farmid = '{farmID}'";
             command = new SQLiteCommand(sql, dBConnection);
             if (command.ExecuteScalar() != null)
                 return true;

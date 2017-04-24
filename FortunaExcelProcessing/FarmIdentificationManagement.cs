@@ -3,7 +3,7 @@ using System.Data.SQLite;
 
 namespace FortunaExcelProcessing
 {
-    class FarmIdentificationManagement
+    public class FarmIdentificationManagement
     {
         SQLiteConnection dBConnection;
 
@@ -38,6 +38,7 @@ namespace FortunaExcelProcessing
             }
             dBConnection.Close();
         }
+
 
 
         private bool CheckForExistingFarm(string data)

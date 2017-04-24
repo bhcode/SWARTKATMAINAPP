@@ -4,6 +4,7 @@ using NPOI.SS.UserModel;
 using System.Data.SQLite;
 using System.Globalization;
 using System.Text;
+using System.IO;
 
 namespace FortunaExcelProcessing.WeeklyProcessing
 {
@@ -68,7 +69,8 @@ namespace FortunaExcelProcessing.WeeklyProcessing
 
         private int GetFarmID(string farmName)
         {
-            sql = $"SELECT farmid FROM farms where name = '{farmName}';";
+            string fn = farmName.Trim();
+            sql = $"SELECT farmid FROM farms where name = '{fn}';";
             command = new SQLiteCommand(sql, dbConn);
             return int.Parse(command.ExecuteScalar().ToString());
         }

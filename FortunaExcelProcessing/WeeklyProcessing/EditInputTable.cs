@@ -9,7 +9,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
     public class EditInputTable : ITableEditor
     {
         ISheet _sheet;
-        string name; string sql;
+        string sql;
         SQLiteCommand command; SQLiteConnection dBConnection;
 
         public void EditTable(ISheet sheet)
@@ -34,7 +34,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                 command.ExecuteNonQuery();
             }
 
-            Util.Farmid = Util.GetFarmID(name);
+            Util.Farmid = Util.GetFarmID(CheckCellData.CellTypeString(_sheet.GetRow(3).GetCell(4)));
 
             //default the date to the start of current week
             Util.Date = DateTime.Now.StartOfWeek(DayOfWeek.Monday).ToString("yyyy-MM-dd");
@@ -45,9 +45,9 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                 cows.Append(CheckCellData.CellTypeNumeric(_sheet.GetRow(6).GetCell(4)) + ",");
                 cows.Append(CheckCellData.CellTypeNumeric(_sheet.GetRow(7).GetCell(4)) + "]");
 
-                for (int r = 10; r < 18; r++)
+                for (int r = 9; r < 18; r++)
                 {
-                    supplements.Append((r == 10) ? "[" : "" + CheckCellData.CellTypeNumeric(_sheet.GetRow(r).GetCell(4)) + ((r == 17) ? "]" : ","));
+                    supplements.Append((r == 9) ? "[" : "" + CheckCellData.CellTypeNumeric(_sheet.GetRow(r).GetCell(4)) + ((r == 17) ? "]" : ","));
                 }
 
                 command = new SQLiteCommand(($"INSERT INTO farmSupplements(farmid, sdate, cows, supplements) values({Util.Farmid}, @date, '{cows}', '{supplements}')"), dBConnection);

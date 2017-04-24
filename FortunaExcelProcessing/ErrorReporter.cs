@@ -9,7 +9,7 @@ namespace FortunaExcelProcessing
 {
     public static class ErrorReporter
     {
-        private List <String> _errorList;
+        /*private List <String> _errorList;
 
         public static void HardErrorRecorder(string errorLine, ICell cell)
         {
@@ -46,6 +46,6 @@ namespace FortunaExcelProcessing
         {
             _softErrorList = new List<string>();
             _hardErrorList = new Dictionary<string, ICell>();
-        }
+        }*/
     }
 }

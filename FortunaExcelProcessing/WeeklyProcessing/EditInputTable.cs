@@ -47,7 +47,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
 
                 for (int r = 9; r < 18; r++)
                 {
-                    supplements.Append((r == 9) ? "[" : "" + CheckCellData.CellTypeNumeric(_sheet.GetRow(r).GetCell(4)) + ((r == 17) ? "]" : ","));
+                    supplements.Append((r == 9) ? "[" : "" + CheckCellData.CellTypeString(_sheet.GetRow(r).GetCell(4)) + ((r == 17) ? "]" : ","));
                 }
 
                 command = new SQLiteCommand(($"INSERT INTO farmSupplements(farmid, sdate, cows, supplements) values({Util.Farmid}, @date, '{cows}', '{supplements}')"), dBConnection);

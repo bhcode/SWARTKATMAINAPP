@@ -60,12 +60,18 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                     {
                         string cat = category[r - 4];
 
-                        string cellData = CheckCellData.CellTypeString(_sheet.GetRow(r).GetCell(c)).Trim();
+                        string cellData;
+
+                        if (CheckCellData.CellTypeNumeric(_sheet.GetRow(r).GetCell(c)) != -1)
+                            cellData = CheckCellData.CellTypeNumeric(_sheet.GetRow(r).GetCell(c)).ToString().Trim();
+                        else
+                            cellData = CheckCellData.CellTypeString(_sheet.GetRow(r).GetCell(c)).Trim();
+
                         if (cellData != null && cellData != "")
                         {
                             //string cellData = "'" + CheckCellData.CellTypeString(_sheet.GetRow(r).GetCell(c)).Trim() + "'";
                             cellData = "'" + cellData + "'";
-                            command.CommandText = $"INSERT INTO Comments(farmid,sdate,category,description) VALUES ({FarmId},@date,{cat},{cellData})";
+                            command.CommandText = $"INSERT INTO Comments(farmid, sdate, category, description) VALUES ({FarmId},@date,{cat},{cellData})";
                             command.Parameters.AddWithValue("@date", date);
                             command.ExecuteNonQuery();
                         }

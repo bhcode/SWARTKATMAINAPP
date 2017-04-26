@@ -31,6 +31,8 @@ namespace FortunaExcelProcessing
                 DateTime date = _cell.DateCellValue;
                 ICellStyle style = _cell.CellStyle;
                 string format = style.GetDataFormatString().Replace('m', 'M');
+                if (date.Month < 6)
+                    date.AddYears(1);
                 return date;
             }
             return DateTime.MinValue;

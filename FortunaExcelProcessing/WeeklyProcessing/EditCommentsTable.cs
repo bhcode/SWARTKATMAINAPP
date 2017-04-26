@@ -31,6 +31,17 @@ namespace FortunaExcelProcessing.WeeklyProcessing
             dBConnection.Close();
         }
 
+        private string GetComment(ISheet sheet, int r, int c)
+        {
+            IRow row = sheet.GetRow(r);
+            if (row == null) return "";
+            ICell cell = row.GetCell(c);
+            if (cell == null) return "";
+            if (cell.CellType == CellType.Numeric) return cell.NumericCellValue.ToString();
+            if (cell.CellType == CellType.String) return cell.StringCellValue;
+            return cell.ToString();
+        }
+
         private void CommentsTable(SQLiteConnection dBConnection)
         {
 
@@ -53,6 +64,8 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                         emptycount++;
                     }
                 }
+
+                
                 //check for column and make sure empty column is not read
                 if (!checkForExistingColumn(date, FarmId) && emptycount < 7)
                 {
@@ -61,6 +74,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                         string cat = category[r - 4];
 
                         string cellData;
+                        //string cellData = GetComment(_sheet,r,c);
 
                         if (CheckCellData.CellTypeNumeric(_sheet.GetRow(r).GetCell(c)) != -1)
                             cellData = CheckCellData.CellTypeNumeric(_sheet.GetRow(r).GetCell(c)).ToString().Trim();
@@ -70,9 +84,13 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                         if (cellData != null && cellData != "")
                         {
                             //string cellData = "'" + CheckCellData.CellTypeString(_sheet.GetRow(r).GetCell(c)).Trim() + "'";
-                            cellData = "'" + cellData + "'";
-                            command.CommandText = $"INSERT INTO Comments(farmid, sdate, category, description) VALUES ({FarmId},@date,{cat},{cellData})";
+                            //cellData = "'" + cellData + "'";
+                            //command.CommandText = $"INSERT INTO Comments(farmid, sdate, category, description) VALUES ({FarmId},@date,{cat},{cellData})";
+                            command.CommandText = "INSERT INTO Comments(farmid, sdate, category, description) VALUES (@FarmId,@date,@cat,@cellData)";
+                            command.Parameters.AddWithValue("@FarmId", FarmId);
                             command.Parameters.AddWithValue("@date", date);
+                            command.Parameters.AddWithValue("@cat", cat);
+                            command.Parameters.AddWithValue("@cellData", cellData);
                             command.ExecuteNonQuery();
                         }
                     }

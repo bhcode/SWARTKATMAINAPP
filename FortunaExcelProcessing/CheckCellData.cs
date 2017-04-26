@@ -21,6 +21,10 @@ namespace FortunaExcelProcessing
             {
                 return _cell.RichStringCellValue.ToString();
             }
+            if (_cell.CellType == CellType.Numeric)
+            {
+                return _cell.NumericCellValue.ToString();
+            }
             return _cell.RichStringCellValue.ToString();
         }
 

@@ -103,7 +103,7 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             using (SQLiteConnection con = new SQLiteConnection(FilePaths.DBConString))
             {
                 con.Open();
-                //fullDate = "2016-12-26"; //overwrite will be taken away Needs to be initialized through GUI
+                //fullDate = "2016-12-26"; //overwrite will be taken away
                 string cstring = $"SELECT farmid, data FROM Datas where date = '{fullDate}'";
 
                 using (SQLiteCommand cmd = new SQLiteCommand(cstring, con))

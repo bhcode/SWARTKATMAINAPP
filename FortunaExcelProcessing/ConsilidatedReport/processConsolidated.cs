@@ -17,14 +17,14 @@ namespace FortunaExcelProcessing.ConsilidatedReport
         static int[] calcedCells = InitFormulae.calcCellArray();
         static int[] dataCells = InitFormulae.dataCellArray();
 
-        public static void createWorkBook(string path)
+        public static void createWorkBook(string path, DateTime date,Dictionary<int,string> dict)
         {
-            ConsolUtil.getDate(); 
+            ConsolUtil.getDate(date); 
             if(FilePaths.DBFilePath == null)
                 FilePaths.DBFilePath = @"data source = C:\Database\database.sqlite; Version = 3;";
             _wb = new XSSFWorkbook();
             _sheet = _wb.CreateSheet(DateStorage.PartialDate);
-            workbookData();
+            workbookData(dict);
 
             using (FileStream fs = new FileStream(path, FileMode.Create, FileAccess.ReadWrite))
             {
@@ -33,7 +33,7 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             }
         }
 
-        private static void workbookData()
+        private static void workbookData(Dictionary<int, string> dict)
         {
             _numOfFarms = ConsolUtil.getNumberofFarms();
 
@@ -43,7 +43,11 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             }
             _sheet.AutoSizeColumn(1);
 
-            Dictionary<int, string> databaseDatas = ConsolUtil.getData(DateStorage.FullDate);
+
+            //Works for local db, GUi downloads directly from server
+            //Dictionary<int, string> databaseDatas = ConsolUtil.getData(DateStorage.FullDate);
+            Dictionary<int, string> databaseDatas = dict;
+
 
             for (int col = 2; col < _numOfFarms + 2; col++)
             { 

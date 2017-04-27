@@ -33,7 +33,7 @@ namespace FortunaExcelProcessing
             dBConnection.Open();
             if (!Util.CheckForTable("farms"))
             {
-                SQLiteCommand command = new SQLiteCommand("CREATE TABLE farms (farmid INTEGER PRIMARY KEY, name VARCHAR(50), area REAL);", dBConnection);
+                SQLiteCommand command = new SQLiteCommand("CREATE TABLE farms (farmid INTEGER PRIMARY KEY, fid INTEGER, name VARCHAR(50), area REAL);", dBConnection);
                 command.ExecuteNonQuery();
             }
             dBConnection.Close();

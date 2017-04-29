@@ -7,6 +7,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Data.SQLite;
+using Newtonsoft.Json;
+using System.Net;
+using System.Text;
+
 
 namespace FortunaExcelProcessing.ConsilidatedReport
 {
@@ -20,6 +24,13 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             if (first > 0) code += (char)(first + 64);
             code += (char)(second + 65);
             return code;
+        }
+
+        public static string ReceiveResponse(string url)
+        {
+            WebClient wc = new WebClient();
+            byte[] raw = wc.DownloadData(url);
+            return Encoding.UTF8.GetString(raw);
         }
 
         public static void getDate()
@@ -46,6 +57,12 @@ namespace FortunaExcelProcessing.ConsilidatedReport
 
         public static string getFarmName(int farmId)
         {
+            string tmp = ReceiveResponse(string.Format("http://swartkat.fossul.com/gui/getfarmname?farmid={0}", farmId));
+            //Takes in the farmname and strips the " " off it, then returns it.
+            string stripper = tmp.Substring(1, tmp.Length - 1);
+            return stripper;
+
+            /*
             using (SQLiteConnection con = new SQLiteConnection(FilePaths.DBConString))
             {
                 con.Open();
@@ -58,10 +75,16 @@ namespace FortunaExcelProcessing.ConsilidatedReport
                 }
             }
             return "NULL";
+            */
         }
 
         public static string getFarmArea(int farmId)
         {
+            string tmp = ReceiveResponse(string.Format("http://swartkat.fossul.com/gui/getarea?farmid={0}", farmId));
+            string stripper = tmp.Substring(1, tmp.Length - 1);
+
+            return stripper;
+            /* 
             using (SQLiteConnection con = new SQLiteConnection(FilePaths.DBConString))
             {
                 con.Open();
@@ -74,10 +97,15 @@ namespace FortunaExcelProcessing.ConsilidatedReport
                 }
             }
             return "NULL";
+            */
         }
 
         public static string getCows(int farmId)
         {
+            string tmp = ReceiveResponse(string.Format("http://swartkat.fossul.com/gui/gecows?farmid={0}", farmId));
+            string stripper = tmp.Substring(1, tmp.Length - 1);
+            return stripper;
+            /*
             using (SQLiteConnection con = new SQLiteConnection(FilePaths.DBFilePath))
             {
                 con.Open();
@@ -94,6 +122,7 @@ namespace FortunaExcelProcessing.ConsilidatedReport
                 }
                 return "";
             }
+            */
         }
 
         public static Dictionary<int, string> getData(string fullDate)
@@ -124,6 +153,13 @@ namespace FortunaExcelProcessing.ConsilidatedReport
 
         public static int getNumberofFarms()
         {
+
+            string tmp = ReceiveResponse(string.Format("http://swartkat.fossul.com/gui/getfarmcount"));
+            //Takes in the farmname and strips the " " off it, then returns it.
+            string stripper = tmp.Substring(1, tmp.Length - 1);
+            return int.Parse(stripper);
+
+            /*
             using (SQLiteConnection con = new SQLiteConnection(FilePaths.DBConString))
             {
                 con.Open();
@@ -132,6 +168,7 @@ namespace FortunaExcelProcessing.ConsilidatedReport
                 var farms = cmd.ExecuteScalar();
                 return int.Parse(farms.ToString());
             }
+            */
         }
     }
 }

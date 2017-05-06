@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\FortunaExcelProcessing.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -43,6 +44,9 @@
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NPOI, Version=2.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
       <HintPath>..\packages\NPOI.2.2.1\lib\net40\NPOI.dll</HintPath>
@@ -96,7 +100,10 @@
     <Compile Include="DBExtras\Labels.cs" />
     <Compile Include="DBExtras\Utils.cs" />
     <Compile Include="DBOperations.cs" />
-    <Compile Include="ErrorReporter.cs" />
+    <Compile Include="ErrorHandling\Error.cs" />
+    <Compile Include="ErrorHandling\ErrorReporter.cs" />
+    <Compile Include="ErrorHandling\ProcessHardErrrors.cs" />
+    <Compile Include="ErrorHandling\ProcessSoftErrors.cs" />
     <Compile Include="FarmIdentificationManagement.cs" />
     <Compile Include="FilePaths.cs" />
     <Compile Include="FormulaEntry.cs" />

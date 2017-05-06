@@ -62,20 +62,6 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             string stripper = tmp.Substring(1, tmp.Length - 1);
             return stripper;
 
-            /*
-            using (SQLiteConnection con = new SQLiteConnection(FilePaths.DBConString))
-            {
-                con.Open();
-                string sqlQuery = $"Select name from farms where farmid = {farmId}";
-                SQLiteCommand cmd = new SQLiteCommand(sqlQuery, con);
-                using (SQLiteDataReader rdr = cmd.ExecuteReader())
-                {
-                    while (rdr.Read())
-                        return rdr.GetString(0);
-                }
-            }
-            return "NULL";
-            */
         }
 
         public static string getFarmArea(int farmId)
@@ -84,20 +70,6 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             string stripper = tmp.Substring(1, tmp.Length - 1);
 
             return stripper;
-            /* 
-            using (SQLiteConnection con = new SQLiteConnection(FilePaths.DBConString))
-            {
-                con.Open();
-                string sqlQuery = $"Select area from farms where farmid = {farmId}";
-                SQLiteCommand cmd = new SQLiteCommand(sqlQuery, con);
-                using (SQLiteDataReader rdr = cmd.ExecuteReader())
-                {
-                    while (rdr.Read())
-                        return rdr.GetDouble(1).ToString();
-                }
-            }
-            return "NULL";
-            */
         }
 
         public static string getCows(int farmId)
@@ -105,24 +77,6 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             string tmp = ReceiveResponse(string.Format("http://swartkat.fossul.com/gui/gecows?farmid={0}", farmId));
             string stripper = tmp.Substring(1, tmp.Length - 1);
             return stripper;
-            /*
-            using (SQLiteConnection con = new SQLiteConnection(FilePaths.DBFilePath))
-            {
-                con.Open();
-                string sqlQuery = $"Select cows from farmSupplements where farmid = {farmId}";
-                using (SQLiteCommand cmd = new SQLiteCommand(sqlQuery, con))
-                {
-                    using (SQLiteDataReader rdr = cmd.ExecuteReader())
-                    {
-                        while (rdr.Read())
-                        {
-                            return rdr.GetString(0);
-                        }
-                    }
-                }
-                return "";
-            }
-            */
         }
 
         public static Dictionary<int, string> getData(string fullDate)
@@ -151,24 +105,21 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             return _databaseDatas;
         }
 
+        /// <summary>
+        /// Recieves the JSON file as a respose, then substrings expected information out of it.
+        /// </summary>
+        /// <remarks>
+        /// I still feel 'stripper' is a somewhat questionable variable name.
+        /// </remarks>
+        /// <returns>
+        /// Returns integer value that is parsed from a substring pulled from a JSON file.
+        /// </returns>
         public static int getNumberofFarms()
         {
-
             string tmp = ReceiveResponse(string.Format("http://swartkat.fossul.com/gui/getfarmcount"));
-            //Takes in the farmname and strips the " " off it, then returns it.
             string stripper = tmp.Substring(1, tmp.Length - 1);
             return int.Parse(stripper);
 
-            /*
-            using (SQLiteConnection con = new SQLiteConnection(FilePaths.DBConString))
-            {
-                con.Open();
-                string cstring = "SELECT farmid, COUNT(farmid) FROM farms GROUP BY farmid";
-                SQLiteCommand cmd = new SQLiteCommand(cstring, con);
-                var farms = cmd.ExecuteScalar();
-                return int.Parse(farms.ToString());
-            }
-            */
         }
     }
 }

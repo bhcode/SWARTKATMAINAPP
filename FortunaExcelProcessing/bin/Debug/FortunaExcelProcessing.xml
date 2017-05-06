@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FortunaExcelProcessing</name>
+    </assembly>
+    <members>
+        <member name="T:FortunaExcelProcessing.CheckCellData">
+            <summary>
+            This class is utilized to check cell information, process it and return it
+            </summary>
+        </member>
+        <member name="M:FortunaExcelProcessing.CheckCellData.CellTypeString(NPOI.SS.UserModel.ICell)">
+            <summary>
+            Method for processing any cells that have a string value in them.
+            It also allows for conversion of numeric values. Return is always a string
+            </summary>
+        </member>
+        <member name="M:FortunaExcelProcessing.CheckCellData.CellWeirdDate(NPOI.SS.UserModel.ICell)">
+            <summary>
+            This method is used for dates that do not appear in a typic dd:MM:YYYY way
+            Most dates within the Weekly Data reports will be formatted as 'Jan 6'
+            </summary>
+        </member>
+        <member name="M:FortunaExcelProcessing.CheckCellData.CellTypeNumeric(NPOI.SS.UserModel.ICell)">
+            <summary>
+            Reads in a numeric cell and returns a number.
+            If -1 is returned assume that the cell is not a numeric format.
+            </summary>
+        </member>
+        <member name="M:FortunaExcelProcessing.CheckCellData.CellTypeDate(NPOI.SS.UserModel.ICell)">
+            <summary>
+            Method for processing typical dates that can be understood using C#'s datetime without formatting.
+            </summary>
+        </member>
+        <member name="M:FortunaExcelProcessing.CheckCellData.CellTypeUnknown(NPOI.SS.UserModel.ICell)">
+            <summary>
+            Currently throws an exception, in the future this method is intended to diagnose
+            and return a value for a cell that the user doesn't know the value for.
+            </summary>
+        </member>
+        <member name="M:FortunaExcelProcessing.ConsilidatedReport.ConsolUtil.getNumberofFarms">
+            <summary>
+            Recieves the JSON file as a respose, then substrings expected information out of it.
+            </summary>
+            <remarks>
+            I still feel 'stripper' is a somewhat questionable variable name.
+            </remarks>
+            <returns>
+            Returns integer value that is parsed from a substring pulled from a JSON file.
+            </returns>
+        </member>
+        <member name="M:FortunaExcelProcessing.ErrorHandling.ErrorReporter.CheckStatus">
+            <summary>
+            Calls methods to process errors dependent on how many error are in the list
+            </summary>
+        </member>
+        <member name="M:FortunaExcelProcessing.ErrorHandling.ErrorReporter.ResetErrors">
+            <summary>
+            Clear error lists
+            </summary>
+        </member>
+        <member name="T:FortunaExcelProcessing.WeeklySheetFactory">
+            <summary>
+            This is a factory class that takes in a sheet name and then determines what method to call.
+            <return>
+            The only return value is a selected class in the WeeklyProcessing namespace
+            </return>
+            </summary>
+        </member>
+        <member name="T:PaddockColumns">
+            <summary>
+            The PaddockColumns enumerator is utilized outside of the library
+            </summary>
+        </member>
+        <member name="T:Util">
+            <summary>
+            The Util class is full of misc. methods that aid various other classes, think of it as a bunch of scrappy tools.
+            The Util class should not be confused with the ConsolUtil class that is intended for code working with the Consolidated report.
+            </summary>
+        </member>
+        <member name="M:Util.DForm">
+            <summary>
+            Returns the string used for DateTime formatting, for the database inserts
+            </summary>
+            <returns>
+            String representing date format
+            </returns>
+        </member>
+        <member name="P:Util.Date">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Util.Farmid">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Util.GetFarmID(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Util.CheckForTable(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="tablename"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Util.CheckForSheet(System.String,NPOI.SS.UserModel.IWorkbook)">
+            <summary>
+            
+            </summary>
+            <param name="sheetName"></param>
+            <param name="wb"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

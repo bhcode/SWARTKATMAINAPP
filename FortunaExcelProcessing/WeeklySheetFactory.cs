@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace FortunaExcelProcessing
 {
+    /// <summary>
+    /// This is a factory class that takes in a sheet name and then determines what method to call.
+    /// <return>
+    /// The only return value is a selected class in the WeeklyProcessing namespace
+    /// </return>
+    /// </summary>
     public class WeeklySheetFactory
     {
         static public ITableEditor CreateSheet(String sheetName)

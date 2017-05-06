@@ -157,3 +157,7 @@ F:\programs\github\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\System.Data.
 F:\programs\github\SWARTKATMAINAPP\FortunaExcelProcessing\obj\Debug\FortunaExcelProcessing.csprojResolveAssemblyReference.cache
 F:\programs\github\SWARTKATMAINAPP\FortunaExcelProcessing\obj\Debug\FortunaExcelProcessing.dll
 F:\programs\github\SWARTKATMAINAPP\FortunaExcelProcessing\obj\Debug\FortunaExcelProcessing.pdb
+C:\Users\ambro\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\Newtonsoft.Json.dll
+C:\Users\ambro\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\Newtonsoft.Json.xml
+C:\Users\ambro\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\System.Data.SQLite.dll.config
+C:\Users\ambro\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\FortunaExcelProcessing.xml

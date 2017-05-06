@@ -17,16 +17,17 @@ namespace FortunaExcelProcessing.ConsilidatedReport
         static int[] calcedCells = InitFormulae.calcCellArray();
         static int[] dataCells = InitFormulae.dataCellArray();
 
-        public static void createWorkBook(string path, DateTime date,Dictionary<int,string> dict)
+        public void createWorkBook(string path, DateTime date, Dictionary<int, string> dict)
         {
-            ConsolUtil.getDate(date); 
-            if(FilePaths.DBFilePath == null)
-                FilePaths.DBFilePath = @"data source = C:\Database\database.sqlite; Version = 3;";
+            ConsolUtil.getDate(date);
+            //if(path == null)
+            //  FilePaths.DBFilePath = @"data source = C:\Database\database.sqlite; Version = 3;";
             _wb = new XSSFWorkbook();
             _sheet = _wb.CreateSheet(DateStorage.PartialDate);
             workbookData(dict);
 
-            using (FileStream fs = new FileStream(path, FileMode.Create, FileAccess.ReadWrite))
+            using (FileStream fs = File.Create(path))
+            //using (FileStream fs = new FileStream(path, FileMode.Create, FileAccess.ReadWrite))
             {
                 _wb.Write(fs);
                 _wb.Close();

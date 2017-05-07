@@ -78,6 +78,12 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             return stripper;
         }
 
+        /// <summary>
+        /// GetData method grabs all information in the data/weekly data table in the SQLite database
+        /// It uses the fullDate to do this, this method is intended to be used for local consilidated processing and testing of the database.
+        /// </summary>
+        /// <param name="fullDate">Date to pass that defines what week to grab data from</param>
+        /// <returns>A dictionary<int, string> of database data related to the date passed in is returned</int></returns>
         public static Dictionary<int, string> getData(string fullDate)
         {
             Dictionary<int, string> _databaseDatas = new Dictionary<int, string>();
@@ -85,7 +91,7 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             using (SQLiteConnection con = new SQLiteConnection(FilePaths.DBConString))
             {
                 con.Open();
-                //fullDate = "2016-12-26"; //overwrite will be taken away
+
                 string cstring = $"SELECT farmid, data FROM Datas where date = '{fullDate}'";
 
                 using (SQLiteCommand cmd = new SQLiteCommand(cstring, con))
@@ -98,6 +104,7 @@ namespace FortunaExcelProcessing.ConsilidatedReport
                         }
                     }
                 }
+
                 con.Close();
             }
 

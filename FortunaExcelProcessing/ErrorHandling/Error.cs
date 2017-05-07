@@ -16,7 +16,7 @@ namespace FortunaExcelProcessing.ErrorHandling
         public string ErrorDescription { get; set; }
 
 
-        public Error(string s)
+        public Error(string s, ICell c)
         {
             Cell = c;
             StringData = s;

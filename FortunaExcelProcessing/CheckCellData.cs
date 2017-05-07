@@ -22,6 +22,7 @@ namespace FortunaExcelProcessing
         {
             if (_cell == null)
             {
+                ErrorHandling.ErrorReporter.SoftErrors.Add(new ErrorHandling.Error(_cell, "Cell is null"));
                 return "";
             }
             if (_cell.CellType == CellType.String)
@@ -61,10 +62,12 @@ namespace FortunaExcelProcessing
         {
             if (_cell == null)
             {
-                return -1;
+                ErrorHandling.ErrorReporter.SoftErrors.Add(new ErrorHandling.Error(_cell, "Cell is not of the correct format"));
+                return -1; 
             }
             if (_cell.CellType != CellType.Numeric)
             {
+                ErrorHandling.ErrorReporter.SoftErrors.Add(new ErrorHandling.Error(_cell, "Cell is not of the correct format"));
                 return -1;
             }
             return _cell.NumericCellValue;
@@ -92,6 +95,7 @@ namespace FortunaExcelProcessing
         ///</summary>
         public static string CellTypeUnknown(ICell _cell)
         {
+            ErrorHandling.ErrorReporter.HardErrors.Add(new ErrorHandling.Error(_cell, "This cell is an unknown"));
             throw new NotImplementedException();
         }
     }

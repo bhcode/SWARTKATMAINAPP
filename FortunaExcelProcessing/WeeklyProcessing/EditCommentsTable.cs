@@ -104,6 +104,8 @@ namespace FortunaExcelProcessing.WeeklyProcessing
             command = new SQLiteCommand(sql, dBConnection);
             if (command.ExecuteScalar() != null)
                 return true;
+
+            
             return false;
         }
     }

@@ -26,6 +26,7 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             return code;
         }
 
+        //This method is used for the JSON mothods.
         public static string ReceiveResponse(string url)
         {
             WebClient wc = new WebClient();
@@ -61,14 +62,12 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             //Takes in the farmname and strips the " " off it, then returns it.
             string stripper = tmp.Substring(1, tmp.Length - 1);
             return stripper;
-
         }
 
         public static string getFarmArea(int farmId)
         {
             string tmp = ReceiveResponse(string.Format("http://swartkat.fossul.com/gui/getarea?farmid={0}", farmId));
             string stripper = tmp.Substring(1, tmp.Length - 1);
-
             return stripper;
         }
 
@@ -115,11 +114,10 @@ namespace FortunaExcelProcessing.ConsilidatedReport
         /// Returns integer value that is parsed from a substring pulled from a JSON file.
         /// </returns>
         public static int getNumberofFarms()
-        {
-            string tmp = ReceiveResponse(string.Format("http://swartkat.fossul.com/gui/getfarmcount"));
-            string stripper = tmp.Substring(1, tmp.Length - 1);
-            return int.Parse(stripper);
-
+        {            
+                string tmp = ReceiveResponse(string.Format("http://swartkat.fossul.com/gui/getfarmcount"));
+                string stripper = tmp.Substring(1, tmp.Length - 1);
+                return int.Parse(stripper);
         }
     }
 }

@@ -102,8 +102,6 @@
     <Compile Include="DBOperations.cs" />
     <Compile Include="ErrorHandling\Error.cs" />
     <Compile Include="ErrorHandling\ErrorReporter.cs" />
-    <Compile Include="ErrorHandling\ProcessHardErrrors.cs" />
-    <Compile Include="ErrorHandling\ProcessSoftErrors.cs" />
     <Compile Include="FarmIdentificationManagement.cs" />
     <Compile Include="FilePaths.cs" />
     <Compile Include="FormulaEntry.cs" />

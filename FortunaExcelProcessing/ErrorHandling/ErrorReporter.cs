@@ -18,21 +18,6 @@ namespace FortunaExcelProcessing.ErrorHandling
         public static List<Error> HardErrors { get; set; }
 
         /// <summary>
-        /// Calls methods to process errors dependent on how many error are in the list
-        /// </summary>
-        public static void CheckStatus()
-        {
-            if (HardErrors.Count > 0)
-            {
-                ProcessHardErrrors processHardErrors = new ProcessHardErrrors();
-            }
-            if (SoftErrors.Count > 0)
-            {
-                ProcessSoftErrors processSoftErrors = new ProcessSoftErrors();
-            }
-        }
-
-        /// <summary>
         /// Clear error lists
         /// </summary>
         public static void ResetErrors()

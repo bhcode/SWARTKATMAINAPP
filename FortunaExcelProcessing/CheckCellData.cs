@@ -9,7 +9,8 @@ using System.Data.SQLite;
 namespace FortunaExcelProcessing
 {
     ///<summary>
-    ///This class is utilized to check cell information, process it and return it
+    ///This class is utilized to check cell information, process it and return it.
+    ///Error objects are also added to the static lists for soft errors.
     ///</summary>
     public static class CheckCellData
     {

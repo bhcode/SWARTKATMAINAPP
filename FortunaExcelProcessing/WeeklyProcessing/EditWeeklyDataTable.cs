@@ -39,7 +39,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
 
         private void WeeklyDataTable(SQLiteConnection dbConn)
         {
-            int FarmId = GetFarmID(CheckCellData.CellTypeString(_sheet.GetRow(2).GetCell(1)));
+            int FarmId = Util.GetFarmID(CheckCellData.CellTypeString(_sheet.GetRow(2).GetCell(1)));
 
             for (int c = 3; c < _sheet.GetRow(6).LastCellNum; c++)
             {
@@ -69,10 +69,17 @@ namespace FortunaExcelProcessing.WeeklyProcessing
 
         private int GetFarmID(string farmName)
         {
-            string fn = farmName.Trim();
-            sql = $"SELECT farmid FROM farms where name = '{fn}';";
-            command = new SQLiteCommand(sql, dbConn);
-            return int.Parse(command.ExecuteScalar().ToString());
+            SQLiteCommand cmd = new SQLiteCommand();
+            cmd.CommandText = "SELECT farmid FROM farms where name = '@fn'";
+            cmd.Parameters.AddWithValue("@fn", farmName);
+            cmd.Connection = dbConn;
+
+            string response = cmd.ExecuteScalar().ToString();
+            int converted = int.Parse(response);
+            return converted;
+
+            //sql = $"SELECT farmid FROM farms where name = '{fn}';";
+            //command = new SQLiteCommand(sql, dbConn);
         }
 
         private bool checkForExistingColumn(string date, int farmID)

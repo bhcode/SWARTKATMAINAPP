@@ -26,8 +26,8 @@ namespace FortunaExcelProcessing
                 SQLiteCommand cmd = new SQLiteCommand();
                 cmd.CommandText = "INSERT INTO farms(farmid, name, area) values(@farmid,@farmname,@farmarea)";
                 cmd.Parameters.AddWithValue("@farmid", farmid);
-                cmd.Parameters.AddWithValue("@farmname", area);
-                cmd.Parameters.AddWithValue("@farmarea", farmName);
+                cmd.Parameters.AddWithValue("@farmname", farmName.Trim());
+                cmd.Parameters.AddWithValue("@farmarea", area);
                 cmd.Connection = dBConnection;
                 cmd.ExecuteNonQuery();
             }
@@ -40,7 +40,7 @@ namespace FortunaExcelProcessing
             dBConnection.Open();
             if (!Util.CheckForTable("farms"))
             {
-                SQLiteCommand command = new SQLiteCommand("CREATE TABLE farms (farmid INTEGER PRIMARY KEY, fid INTEGER, name VARCHAR(50), area REAL);", dBConnection);
+                SQLiteCommand command = new SQLiteCommand("CREATE TABLE farms (fid INTEGER PRIMARY KEY, farmid INTEGER, name VARCHAR(50), area REAL);", dBConnection);
                 command.ExecuteNonQuery();
             }
             dBConnection.Close();

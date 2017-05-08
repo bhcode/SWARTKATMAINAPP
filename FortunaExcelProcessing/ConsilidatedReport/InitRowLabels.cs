@@ -5,10 +5,13 @@ namespace FortunaExcelProcessing.ConsilidatedReport
 {
     class InitRowLabels
     {
+
+      
         public static List<string> labelList()
         {
-            List<string> labels = new List<string>();
 
+            List<string> labels = new List<string>();
+            /*
             using (SQLiteConnection con = new SQLiteConnection(FilePaths.DBConString))
             {
                 con.Open();
@@ -24,7 +27,21 @@ namespace FortunaExcelProcessing.ConsilidatedReport
                 con.Close();
             }
             return labels;
+            */
+            string[] dataLabels = { "Crop area", "Crop area Available", "Area Grazed (avg for last 2 pickups)", "Pre Grazing Cover", "Average Cover (kgDM/ha)", "Growth Rate (kgDM/ha/day)", "Predicted Growth Rate (kgDM/ha/day)", "Area shut-up for supplements", "Milked into Vat",
+                                            "NOT milked into Vat", "Dry cows (On farm)", "Dry cows (Off farm)", "Kg Liveweight/cow", "Average MS/day (last 2 pickups)", "KgMS month to date", "Avg SCC (000) for last 2 pickups", "Protein Fat", "Ratio Calf Milk (litres)",
+                                        "Grain (kgDM)", "Palm kernel (kgDM)", "Silage(kgDM)", "Balage (kgDM)", "Molasses (kgDM)", "Straw (kgDM)", "Hay (kgDM)", "Other (kgDM)", "Total Consumption (kgDM/cow/day)", "Area N applied (ha)", "Rate per hectare (kgN/ha)", "Total N applied(kgN/ha)", "Total N applied Year To Date(kgN/ha)", "Deaths",
+                                            "Deaths to date", "Cows Sold", "Cows Sold to date", "Two Year Dairy Heifers", "One Year Dairy Heifers", "AB Dairy Heifer Calves", "All Other Calves", "Bulls", "Other", "Two Year Dairy Heifers", "One Year Dairy Heifers", "AB Dairy Heifer Calves", "All Other Calves", "Bulls", "Other"};
+
+            foreach (string item in dataLabels)
+            {
+                labels.Add(item);
+
+            }
+            return labels;
         }
+
+    
 
         public static int[] indentation()
         {

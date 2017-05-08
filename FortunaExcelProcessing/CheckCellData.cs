@@ -19,11 +19,12 @@ namespace FortunaExcelProcessing
         ///Method for processing any cells that have a string value in them.
         ///It also allows for conversion of numeric values. Return is always a string
         ///</summary>
+        ///<param name="_cell">_cell refers to the cell passed into the method</param>
         public static string CellTypeString(ICell _cell)
         {
             if (_cell == null)
             {
-                ErrorHandling.ErrorReporter.SoftErrors.Add(new ErrorHandling.Error(_cell, "Cell is null"));
+                //ErrorHandling.ErrorReporter.SoftErrors.Add(new ErrorHandling.Error(_cell, "Cell is null"));
                 return "";
             }
             if (_cell.CellType == CellType.String)
@@ -41,6 +42,7 @@ namespace FortunaExcelProcessing
         ///This method is used for dates that do not appear in a typic dd:MM:YYYY way
         ///Most dates within the Weekly Data reports will be formatted as 'Jan 6'
         ///</summary>
+        ///<param name="_cell">_cell refers to the cell passed into the method</param>
         public static DateTime CellWeirdDate(ICell _cell)
         {
             if (DateUtil.IsCellDateFormatted(_cell))
@@ -59,11 +61,12 @@ namespace FortunaExcelProcessing
         ///Reads in a numeric cell and returns a number.
         ///If -1 is returned assume that the cell is not a numeric format.
         ///</summary>
+        ///<param name="_cell">_cell refers to the cell passed into the method</param>
         public static double CellTypeNumeric(ICell _cell)
         {
             if (_cell == null)
             {
-                ErrorHandling.ErrorReporter.SoftErrors.Add(new ErrorHandling.Error(_cell, "Cell is not of the correct format"));
+                //ErrorHandling.ErrorReporter.SoftErrors.Add(new ErrorHandling.Error(_cell, "Cell is not of the correct format"));
                 return -1; 
             }
             if (_cell.CellType != CellType.Numeric)
@@ -77,6 +80,7 @@ namespace FortunaExcelProcessing
         ///<summary>
         ///Method for processing typical dates that can be understood using C#'s datetime without formatting.
         ///</summary>
+        ///<param name="_cell">_cell refers to the cell passed into the method</param>
         public static DateTime CellTypeDate(ICell _cell)
         {
             if (_cell == null)
@@ -94,9 +98,10 @@ namespace FortunaExcelProcessing
         ///Currently throws an exception, in the future this method is intended to diagnose
         ///and return a value for a cell that the user doesn't know the value for.
         ///</summary>
+        ///<param name="_cell">_cell refers to the cell passed into the method</param>
         public static string CellTypeUnknown(ICell _cell)
         {
-            ErrorHandling.ErrorReporter.HardErrors.Add(new ErrorHandling.Error(_cell, "This cell is an unknown"));
+            //ErrorHandling.ErrorReporter.HardErrors.Add(new ErrorHandling.Error(_cell, "This cell is an unknown"));
             throw new NotImplementedException();
         }
     }

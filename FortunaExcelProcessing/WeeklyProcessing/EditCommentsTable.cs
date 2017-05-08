@@ -10,9 +10,15 @@ namespace FortunaExcelProcessing.WeeklyProcessing
     {
         ISheet _sheet;
         string sql; SQLiteCommand command; SQLiteConnection dBConnection;
+        /// <summary>
+        /// 
+        /// </summary>
         public string[] category = { "'Animal Health'", "'Fertiliser Application'", "'Jobs Last Week'", "'Jobs This Week'", "'Stock'", "'General'", "'Resource Management Issues'" };
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sheet"></param>
         public void EditTable(ISheet sheet)
         {
             dBConnection = new SQLiteConnection(string.Format("Data Source={0};Version=3;", FilePaths.DBFilePath));
@@ -31,6 +37,13 @@ namespace FortunaExcelProcessing.WeeklyProcessing
             dBConnection.Close();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sheet"></param>
+        /// <param name="r"></param>
+        /// <param name="c"></param>
+        /// <returns></returns>
         private string GetComment(ISheet sheet, int r, int c)
         {
             IRow row = sheet.GetRow(r);
@@ -42,6 +55,10 @@ namespace FortunaExcelProcessing.WeeklyProcessing
             return cell.ToString();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dBConnection"></param>
         private void CommentsTable(SQLiteConnection dBConnection)
         {
 
@@ -55,7 +72,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                 Util.Date = date;
 
                 //check for empty column, if 'emptycount' == 0 then column is empty
-                int emptycount = 0;               
+                int emptycount = 0;
                 for (int r = 4; r < 11; r++)
                 {
                     ICell checkCell = _sheet.GetRow(r).GetCell(c);
@@ -65,8 +82,6 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                     }
                 }
 
-                
-                //check for column and make sure empty column is not read
                 if (!checkForExistingColumn(date, FarmId) && emptycount < 7)
                 {
                     for (int r = 4; r < 11; r++)
@@ -74,7 +89,6 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                         string cat = category[r - 4];
 
                         string cellData;
-                        //string cellData = GetComment(_sheet,r,c);
 
                         if (CheckCellData.CellTypeNumeric(_sheet.GetRow(r).GetCell(c)) != -1)
                             cellData = CheckCellData.CellTypeNumeric(_sheet.GetRow(r).GetCell(c)).ToString().Trim();
@@ -83,9 +97,6 @@ namespace FortunaExcelProcessing.WeeklyProcessing
 
                         if (cellData != null && cellData != "")
                         {
-                            //string cellData = "'" + CheckCellData.CellTypeString(_sheet.GetRow(r).GetCell(c)).Trim() + "'";
-                            //cellData = "'" + cellData + "'";
-                            //command.CommandText = $"INSERT INTO Comments(farmid, sdate, category, description) VALUES ({FarmId},@date,{cat},{cellData})";
                             command.CommandText = "INSERT INTO Comments(farmid, sdate, category, description) VALUES (@FarmId,@date,@cat,@cellData)";
                             command.Parameters.AddWithValue("@FarmId", FarmId);
                             command.Parameters.AddWithValue("@date", date);
@@ -98,6 +109,12 @@ namespace FortunaExcelProcessing.WeeklyProcessing
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="farmID"></param>
+        /// <returns></returns>
         private bool checkForExistingColumn(string date, int farmID)
         {
             sql = $"SELECT sdate FROM Comments where sdate = '{date}' AND farmid = '{farmID}'";
@@ -105,7 +122,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
             if (command.ExecuteScalar() != null)
                 return true;
 
-            
+
             return false;
         }
     }

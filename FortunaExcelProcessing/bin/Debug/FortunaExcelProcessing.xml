@@ -15,30 +15,89 @@
             Method for processing any cells that have a string value in them.
             It also allows for conversion of numeric values. Return is always a string
             </summary>
+            <param name="_cell">_cell refers to the cell passed into the method</param>
         </member>
         <member name="M:FortunaExcelProcessing.CheckCellData.CellWeirdDate(NPOI.SS.UserModel.ICell)">
             <summary>
             This method is used for dates that do not appear in a typic dd:MM:YYYY way
             Most dates within the Weekly Data reports will be formatted as 'Jan 6'
             </summary>
+            <param name="_cell">_cell refers to the cell passed into the method</param>
         </member>
         <member name="M:FortunaExcelProcessing.CheckCellData.CellTypeNumeric(NPOI.SS.UserModel.ICell)">
             <summary>
             Reads in a numeric cell and returns a number.
             If -1 is returned assume that the cell is not a numeric format.
             </summary>
+            <param name="_cell">_cell refers to the cell passed into the method</param>
         </member>
         <member name="M:FortunaExcelProcessing.CheckCellData.CellTypeDate(NPOI.SS.UserModel.ICell)">
             <summary>
             Method for processing typical dates that can be understood using C#'s datetime without formatting.
             </summary>
+            <param name="_cell">_cell refers to the cell passed into the method</param>
         </member>
         <member name="M:FortunaExcelProcessing.CheckCellData.CellTypeUnknown(NPOI.SS.UserModel.ICell)">
             <summary>
             Currently throws an exception, in the future this method is intended to diagnose
             and return a value for a cell that the user doesn't know the value for.
             </summary>
+            <param name="_cell">_cell refers to the cell passed into the method</param>
         </member>
+        <member name="M:FortunaExcelProcessing.ConsilidatedReport.ConsolUtil.NumToColName(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="col"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FortunaExcelProcessing.ConsilidatedReport.ConsolUtil.ReceiveResponse(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FortunaExcelProcessing.ConsilidatedReport.ConsolUtil.getDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FortunaExcelProcessing.ConsilidatedReport.ConsolUtil.getDate(System.DateTime)">
+            <summary>
+            
+            </summary>
+            <param name="dt"></param>
+        </member>
+        <member name="M:FortunaExcelProcessing.ConsilidatedReport.ConsolUtil.inputDataToSheet(System.String,NPOI.SS.UserModel.ICell)">
+            <summary>
+            
+            </summary>
+            <param name="input"></param>
+            <param name="cell"></param>
+        </member>
+        <member name="M:FortunaExcelProcessing.ConsilidatedReport.ConsolUtil.getFarmName(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="farmId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FortunaExcelProcessing.ConsilidatedReport.ConsolUtil.getFarmArea(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="farmId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FortunaExcelProcessing.ConsilidatedReport.ConsolUtil.getCows(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="farmId"></param>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:FortunaExcelProcessing.ConsilidatedReport.ConsolUtil.getData(System.String)" -->
         <member name="M:FortunaExcelProcessing.ConsilidatedReport.ConsolUtil.getNumberofFarms">
             <summary>
             Recieves the JSON file as a respose, then substrings expected information out of it.
@@ -104,6 +163,118 @@
             <summary>
             Clear error lists
             </summary>
+        </member>
+        <member name="F:FortunaExcelProcessing.WeeklyProcessing.EditCommentsTable.category">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FortunaExcelProcessing.WeeklyProcessing.EditCommentsTable.EditTable(NPOI.SS.UserModel.ISheet)">
+            <summary>
+            
+            </summary>
+            <param name="sheet"></param>
+        </member>
+        <member name="M:FortunaExcelProcessing.WeeklyProcessing.EditCommentsTable.GetComment(NPOI.SS.UserModel.ISheet,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="sheet"></param>
+            <param name="r"></param>
+            <param name="c"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FortunaExcelProcessing.WeeklyProcessing.EditCommentsTable.CommentsTable(System.Data.SQLite.SQLiteConnection)">
+            <summary>
+            
+            </summary>
+            <param name="dBConnection"></param>
+        </member>
+        <member name="M:FortunaExcelProcessing.WeeklyProcessing.EditCommentsTable.checkForExistingColumn(System.String,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="date"></param>
+            <param name="farmID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FortunaExcelProcessing.WeeklyProcessing.EditInputTable.EditTable(NPOI.SS.UserModel.ISheet)">
+            <summary>
+            
+            </summary>
+            <param name="sheet"></param>
+        </member>
+        <member name="M:FortunaExcelProcessing.WeeklyProcessing.EditInputTable.SupplementsTable">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FortunaExcelProcessing.WeeklyProcessing.EditPaddocksTable.EditTable(NPOI.SS.UserModel.ISheet)">
+            <summary>
+            
+            </summary>
+            <param name="sheet"></param>
+        </member>
+        <member name="M:FortunaExcelProcessing.WeeklyProcessing.EditPaddocksTable.ProcessData(System.Data.SQLite.SQLiteConnection)">
+            <summary>
+            
+            </summary>
+            <param name="dbCon"></param>
+        </member>
+        <member name="M:FortunaExcelProcessing.WeeklyProcessing.EditPaddocksTable.CheckForExistingData">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:FortunaExcelProcessing.WeeklyProcessing.EditWeeklyDataTable.dataRows">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:FortunaExcelProcessing.WeeklyProcessing.EditWeeklyDataTable.dataLabels">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FortunaExcelProcessing.WeeklyProcessing.EditWeeklyDataTable.EditTable(NPOI.SS.UserModel.ISheet)">
+            <summary>
+            
+            </summary>
+            <param name="sheet"></param>
+        </member>
+        <member name="M:FortunaExcelProcessing.WeeklyProcessing.EditWeeklyDataTable.WeeklyDataTable(System.Data.SQLite.SQLiteConnection)">
+            <summary>
+            
+            </summary>
+            <param name="dbConn"></param>
+        </member>
+        <member name="M:FortunaExcelProcessing.WeeklyProcessing.EditWeeklyDataTable.GetFarmID(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="farmName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FortunaExcelProcessing.WeeklyProcessing.EditWeeklyDataTable.checkForExistingColumn(System.String,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="date"></param>
+            <param name="farmID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FortunaExcelProcessing.WeeklyProcessing.EditWeeklyDataTable.CheckForTable">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FortunaExcelProcessing.WeeklyProcessing.EditWeeklyDataTable.ExecuteDatabaseQuery(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="command"></param>
         </member>
         <member name="T:FortunaExcelProcessing.WeeklySheetFactory">
             <summary>

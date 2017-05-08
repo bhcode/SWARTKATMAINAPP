@@ -12,6 +12,10 @@ namespace FortunaExcelProcessing.WeeklyProcessing
         string sql;
         SQLiteCommand command; SQLiteConnection dBConnection;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sheet"></param>
         public void EditTable(ISheet sheet)
         {
             _sheet = sheet;
@@ -23,6 +27,9 @@ namespace FortunaExcelProcessing.WeeklyProcessing
             dBConnection.Close();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void SupplementsTable()
         {
             StringBuilder supplements = new StringBuilder();
@@ -36,7 +43,6 @@ namespace FortunaExcelProcessing.WeeklyProcessing
 
             Util.Farmid = Util.GetFarmID(CheckCellData.CellTypeString(_sheet.GetRow(3).GetCell(4)));
 
-            //default the date to the start of current week
             Util.Date = DateTime.Now.StartOfWeek(DayOfWeek.Monday).ToString("yyyy-MM-dd");
 
             if (!CheckForExistingFarm("farmSupplements", "farmid", Util.Farmid.ToString()))

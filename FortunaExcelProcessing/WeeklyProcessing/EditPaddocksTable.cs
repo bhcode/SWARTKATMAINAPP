@@ -10,10 +10,10 @@ namespace FortunaExcelProcessing.WeeklyProcessing
         ISheet paddockSheet;
         SQLiteConnection _dbCon;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sheet"></param>
+        // <summary>
+        // 
+        // </summary>
+        // <param name="sheet"></param>
         public void EditTable(ISheet sheet)
         {
             paddockSheet = sheet;
@@ -30,10 +30,10 @@ namespace FortunaExcelProcessing.WeeklyProcessing
             _dbCon.Close();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="dbCon"></param>
+        // <summary>
+        // 
+        // </summary>
+        // <param name="dbCon"></param>
         private void ProcessData(SQLiteConnection dbCon)
         {
             //default the date to the start of current week

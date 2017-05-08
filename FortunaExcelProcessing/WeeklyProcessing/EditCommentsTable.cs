@@ -3,22 +3,21 @@ using System.Text;
 using NPOI.SS.UserModel;
 using System.Data.SQLite;
 
-
 namespace FortunaExcelProcessing.WeeklyProcessing
 {
     public class EditCommentsTable : ITableEditor
     {
         ISheet _sheet;
         string sql; SQLiteCommand command; SQLiteConnection dBConnection;
-        /// <summary>
-        /// 
-        /// </summary>
+        // <summary>
+        // 
+        // </summary>
         public string[] category = { "'Animal Health'", "'Fertiliser Application'", "'Jobs Last Week'", "'Jobs This Week'", "'Stock'", "'General'", "'Resource Management Issues'" };
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sheet"></param>
+        // <summary>
+        //
+        // </summary>
+        // <param name="sheet"></param>
         public void EditTable(ISheet sheet)
         {
             dBConnection = new SQLiteConnection(string.Format("Data Source={0};Version=3;", FilePaths.DBFilePath));
@@ -37,13 +36,13 @@ namespace FortunaExcelProcessing.WeeklyProcessing
             dBConnection.Close();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sheet"></param>
-        /// <param name="r"></param>
-        /// <param name="c"></param>
-        /// <returns></returns>
+        // <summary>
+        // 
+        // </summary>
+        // <param name="sheet"></param>
+        // <param name="r"></param>
+        // <param name="c"></param>
+        // <returns></returns>
         private string GetComment(ISheet sheet, int r, int c)
         {
             IRow row = sheet.GetRow(r);
@@ -55,10 +54,10 @@ namespace FortunaExcelProcessing.WeeklyProcessing
             return cell.ToString();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="dBConnection"></param>
+        // <summary>
+        // 
+        // </summary>
+        // <param name="dBConnection"></param>
         private void CommentsTable(SQLiteConnection dBConnection)
         {
 
@@ -109,20 +108,18 @@ namespace FortunaExcelProcessing.WeeklyProcessing
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="date"></param>
-        /// <param name="farmID"></param>
-        /// <returns></returns>
+        // <summary>
+        // 
+        // </summary>
+        // <param name="date"></param>
+        // <param name="farmID"></param>
+        // <returns></returns>
         private bool checkForExistingColumn(string date, int farmID)
         {
             sql = $"SELECT sdate FROM Comments where sdate = '{date}' AND farmid = '{farmID}'";
             command = new SQLiteCommand(sql, dBConnection);
             if (command.ExecuteScalar() != null)
                 return true;
-
-
             return false;
         }
     }

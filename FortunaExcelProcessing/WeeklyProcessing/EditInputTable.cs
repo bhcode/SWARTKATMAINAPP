@@ -12,10 +12,10 @@ namespace FortunaExcelProcessing.WeeklyProcessing
         string sql;
         SQLiteCommand command; SQLiteConnection dBConnection;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sheet"></param>
+        // <summary>
+        // 
+        // </summary>
+        // <param name="sheet"></param>
         public void EditTable(ISheet sheet)
         {
             _sheet = sheet;
@@ -27,9 +27,9 @@ namespace FortunaExcelProcessing.WeeklyProcessing
             dBConnection.Close();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
+        // <summary>
+        // 
+        // </summary>
         private void SupplementsTable()
         {
             StringBuilder supplements = new StringBuilder();

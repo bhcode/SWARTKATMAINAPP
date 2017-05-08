@@ -16,11 +16,11 @@ namespace FortunaExcelProcessing.ConsilidatedReport
 {
     class ConsolUtil
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="col"></param>
-        /// <returns></returns>
+        // <summary>
+        // 
+        // </summary>
+        // <param name="col"></param>
+        // <returns></returns>
         public static string NumToColName(int col)
         {
             int first = col / 26;
@@ -31,11 +31,11 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             return code;
         }
 
-       /// <summary>
-       /// 
-       /// </summary>
-       /// <param name="url"></param>
-       /// <returns></returns>
+       // <summary>
+       // 
+       // </summary>
+       // <param name="url"></param>
+       // <returns></returns>
         public static string ReceiveResponse(string url)
         {
             WebClient wc = new WebClient();
@@ -43,9 +43,9 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             return Encoding.UTF8.GetString(raw);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
+        // <summary>
+        // 
+        // </summary>
         public static void getDate()
         {
             DateTime date = DateTime.Now.StartOfWeek(DayOfWeek.Monday);
@@ -53,10 +53,10 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             DateStorage.FullDate = date.ToString("yyyy-MM-dd");
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="dt"></param>
+        // <summary>
+        // 
+        // </summary>
+        // <param name="dt"></param>
         public static void getDate(DateTime dt)
         {
             DateTime date = dt.StartOfWeek(DayOfWeek.Monday);
@@ -64,11 +64,11 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             DateStorage.FullDate = date.ToString("yyyy-MM-dd");
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="input"></param>
-        /// <param name="cell"></param>
+        // <summary>
+        // 
+        // </summary>
+        // <param name="input"></param>
+        // <param name="cell"></param>
         public static void inputDataToSheet(string input, ICell cell)
         {
             double cellValue = double.Parse(input);
@@ -76,11 +76,11 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             cell.SetCellValue(cellValue);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="farmId"></param>
-        /// <returns></returns>
+        // <summary>
+        // 
+        // </summary>
+        // <param name="farmId"></param>
+        // <returns></returns>
         public static string getFarmName(int farmId)
         {
             string tmp = ReceiveResponse(string.Format("http://swartkat.fossul.com/gui/getfarmname?farmid={0}", farmId));
@@ -89,11 +89,11 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             return stripper;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="farmId"></param>
-        /// <returns></returns>
+        // <summary>
+        // 
+        //</summary>
+        // <param name="farmId"></param>
+        // <returns></returns>
         public static string getFarmArea(int farmId)
         {
             string tmp = ReceiveResponse(string.Format("http://swartkat.fossul.com/gui/getarea?farmid={0}", farmId));
@@ -101,11 +101,11 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             return stripper;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="farmId"></param>
-        /// <returns></returns>
+        // <summary>
+        // 
+        // </summary>
+        // <param name="farmId"></param>
+        // <returns></returns>
         public static string getCows(int farmId)
         {
             string tmp = ReceiveResponse(string.Format("http://swartkat.fossul.com/gui/gecows?farmid={0}", farmId));
@@ -113,12 +113,12 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             return stripper;
         }
 
-        /// <summary>
-        /// GetData method grabs all information in the data/weekly data table in the SQLite database
-        /// It uses the fullDate to do this, this method is intended to be used for local consilidated processing and testing of the database.
-        /// </summary>
-        /// <param name="fullDate">Date to pass that defines what week to grab data from</param>
-        /// <returns>A dictionary<int, string> of database data related to the date passed in is returned</int></returns>
+        // <summary>
+        // GetData method grabs all information in the data/weekly data table in the SQLite database
+        // It uses the fullDate to do this, this method is intended to be used for local consilidated processing and testing of the database.
+        // </summary>
+        // <param name="fullDate">Date to pass that defines what week to grab data from</param>
+        // <returns>A dictionary<int, string> of database data related to the date passed in is returned</int></returns>
         public static Dictionary<int, string> getData(string fullDate)
         {
             Dictionary<int, string> _databaseDatas = new Dictionary<int, string>();
@@ -146,15 +146,15 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             return _databaseDatas;
         }
 
-        /// <summary>
-        /// Recieves the JSON file as a respose, then substrings expected information out of it.
-        /// </summary>
-        /// <remarks>
-        /// I still feel 'stripper' is a somewhat questionable variable name.
-        /// </remarks>
-        /// <returns>
-        /// Returns integer value that is parsed from a substring pulled from a JSON file.
-        /// </returns>
+        // <summary>
+        // Recieves the JSON file as a respose, then substrings expected information out of it.
+        // </summary>
+        // <remarks>
+        // I still feel 'stripper' is a somewhat questionable variable name.
+        // </remarks>
+        // <returns>
+        // Returns integer value that is parsed from a substring pulled from a JSON file.
+        // </returns>
         public static int getNumberofFarms()
         {            
                 string tmp = ReceiveResponse(string.Format("http://swartkat.fossul.com/gui/getfarmcount"));

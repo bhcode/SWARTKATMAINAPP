@@ -17,7 +17,7 @@ namespace FortunaExcelProcessing.ConsilidatedReport
         static int[] calcedCells = InitFormulae.calcCellArray();
         static int[] dataCells = InitFormulae.dataCellArray();
 
-        public void createWorkBook(string path, DateTime date, Dictionary<int, string> dict)
+        public void createWorkBook(string path, string date, Dictionary<int, string> dict)
         {
             ConsolUtil.getDate(date);
             //if(path == null)

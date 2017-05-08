@@ -24,7 +24,7 @@ namespace FortunaExcelProcessing
         {
             if (_cell == null)
             {
-                ErrorHandling.ErrorReporter.SoftErrors.Add(new ErrorHandling.Error(_cell, "Cell is null"));
+                //ErrorHandling.ErrorReporter.SoftErrors.Add(new ErrorHandling.Error(_cell, "Cell is null"));
                 return "";
             }
             if (_cell.CellType == CellType.String)
@@ -66,7 +66,7 @@ namespace FortunaExcelProcessing
         {
             if (_cell == null)
             {
-                ErrorHandling.ErrorReporter.SoftErrors.Add(new ErrorHandling.Error(_cell, "Cell is not of the correct format"));
+                //ErrorHandling.ErrorReporter.SoftErrors.Add(new ErrorHandling.Error(_cell, "Cell is not of the correct format"));
                 return -1; 
             }
             if (_cell.CellType != CellType.Numeric)
@@ -101,7 +101,7 @@ namespace FortunaExcelProcessing
         ///<param name="_cell">_cell refers to the cell passed into the method</param>
         public static string CellTypeUnknown(ICell _cell)
         {
-            ErrorHandling.ErrorReporter.HardErrors.Add(new ErrorHandling.Error(_cell, "This cell is an unknown"));
+            //ErrorHandling.ErrorReporter.HardErrors.Add(new ErrorHandling.Error(_cell, "This cell is an unknown"));
             throw new NotImplementedException();
         }
     }

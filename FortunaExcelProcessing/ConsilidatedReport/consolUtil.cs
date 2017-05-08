@@ -110,7 +110,7 @@ namespace FortunaExcelProcessing.ConsilidatedReport
         public static string getCows(int farmId)
         {
             string tmp = ReceiveResponse(string.Format("http://swartkat.fossul.com/gui/getcows?farmid={0}", farmId));
-            string stripper = tmp.Substring(1, tmp.Length - 1);
+            string stripper = tmp.Substring(1, tmp.Length - 2);
             return stripper;
         }
 

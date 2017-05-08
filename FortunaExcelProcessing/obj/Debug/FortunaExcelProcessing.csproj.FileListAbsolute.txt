@@ -207,3 +207,6 @@ D:\Users\Thrain\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debu
 D:\Users\Thrain\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\Newtonsoft.Json.xml
 D:\Users\Thrain\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\NPOI.xml
 D:\Users\Thrain\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\System.Data.SQLite.xml
+F:\programs\github\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\FortunaExcelProcessing.xml
+F:\programs\github\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\Newtonsoft.Json.dll
+F:\programs\github\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\Newtonsoft.Json.xml

@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Data.SQLite;
+using System.Web.Script.Serialization;
+
 
 namespace FortunaExcelProcessing.ConsilidatedReport
 {
@@ -12,18 +14,18 @@ namespace FortunaExcelProcessing.ConsilidatedReport
     {
         public static void inputCellFifteen(ICell cell, int col, int farmId)
         {
-            string e6 = "", e7 = "";
-            string procString = ConsolUtil.getCows(farmId);
-            //Console.WriteLine(procString);
-            procString = procString.Substring(1, procString.Length - 1);
-            string[] outstring = procString.Split(',');
+            string e6 = "", e7 = "",e8 = "";
+            string[] procString = ConsolUtil.getCows(farmId).Split(':');
+            procString[1] = procString[1].Substring(2, procString[1].Length - 4);
+            string[] tmp = procString[1].Split(',');
 
-            e6 = string.Format("{0}", outstring[0]);
-            e7 = string.Format("{0}", outstring[1]);
+            e6 = string.Format("{0}", tmp[0]);
+            e7 = string.Format("{0}", tmp[1]);
+            e8 = string.Format("{0}", tmp[2]);
 
             //Console.WriteLine(e6 + e7);
             //Console.ReadLine();
-            string formula = string.Format("{0}+{1}", e6, e7);
+            string formula = string.Format("{0}+{1}+{2}", e6, e7,e8);
             cell.SetCellType(CellType.Formula);
             cell.SetCellFormula(formula);
         }

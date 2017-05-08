@@ -26,11 +26,16 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             _sheet = _wb.CreateSheet(DateStorage.PartialDate);
             workbookData(dict);
 
+            File.Create("1");
+
             using (FileStream fs = File.Create(path))
             //using (FileStream fs = new FileStream(path, FileMode.Create, FileAccess.ReadWrite))
             {
+                File.Create("5");
                 _wb.Write(fs);
+                File.Create("4");
                 _wb.Close();
+                File.Create("3");
             }
         }
 
@@ -108,11 +113,11 @@ namespace FortunaExcelProcessing.ConsilidatedReport
                     }
                 }
 
-                List<FormulaEntry> formulae = InitFormulae.formulaeList(); 
-                foreach (FormulaEntry formula in formulae)
+                Dictionary<int, string> formulae = InitFormulae.formulaeList(); 
+                foreach (var formula in formulae)
                 {
-                    cell = _sheet.GetRow(formula.Row).CreateCell(col);
-                    FormulaFormatting.inputCellFormula(string.Format(formula.Formula, ConsolUtil.NumToColName(col)), cell);
+                    cell = _sheet.GetRow(formula.Key).CreateCell(col);
+                    FormulaFormatting.inputCellFormula(string.Format(formula.Value, ConsolUtil.NumToColName(col)), cell);
                 }
             }
         }

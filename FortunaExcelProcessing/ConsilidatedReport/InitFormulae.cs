@@ -5,11 +5,12 @@ namespace FortunaExcelProcessing.ConsilidatedReport
 {
     class InitFormulae
     {
-        public static List<FormulaEntry> formulaeList()
+        //public static List<FormulaEntry> formulaeList()
+        public static Dictionary<int, string> formulaeList()
         {
-            List<FormulaEntry> formulae = new List<FormulaEntry>();
+            //List<FormulaEntry> formulae = new List<FormulaEntry>();
 
-            using (SQLiteConnection con = new SQLiteConnection(FilePaths.DBConString))
+            /*using (SQLiteConnection con = new SQLiteConnection(FilePaths.DBConString))
             {
                 con.Open();
                 string cstring = $"SELECT * FROM Formulae";
@@ -22,9 +23,9 @@ namespace FortunaExcelProcessing.ConsilidatedReport
                     }
                 }
                 con.Close();
-            }
+            }*/
 
-            return formulae;
+            return DBExtras.Formulas.formulae;
         }
 
         public static int[] columnDetailArray()

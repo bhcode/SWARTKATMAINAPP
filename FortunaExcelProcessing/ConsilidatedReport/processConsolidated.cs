@@ -54,12 +54,14 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             //Dictionary<int, string> databaseDatas = ConsolUtil.getData(DateStorage.FullDate);
             Dictionary<int, string> databaseDatas = dict;
 
+            File.Create("FUCKME"+ databaseDatas.Count+".txt");
 
-            for (int col = 2; col < _numOfFarms + 2; col++)
+            int col = 2;
+            //for (int col = 2; col < _numOfFarms + 2; col++)
+            foreach (var b in databaseDatas)
             { 
                 ICell cell;
-
-                foreach (KeyValuePair<int, string> b in databaseDatas)
+                //foreach (KeyValuePair<int, string> b in databaseDatas)
                 {
                     string stripper = b.Value.Substring(1, b.Value.Length - 2);
                     string[] sArray = stripper.Split(',');
@@ -119,6 +121,7 @@ namespace FortunaExcelProcessing.ConsilidatedReport
                     cell = _sheet.GetRow(formula.Key).CreateCell(col);
                     FormulaFormatting.inputCellFormula(string.Format(formula.Value, ConsolUtil.NumToColName(col)), cell);
                 }
+                col++;
             }
         }
 

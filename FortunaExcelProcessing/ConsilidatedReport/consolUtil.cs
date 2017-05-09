@@ -86,7 +86,7 @@ namespace FortunaExcelProcessing.ConsilidatedReport
         {
             string tmp = ReceiveResponse(string.Format("http://swartkat.fossul.com/gui/getfarmname?farmid={0}", farmId));
             //Takes in the farmname and strips the " " off it, then returns it.
-            string stripper = tmp.Substring(1, tmp.Length - 1);
+            string stripper = tmp.Substring(1, tmp.Length - 2);
             return stripper;
         }
 

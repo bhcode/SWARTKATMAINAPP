@@ -56,19 +56,23 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                     supplements.Append((r == 9) ? "[" : "" + CheckCellData.CellTypeString(_sheet.GetRow(r).GetCell(4)) + ((r == 17) ? "]" : ","));
                 }
 
-                command = new SQLiteCommand(($"INSERT INTO farmSupplements(farmid, sdate, cows, supplements) values({Util.Farmid}, @date, '{cows}', '{supplements}')"), dBConnection);
-                command.Parameters.AddWithValue("@date", Util.Date);
-                command.ExecuteNonQuery();
+                using (command = new SQLiteCommand(($"INSERT INTO farmSupplements(farmid, sdate, cows, supplements) values({Util.Farmid}, @date, '{cows}', '{supplements}')"), dBConnection))
+                {
+                    command.Parameters.AddWithValue("@date", Util.Date);
+                    command.ExecuteNonQuery();
+                }
             }
         }
 
         private bool CheckForExistingFarm(string tableName, string colName, string data)
         {
             sql = $"SELECT {colName} FROM {tableName} where {colName} = '{data}'";
-            command = new SQLiteCommand(sql, dBConnection);
-            if (command.ExecuteScalar() != null)
-                return true;
-            return false;
+            using (command = new SQLiteCommand(sql, dBConnection))
+            {
+                if (command.ExecuteScalar() != null)
+                    return true;
+                return false;
+            }
         }
 
 

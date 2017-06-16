@@ -38,7 +38,7 @@ namespace FortunaExcelProcessing
         public void CreateWorkBook()
         {
             _wb = WorkbookFactory.Create(_file);
-
+            
             for (int i = 0; i < _wb.NumberOfSheets; i++)
             {
                 _tabNames.Add(_wb.GetSheetName(i).ToString());
@@ -47,16 +47,26 @@ namespace FortunaExcelProcessing
 
         public void createSQLiteDB()
         {
-            //we will be using a collective SQLite DB on the server
             if (!File.Exists(@"C:\Database\"))
+            {
                 Directory.CreateDirectory(@"C:\Database\");
+            }
+
             FilePaths.DBFilePath = (@"C:\Database\database.sqlite");
+
             if (!Util.CheckForTable("Formulae"))
+            {
                 DBExtras.Formulas.MakeFormulae(@"C:\Database\database.sqlite");
+            }
             if (!Util.CheckForTable("Labels"))
+            {
                 DBExtras.Labels.MakeLabels(@"C:\Database\database.sqlite");
+            }
             if (!File.Exists(FilePaths.DBFilePath))
+            {
                 SQLiteConnection.CreateFile(FilePaths.DBFilePath);
+            }
+
         }
 
         public void processSheet(string tabName)
@@ -69,6 +79,11 @@ namespace FortunaExcelProcessing
                     o.EditTable(_wb.GetSheet(tabName));
                 }
             }
+        }
+
+        public void CloseWorkbook()
+        {
+            _wb.Close();
         }
     }
 }

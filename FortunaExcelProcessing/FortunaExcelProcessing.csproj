@@ -107,8 +107,6 @@
     <Compile Include="FilePaths.cs" />
     <Compile Include="FormulaEntry.cs" />
     <Compile Include="ITableEditor.cs" />
-    <Compile Include="MonthlyProcessing\EditMonthlyInputTable.cs" />
-    <Compile Include="MonthlySheetFactory.cs" />
     <Compile Include="ProcessData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util.cs" />

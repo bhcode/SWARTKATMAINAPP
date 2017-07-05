@@ -51,7 +51,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
         // <param name="dbConn"></param>
         private void WeeklyDataTable(SQLiteConnection dbConn)
         {
-            int FarmId = Util.GetFarmID(CheckCellData.CellTypeString(_sheet.GetRow(2).GetCell(1)));
+            //int FarmId = Util.GetFarmID(CheckCellData.CellTypeString(_sheet.GetRow(2).GetCell(1)));
 
             for (int c = 3; c < _sheet.GetRow(6).LastCellNum; c++)
             {
@@ -60,7 +60,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                     //Console.WriteLine("I'm working!");
                     string date = CheckCellData.CellWeirdDate(_sheet.GetRow(3).GetCell(c)).ToString("yyyy-MM-dd");
 
-                    if (!checkForExistingColumn(date, FarmId))
+                    if (!checkForExistingColumn(date, Util.Farmid))
                     {
                         string output = "[";
                         for (int row = 0; row < dataRows.Length - 1; row++)
@@ -70,7 +70,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                         }
 
                         output = output + CheckCellData.CellTypeNumeric(_sheet.GetRow(dataRows.Length - 1).GetCell(c)) + "]";
-                        command.CommandText = $"INSERT INTO Datas(farmid, date, data) VALUES({FarmId}, @date,'{output}');";
+                        command.CommandText = $"INSERT INTO Datas(farmid, date, data) VALUES({Util.Farmid}, @date,'{output}');";
                         command.Parameters.AddWithValue("@date", date);
                         command.ExecuteNonQuery();
                         output = "";

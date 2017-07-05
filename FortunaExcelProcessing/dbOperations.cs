@@ -26,11 +26,13 @@ namespace FortunaExcelProcessing
             }
             tmp += (data[data.Count - 1] + ")");
 
-            SQLiteCommand cmd = new SQLiteCommand();
-            cmd.CommandText = tmp;
-            cmd.CommandType = System.Data.CommandType.Text;
-            cmd.Connection = dbConn;
-            cmd.ExecuteNonQuery();
+            using (SQLiteCommand cmd = new SQLiteCommand())
+            {
+                cmd.CommandText = tmp;
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.Connection = dbConn;
+                cmd.ExecuteNonQuery();
+            }
         }
     }
 }

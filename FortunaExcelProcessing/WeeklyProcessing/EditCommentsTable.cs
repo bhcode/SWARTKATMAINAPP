@@ -61,8 +61,8 @@ namespace FortunaExcelProcessing.WeeklyProcessing
         private void CommentsTable(SQLiteConnection dBConnection)
         {
 
-            int FarmId = Util.GetFarmID(CheckCellData.CellTypeString(_sheet.GetRow(2).GetCell(1)));
-            Console.WriteLine(FarmId);
+            //int FarmId = Util.GetFarmID(CheckCellData.CellTypeString(_sheet.GetRow(2).GetCell(1)));
+            //Console.WriteLine(FarmId);
 
             //Go through each column, to the last column with a date available
             for (int c = 2; c < _sheet.GetRow(3).LastCellNum; c++)
@@ -81,7 +81,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                     }
                 }
 
-                if (!checkForExistingColumn(date, FarmId) && emptycount < 7)
+                if (!checkForExistingColumn(date, Util.Farmid) && emptycount < 7)
                 {
                     for (int r = 4; r < 11; r++)
                     {
@@ -97,7 +97,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                         if (cellData != null && cellData != "")
                         {
                             command.CommandText = "INSERT INTO Comments(farmid, sdate, category, description) VALUES (@FarmId,@date,@cat,@cellData)";
-                            command.Parameters.AddWithValue("@FarmId", FarmId);
+                            command.Parameters.AddWithValue("@FarmId", Util.Farmid);
                             command.Parameters.AddWithValue("@date", date);
                             command.Parameters.AddWithValue("@cat", cat);
                             command.Parameters.AddWithValue("@cellData", cellData);

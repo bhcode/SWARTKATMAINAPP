@@ -17,7 +17,8 @@ public enum PaddockColumns
 // The Util class is full of misc. methods that aid various other classes, think of it as a bunch of scrappy tools.
 // The Util class should not be confused with the ConsolUtil class that is intended for code working with the Consolidated report.
 // </summary>
-public static class Util {
+public static class Util
+{
 
     static int farmid;
     static string date;
@@ -51,14 +52,22 @@ public static class Util {
     static public int GetFarmID(string name)
     {
         string fn = name.Trim();
-        SQLiteConnection dBConnection = new SQLiteConnection(string.Format("Data Source={0};Version=3;", FilePaths.DBFilePath));
-        dBConnection.Open();
-        string sql = $"SELECT farmid FROM farms where name = '{fn}';";
-        SQLiteCommand command = new SQLiteCommand(sql, dBConnection);
-        if (command.ExecuteScalar() != null)
-            return int.Parse(command.ExecuteScalar().ToString());
-        else
-            return 0;
+        using (SQLiteConnection dBConnection = new SQLiteConnection(string.Format("Data Source={0};Version=3;", FilePaths.DBFilePath)))
+        {
+            dBConnection.Open();
+            string sql = $"SELECT farmid FROM farms where name = '{fn}';";
+            using (SQLiteCommand command = new SQLiteCommand(sql, dBConnection))
+            {
+                if (command.ExecuteScalar() != null)
+                {
+                    return int.Parse(command.ExecuteScalar().ToString());
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
     }
 
     // <summary>
@@ -68,13 +77,19 @@ public static class Util {
     // <returns></returns>
     public static bool CheckForTable(String tablename)
     {
-        SQLiteConnection dBConnection = new SQLiteConnection(string.Format("Data Source={0};Version=3;", FilePaths.DBFilePath));
-        dBConnection.Open();
-        string sql = $"SELECT name FROM sqlite_master WHERE type = 'table' AND name = '{tablename}'";
-        SQLiteCommand command = new SQLiteCommand(sql, dBConnection);
-        if (command.ExecuteScalar() != null)
-            return true;
-        return false;
+        using (SQLiteConnection dBConnection = new SQLiteConnection(string.Format("Data Source={0};Version=3;", FilePaths.DBFilePath)))
+        {
+            dBConnection.Open();
+            string sql = $"SELECT name FROM sqlite_master WHERE type = 'table' AND name = '{tablename}'";
+            using (SQLiteCommand command = new SQLiteCommand(sql, dBConnection))
+            {
+                if (command.ExecuteScalar() != null)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
     }
 
     // <summary>
@@ -85,7 +100,7 @@ public static class Util {
     // <returns></returns>
     static public bool CheckForSheet(string sheetName, IWorkbook wb)
     {
-        if(wb.GetSheet(sheetName) != null)
+        if (wb.GetSheet(sheetName) != null)
         {
             return true;
         }

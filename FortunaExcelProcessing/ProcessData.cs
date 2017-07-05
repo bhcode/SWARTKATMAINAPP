@@ -70,5 +70,10 @@ namespace FortunaExcelProcessing
                 }
             }
         }
+
+        public void CloseWorkbook()
+        {
+            _wb.Close();
+        }
     }
 }

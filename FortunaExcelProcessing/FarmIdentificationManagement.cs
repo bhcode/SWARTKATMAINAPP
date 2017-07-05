@@ -15,23 +15,24 @@ namespace FortunaExcelProcessing
         public void EditTable(int farmid, string farmName, double area)
         {
             Util.Date = DateTime.Now.StartOfWeek(DayOfWeek.Monday).ToString("yyyy-MM-dd");
-            dBConnection = new SQLiteConnection($"Data Source={FilePaths.DBFilePath};Version=3;");
-            dBConnection.Open();
-    
-            if (!CheckForExistingFarm(farmName))
+            using (dBConnection = new SQLiteConnection($"Data Source={FilePaths.DBFilePath};Version=3;"))
             {
-                //string date = DateTime.Now.ToString(Util.DForm());
-                //SQLiteCommand command = new SQLiteCommand($"INSERT INTO farms(farmid, name, area) values('{farmName}', {area})", dBConnection);
+                dBConnection.Open();
 
-                SQLiteCommand cmd = new SQLiteCommand();
-                cmd.CommandText = "INSERT INTO farms(farmid, name, area) values(@farmid,@farmname,@farmarea)";
-                cmd.Parameters.AddWithValue("@farmid", farmid);
-                cmd.Parameters.AddWithValue("@farmname", farmName.Trim());
-                cmd.Parameters.AddWithValue("@farmarea", area);
-                cmd.Connection = dBConnection;
-                cmd.ExecuteNonQuery();
+                if (!CheckForExistingFarm(farmName))
+                {
+                    using (SQLiteCommand cmd = new SQLiteCommand())
+                    {
+                        cmd.CommandText = "INSERT INTO farms(farmid, name, area) values(@farmid,@farmname,@farmarea)";
+                        cmd.Parameters.AddWithValue("@farmid", farmid);
+                        cmd.Parameters.AddWithValue("@farmname", farmName.Trim());
+                        cmd.Parameters.AddWithValue("@farmarea", area);
+                        cmd.Connection = dBConnection;
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                dBConnection.Close();
             }
-            dBConnection.Close();
         }
 
         public void CreateFarmTable()
@@ -40,20 +41,23 @@ namespace FortunaExcelProcessing
             dBConnection.Open();
             if (!Util.CheckForTable("farms"))
             {
-                SQLiteCommand command = new SQLiteCommand("CREATE TABLE farms (fid INTEGER PRIMARY KEY, farmid INTEGER, name VARCHAR(50), area REAL);", dBConnection);
-                command.ExecuteNonQuery();
+                using (SQLiteCommand command = new SQLiteCommand("CREATE TABLE farms (fid INTEGER PRIMARY KEY, farmid INTEGER, name VARCHAR(50), area REAL);", dBConnection))
+                {
+                    command.ExecuteNonQuery();
+                }
             }
             dBConnection.Close();
         }
 
 
-
         private bool CheckForExistingFarm(string data)
         {
             string sql = $"SELECT farmid FROM farms where name = '{data}'";
-            SQLiteCommand command = new SQLiteCommand(sql, dBConnection);
-            if (command.ExecuteScalar() != null)
-                return true;
+            using (SQLiteCommand command = new SQLiteCommand(sql, dBConnection))
+            {
+                if (command.ExecuteScalar() != null)
+                    return true;
+            }
             return false;
         }
     }

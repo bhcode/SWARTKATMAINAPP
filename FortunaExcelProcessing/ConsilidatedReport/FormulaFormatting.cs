@@ -23,8 +23,6 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             e7 = string.Format("{0}", tmp[1]);
             e8 = string.Format("{0}", tmp[2]);
 
-            //Console.WriteLine(e6 + e7);
-            //Console.ReadLine();
             string formula = string.Format("{0}+{1}+{2}", e6, e7,e8);
             cell.SetCellType(CellType.Formula);
             cell.SetCellFormula(formula);

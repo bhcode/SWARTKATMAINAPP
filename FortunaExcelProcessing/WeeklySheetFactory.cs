@@ -24,10 +24,7 @@ namespace FortunaExcelProcessing
                     sheetChoser = new WeeklyProcessing.EditPaddocksTable();
                     break;
                 case "Weekly Comments":
-                    sheetChoser = new WeeklyProcessing.EditCommentsTable();
-                    break;
-                case "Input Page":
-                    sheetChoser = new WeeklyProcessing.EditInputTable();
+                    sheetChoser = new WeeklyProcessing.EditObservationsTable();
                     break;
                 case "Weekly Data":
                     sheetChoser = new WeeklyProcessing.EditWeeklyDataTable();

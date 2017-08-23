@@ -14,14 +14,15 @@ namespace FortunaExcelProcessing.WeeklyProcessing
         // <summary>
         //
         // </summary>
-        private int[] dataRows = { 6, 7, 8, 10, 11,12, 13, 14, 16, 18, 19, 21, 22, 24, 28, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 50, 51, 52, 53, 54, 55, 56, 57, 101, 102, 103, 104, 105, 106, 109, 110, 111, 112, 113, 114};
+        private int[] dataRows = { 6, 7, 8, 10, 11, 12, 13, 14, 16, 18, 19, 21, 22, 24, 28, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 50, 51, 52, 53, 54, 55, 56, 57, 101, 102, 103, 104, 105, 106, 109, 110, 111, 112, 113, 114 };
         // <summary>
         // 
         // </summary>
-        private string[] dataLabels = { "Crop area", "Crop area Available", "Area Grazed (avg for last 2 pickups)", "Pre Grazing Cover", "Average Cover (kgDM/ha)", "Growth Rate (kgDM/ha/day)", "Predicted Growth Rate (kgDM/ha/day)", "Area shut-up for supplements", "Milked into Vat",
-                                            "NOT milked into Vat", "Dry cows (On farm)", "Dry cows (Off farm)", "Kg Liveweight/cow", "Average MS/day (last 2 pickups)", "KgMS month to date", "Avg SCC (000) for last 2 pickups", "Protein Fat", "Ratio Calf Milk (litres)",
-                                        "Grain (kgDM)", "Palm kernel (kgDM)", "Silage(kgDM)", "Balage (kgDM)", "Molasses (kgDM)", "Straw (kgDM)", "Hay (kgDM)", "Other (kgDM)", "Total Consumption (kgDM/cow/day)", "Area N applied (ha)", "Rate per hectare (kgN/ha)", "Total N applied(kgN/ha)", "Total N applied Year To Date(kgN/ha)", "Deaths",
-                                            "Deaths to date", "Cows Sold", "Cows Sold to date", "Two Year Dairy Heifers", "One Year Dairy Heifers", "AB Dairy Heifer Calves", "All Other Calves", "Bulls", "Other", "Two Year Dairy Heifers", "One Year Dairy Heifers", "AB Dairy Heifer Calves", "All Other Calves", "Bulls", "Other"};
+        private string[] dataLabels = { "Honey (kg)", "Honey to Date (kg)" , "Avg Honey Per Hive (kg)", "Royal Honey (kg)", "Avg Royal Honey Per Hive (kg)",
+                                        "Royal Honey to Date (kg)","Beeswax (kg)","Feeding","Honey Store","Pollen Store","Honey Feed","Pollen Feed","Ener-H-Plus","HFCS-55",
+                                        "Vita Feed Gold","Pollen Patty","Living Conditions","Hive Condition","Temper","Odor","Population","Laying Pattern",
+                                        "Area Information","Total Area (m^2)","Total Frames","Total Frames Unused","Death Information","Deaths","Deaths to Date",
+                                        "Disease Information","Diseased Hives","Hives Treated","Replacement Hives","Bees Bought (kg)","Conditions","Avg Temperature","New Queens"};
         string sql; SQLiteCommand command; SQLiteConnection dbConn;
 
         // <summary>
@@ -32,16 +33,14 @@ namespace FortunaExcelProcessing.WeeklyProcessing
         {
             dbConn = new SQLiteConnection(string.Format("Data Source={0};Version=3;", FilePaths.DBFilePath));
             dbConn.Open();
-            
-
-                _sheet = sheet;
-                if (!CheckForTable())
-                {
-                    sql = "CREATE TABLE Datas(id INTEGER PRIMARY KEY AUTOINCREMENT, farmid INTEGER, date VARCHAR(30), data VARCHAR(1104));";
-                    command = new SQLiteCommand(sql, dbConn);
-                    command.ExecuteNonQuery();
-                }
-                WeeklyDataTable(dbConn);
+            _sheet = sheet;
+            if (!CheckForTable())
+            {
+                sql = "CREATE TABLE WeeklyData(id INTEGER PRIMARY KEY AUTOINCREMENT, farmid INTEGER, date VARCHAR(30), data VARCHAR(1104));";
+                command = new SQLiteCommand(sql, dbConn);
+                command.ExecuteNonQuery();
+            }
+            WeeklyDataTable(dbConn);
             dbConn.Close();
         }
 
@@ -77,7 +76,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                     }
                 }
             }
-            }
+        }
 
         // <summary>
         // 

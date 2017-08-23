@@ -5,7 +5,7 @@ using System.Data.SQLite;
 
 namespace FortunaExcelProcessing.WeeklyProcessing
 {
-    public class EditCommentsTable : ITableEditor
+    public class EditObservationsTable : ITableEditor
     {
         ISheet _sheet;
         string sql; SQLiteCommand command; SQLiteConnection dBConnection;

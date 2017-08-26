@@ -24,6 +24,7 @@ namespace FortunaExcelProcessing
             {
                 tmp += (data[i] + ",");
             }
+
             tmp += (data[data.Count - 1] + ")");
 
             using (SQLiteCommand cmd = new SQLiteCommand())

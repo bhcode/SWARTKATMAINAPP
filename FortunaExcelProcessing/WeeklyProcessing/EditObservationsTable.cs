@@ -9,15 +9,9 @@ namespace FortunaExcelProcessing.WeeklyProcessing
     {
         ISheet _sheet;
         string sql; SQLiteCommand command; SQLiteConnection dBConnection;
-        // <summary>
-        // 
-        // </summary>
+
         public string[] category = { "'Animal Health'", "'Fertiliser Application'", "'Jobs Last Week'", "'Jobs This Week'", "'Stock'", "'General'", "'Resource Management Issues'" };
 
-        // <summary>
-        //
-        // </summary>
-        // <param name="sheet"></param>
         public void EditTable(ISheet sheet)
         {
             dBConnection = new SQLiteConnection(string.Format("Data Source={0};Version=3;", FilePaths.DBFilePath));
@@ -25,9 +19,9 @@ namespace FortunaExcelProcessing.WeeklyProcessing
             _sheet = sheet;
 
             //Create the table if its not in the Database
-            if (!Util.CheckForTable("Comments"))
+            if (!Util.CheckForTable("Observations"))
             {
-                sql = "CREATE TABLE Comments(id INTEGER PRIMARY KEY AUTOINCREMENT, farmid INTEGER, sdate VARCHAR(30), category VARCHAR(30), description VARCHAR(512));";
+                sql = "CREATE TABLE Observations(Observation_ID INTEGER PRIMARY KEY AUTOINCREMENT, Branch_ID INTEGER, Date_Sent VARCHAR(30), Category VARCHAR(512), Description VARCHAR(512), Weather VARCHAR(512));";
                 command = new SQLiteCommand(sql, dBConnection);
                 command.ExecuteNonQuery();
             }
@@ -36,33 +30,33 @@ namespace FortunaExcelProcessing.WeeklyProcessing
             dBConnection.Close();
         }
 
-        // <summary>
-        // 
-        // </summary>
-        // <param name="sheet"></param>
-        // <param name="r"></param>
-        // <param name="c"></param>
-        // <returns></returns>
         private string GetComment(ISheet sheet, int r, int c)
         {
             IRow row = sheet.GetRow(r);
-            if (row == null) return "";
+            if (row == null)
+            {
+                return "";
+            }
             ICell cell = row.GetCell(c);
-            if (cell == null) return "";
-            if (cell.CellType == CellType.Numeric) return cell.NumericCellValue.ToString();
+            if (cell == null)
+            {
+                return "";
+            }
+            if (cell.CellType == CellType.Numeric)
+            {
+                return cell.NumericCellValue.ToString();
+            }
             if (cell.CellType == CellType.String) return cell.StringCellValue;
-            return cell.ToString();
+            {
+                return cell.ToString();
+            }
         }
 
-        // <summary>
-        // 
-        // </summary>
-        // <param name="dBConnection"></param>
         private void CommentsTable(SQLiteConnection dBConnection)
         {
 
-            int FarmId = Util.GetFarmID(CheckCellData.CellTypeString(_sheet.GetRow(2).GetCell(1)));
-            Console.WriteLine(FarmId);
+            int BranchID = Util.GetFarmID(CheckCellData.CellTypeString(_sheet.GetRow(2).GetCell(1)));
+            Console.WriteLine(BranchID);
 
             //Go through each column, to the last column with a date available
             for (int c = 2; c < _sheet.GetRow(3).LastCellNum; c++)
@@ -81,7 +75,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                     }
                 }
 
-                if (!checkForExistingColumn(date, FarmId) && emptycount < 7)
+                if (!checkForExistingColumn(date, BranchID) && emptycount < 7)
                 {
                     for (int r = 4; r < 11; r++)
                     {
@@ -90,17 +84,22 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                         string cellData;
 
                         if (CheckCellData.CellTypeNumeric(_sheet.GetRow(r).GetCell(c)) != -1)
+                        {
                             cellData = CheckCellData.CellTypeNumeric(_sheet.GetRow(r).GetCell(c)).ToString().Trim();
+                        }
                         else
+                        {
                             cellData = CheckCellData.CellTypeString(_sheet.GetRow(r).GetCell(c)).Trim();
+                        }
 
                         if (cellData != null && cellData != "")
                         {
-                            command.CommandText = "INSERT INTO Comments(farmid, sdate, category, description) VALUES (@FarmId,@date,@cat,@cellData)";
-                            command.Parameters.AddWithValue("@FarmId", FarmId);
-                            command.Parameters.AddWithValue("@date", date);
-                            command.Parameters.AddWithValue("@cat", cat);
-                            command.Parameters.AddWithValue("@cellData", cellData);
+                            command.CommandText = "INSERT INTO Observations(Branch_ID, Date_Sent, Category, Description, Weather) VALUES (@Branch_ID, @Date_Sent, @Category, @Description, @Weather)";
+                            command.Parameters.AddWithValue("@Branch_ID", BranchID);
+                            command.Parameters.AddWithValue("@Date_Sent", date);
+                            command.Parameters.AddWithValue("@Category", cat);
+                            command.Parameters.AddWithValue("@Description", cellData);
+                            command.Parameters.AddWithValue("@Weather", cellData);
                             command.ExecuteNonQuery();
                         }
                     }
@@ -108,18 +107,14 @@ namespace FortunaExcelProcessing.WeeklyProcessing
             }
         }
 
-        // <summary>
-        // 
-        // </summary>
-        // <param name="date"></param>
-        // <param name="farmID"></param>
-        // <returns></returns>
         private bool checkForExistingColumn(string date, int farmID)
         {
-            sql = $"SELECT sdate FROM Comments where sdate = '{date}' AND farmid = '{farmID}'";
+            sql = $"SELECT Date_Sent FROM Observations where Date_Sent = '{date}' AND Branch_ID = '{farmID}'";
             command = new SQLiteCommand(sql, dBConnection);
             if (command.ExecuteScalar() != null)
+            {
                 return true;
+            }
             return false;
         }
     }

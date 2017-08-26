@@ -111,8 +111,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="WeeklyProcessing\EditObservationsTable.cs" />
-    <Compile Include="WeeklyProcessing\EditInputTable.cs" />
-    <Compile Include="WeeklyProcessing\EditPaddocksTable.cs" />
+    <Compile Include="WeeklyProcessing\EditHivesTable.cs" />
     <Compile Include="WeeklyProcessing\EditWeeklyDataTable.cs" />
     <Compile Include="WeeklySheetFactory.cs" />
   </ItemGroup>

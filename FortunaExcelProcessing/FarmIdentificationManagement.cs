@@ -23,7 +23,7 @@ namespace FortunaExcelProcessing
                 {
                     using (SQLiteCommand cmd = new SQLiteCommand())
                     {
-                        cmd.CommandText = "INSERT INTO farms(farmid, name, area) values(@farmid,@farmname,@farmarea)";
+                        cmd.CommandText = "INSERT INTO  Branch (Branch_ID, Branch_Name) VALUES (@farmid,@farmname)";
                         cmd.Parameters.AddWithValue("@farmid", farmid);
                         cmd.Parameters.AddWithValue("@farmname", farmName.Trim());
                         cmd.Parameters.AddWithValue("@farmarea", area);
@@ -39,9 +39,9 @@ namespace FortunaExcelProcessing
         {
             dBConnection = new SQLiteConnection($"Data Source={FilePaths.DBFilePath};Version=3;");
             dBConnection.Open();
-            if (!Util.CheckForTable("farms"))
+            if (!Util.CheckForTable("Branch"))
             {
-                using (SQLiteCommand command = new SQLiteCommand("CREATE TABLE farms (fid INTEGER PRIMARY KEY, farmid INTEGER, name VARCHAR(50), area REAL);", dBConnection))
+                using (SQLiteCommand command = new SQLiteCommand("CREATE TABLE Branch (BID INTEGER PRIMARY KEY, Branch_ID INTEGER, Branch_Name VARCHAR(50));", dBConnection))
                 {
                     command.ExecuteNonQuery();
                 }
@@ -52,11 +52,13 @@ namespace FortunaExcelProcessing
 
         private bool CheckForExistingFarm(string data)
         {
-            string sql = $"SELECT farmid FROM farms where name = '{data}'";
+            string sql = $"SELECT Branch_ID FROM Branch WHERE name = '{data}'";
             using (SQLiteCommand command = new SQLiteCommand(sql, dBConnection))
             {
                 if (command.ExecuteScalar() != null)
+                {
                     return true;
+                }
             }
             return false;
         }

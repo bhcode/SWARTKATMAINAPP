@@ -14,7 +14,7 @@ namespace FortunaExcelProcessing.ConsilidatedReport
         static int _numOfFarms; static string _farmArea; static string _farmName;
         static int[] indent = InitRowLabels.indentation();
         static List<string> rowLabels = InitRowLabels.labelList();
-        static int[] calcedCells = InitFormulae.calcCellArray();
+        //static int[] calcedCells = InitFormulae.calcCellArray();
         static int[] dataCells = InitFormulae.dataCellArray();
 
         public void createWorkBook(string path, string date, Dictionary<int, string> dict)
@@ -43,8 +43,6 @@ namespace FortunaExcelProcessing.ConsilidatedReport
 
 
             Dictionary<int, string> databaseDatas = dict;
-
-            File.Create("FUCKME" + databaseDatas.Count + ".txt");
 
             int col = 2;
 
@@ -91,12 +89,12 @@ namespace FortunaExcelProcessing.ConsilidatedReport
                     if (i == 15) //Needs particular formatting
                     {
                         cell = _sheet.GetRow(15).CreateCell(col);
-                        FormulaFormatting.inputCellFifteen(cell, 15, b.Key);
+                        //FormulaFormatting.inputCellFifteen(cell, 15, b.Key);
                     }
                     else if (i == 55) //Needs particular formatting
                     {
                         cell = _sheet.GetRow(55).CreateCell(col);
-                        FormulaFormatting.inputCellFiftyFive(cell, 55, _farmArea);
+                        //FormulaFormatting.inputCellFiftyFive(cell, 55, _farmArea);
                     }
 
                     cell = _sheet.GetRow(dataCells[i]).CreateCell(col);
@@ -104,12 +102,12 @@ namespace FortunaExcelProcessing.ConsilidatedReport
                 }
 
 
-                Dictionary<int, string> formulae = InitFormulae.formulaeList();
-                foreach (var formula in formulae)
-                {
-                    cell = _sheet.GetRow(formula.Key).CreateCell(col);
-                    FormulaFormatting.inputCellFormula(string.Format(formula.Value, ConsolUtil.NumToColName(col)), cell);
-                }
+                //Dictionary<int, string> formulae = InitFormulae.formulaeList();
+                //foreach (var formula in formulae)
+                //{
+                //    cell = _sheet.GetRow(formula.Key).CreateCell(col);
+                //    //FormulaFormatting.inputCellFormula(string.Format(formula.Value, ConsolUtil.NumToColName(col)), cell);
+                //}
                 col++;
             }
         }
@@ -121,9 +119,14 @@ namespace FortunaExcelProcessing.ConsilidatedReport
 
             font = (XSSFFont)_wb.CreateFont();
             if (row == 0)
+            {
                 font.FontHeightInPoints = 14;
+            }
             else
+            {
                 font.FontHeightInPoints = 12;
+            }
+
             font.FontName = "Arial";
 
             style = (XSSFCellStyle)_wb.CreateCellStyle();

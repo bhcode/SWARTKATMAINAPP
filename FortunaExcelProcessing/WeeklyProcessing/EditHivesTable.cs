@@ -5,15 +5,11 @@ using System.Data.SQLite;
 
 namespace FortunaExcelProcessing.WeeklyProcessing
 {
-    class EditPaddocksTable : ITableEditor
+    class EditHivesTable : ITableEditor
     {
         ISheet paddockSheet;
         SQLiteConnection _dbCon;
 
-        // <summary>
-        // 
-        // </summary>
-        // <param name="sheet"></param>
         public void EditTable(ISheet sheet)
         {
             paddockSheet = sheet;
@@ -22,18 +18,16 @@ namespace FortunaExcelProcessing.WeeklyProcessing
 
             _dbCon.Open();
 
-            if (!Util.CheckForTable("paddocks"))
-                DBOperations.ExecuteDatabaseQuery("CREATE TABLE paddocks (farmid int(11), sdate VARCHAR(30), paddockid varchar(20), paddock float, crop varchar(20))", _dbCon);
+            if (!Util.CheckForTable("Hives"))
+            {
+                DBOperations.ExecuteDatabaseQuery("CREATE TABLE Hives (Hive_ID INTEGER PRIMARY KEY AUTOINCREMENT, Branch_ID INT (11), Date_Sent VARCHAR(30), Location VARCHAR(50), Honey_Super VARCHAR(50), Frames INT, Hive_Species VARCHAR(50), Forage_Enviornment(50))", _dbCon);
+            }
 
             ProcessData(_dbCon);
 
             _dbCon.Close();
         }
 
-        // <summary>
-        // 
-        // </summary>
-        // <param name="dbCon"></param>
         private void ProcessData(SQLiteConnection dbCon)
         {
             //default the date to the start of current week
@@ -55,18 +49,14 @@ namespace FortunaExcelProcessing.WeeklyProcessing
 
                     string data = string.Format("{0},'{1}','{2}',{3},'{4}')", Util.Farmid, Util.Date, row.GetCell((int)PaddockColumns.PaddockIDCol), row.GetCell((int)PaddockColumns.PaddockSizeCol), tmp);
 
-                    DBOperations.ExecuteDatabaseQuery("INSERT INTO Paddocks values(" + data, dbCon);
+                    DBOperations.ExecuteDatabaseQuery("INSERT INTO Hives VALUES(" + data, dbCon);
                 }
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         private bool CheckForExistingData()
         {
-            string sql = $"SELECT paddockID FROM Paddocks WHERE sdate = '{Util.Date}' AND  farmid = '{Util.Farmid}'";
+            string sql = $"SELECT Hive_ID FROM Hives WHERE Date_Sent = '{Util.Date}' AND  Branch_ID = '{Util.Farmid}'";
             SQLiteCommand command = new SQLiteCommand(sql, _dbCon);
             if (command.ExecuteScalar() != null)
                 return true;

@@ -11,13 +11,9 @@ namespace FortunaExcelProcessing.WeeklyProcessing
     class EditWeeklyDataTable : ITableEditor
     {
         ISheet _sheet;
-        // <summary>
-        //
-        // </summary>
-        private int[] dataRows = { 6, 7, 8, 10, 11, 12, 13, 14, 16, 18, 19, 21, 22, 24, 28, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 50, 51, 52, 53, 54, 55, 56, 57, 101, 102, 103, 104, 105, 106, 109, 110, 111, 112, 113, 114 };
-        // <summary>
-        // 
-        // </summary>
+
+        private int[] dataRows = {  6, 7, 8, 10, 11, 12, 13, 14, 16, 18, 19, 21, 22, 24, 28, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42,
+                                    43, 44, 45, 50, 51, 52, 53, 54, 55, 56, 57, 101, 102, 103, 104, 105, 106, 109, 110, 111, 112, 113, 114 };
         private string[] dataLabels = { "Honey (kg)", "Honey to Date (kg)" , "Avg Honey Per Hive (kg)", "Royal Honey (kg)", "Avg Royal Honey Per Hive (kg)",
                                         "Royal Honey to Date (kg)","Beeswax (kg)","Feeding","Honey Store","Pollen Store","Honey Feed","Pollen Feed","Ener-H-Plus","HFCS-55",
                                         "Vita Feed Gold","Pollen Patty","Living Conditions","Hive Condition","Temper","Odor","Population","Laying Pattern",
@@ -25,18 +21,14 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                                         "Disease Information","Diseased Hives","Hives Treated","Replacement Hives","Bees Bought (kg)","Conditions","Avg Temperature","New Queens"};
         string sql; SQLiteCommand command; SQLiteConnection dbConn;
 
-        // <summary>
-        // 
-        // </summary>
-        // <param name="sheet"></param>
         public void EditTable(ISheet sheet)
         {
-            dbConn = new SQLiteConnection(string.Format("Data Source={0};Version=3;", FilePaths.DBFilePath));
+            dbConn = new SQLiteConnection($"Data Source={FilePaths.DBFilePath};Version=3;");
             dbConn.Open();
             _sheet = sheet;
-            if (!CheckForTable())
+            if (!Util.CheckForTable("Weekly_Data"))
             {
-                sql = "CREATE TABLE WeeklyData(id INTEGER PRIMARY KEY AUTOINCREMENT, farmid INTEGER, date VARCHAR(30), data VARCHAR(1104));";
+                sql = "CREATE TABLE Weekly_Data(Data_ID INTEGER PRIMARY KEY AUTOINCREMENT, Branch_ID INTEGER, Date_Sent VARCHAR(30), Data_Array VARCHAR(1104));";
                 command = new SQLiteCommand(sql, dbConn);
                 command.ExecuteNonQuery();
             }
@@ -44,10 +36,6 @@ namespace FortunaExcelProcessing.WeeklyProcessing
             dbConn.Close();
         }
 
-        // <summary>
-        // 
-        // </summary>
-        // <param name="dbConn"></param>
         private void WeeklyDataTable(SQLiteConnection dbConn)
         {
             int FarmId = Util.GetFarmID(CheckCellData.CellTypeString(_sheet.GetRow(2).GetCell(1)));
@@ -69,8 +57,8 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                         }
 
                         output = output + CheckCellData.CellTypeNumeric(_sheet.GetRow(dataRows.Length - 1).GetCell(c)) + "]";
-                        command.CommandText = $"INSERT INTO Datas(farmid, date, data) VALUES({FarmId}, @date,'{output}');";
-                        command.Parameters.AddWithValue("@date", date);
+                        command.CommandText = $"INSERT INTO Datas(Branch_ID, Date_Sent, Data_Array) VALUES({FarmId}, @Date_Sent,'{output}');";
+                        command.Parameters.AddWithValue("@Date_Sent", date);
                         command.ExecuteNonQuery();
                         output = "";
                     }
@@ -78,16 +66,11 @@ namespace FortunaExcelProcessing.WeeklyProcessing
             }
         }
 
-        // <summary>
-        // 
-        // </summary>
-        // <param name="farmName"></param>
-        // <returns></returns>
-        private int GetFarmID(string farmName)
+        private int GetFarmID(string branchName)
         {
             SQLiteCommand cmd = new SQLiteCommand();
-            cmd.CommandText = "SELECT farmid FROM farms where name = '@fn'";
-            cmd.Parameters.AddWithValue("@fn", farmName);
+            cmd.CommandText = "SELECT Branch_ID FROM Branch where Branch_Name = '@branchName'";
+            cmd.Parameters.AddWithValue("@branchName", branchName);
             cmd.Connection = dbConn;
 
             string response = cmd.ExecuteScalar().ToString();
@@ -98,39 +81,26 @@ namespace FortunaExcelProcessing.WeeklyProcessing
             //command = new SQLiteCommand(sql, dbConn);
         }
 
-        // <summary>
-        // 
-        // </summary>
-        // <param name="date"></param>
-        // <param name="farmID"></param>
-        // <returns></returns>
         private bool checkForExistingColumn(string date, int farmID)
         {
-            sql = $"SELECT date FROM Datas where date = '{date}' AND farmid = '{farmID}'";
+            sql = $"SELECT Date_Sent FROM Weekly_Data where Date_Sent = '{date}' AND Branch_ID = '{farmID}'";
             command = new SQLiteCommand(sql, dbConn);
             if (command.ExecuteScalar() != null)
                 return true;
             return false;
         }
 
-        // <summary>
-        // 
-        // </summary>
-        // <returns></returns>
-        private bool CheckForTable()
-        {
-            sql = "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'Datas'";
-            command = new SQLiteCommand(sql, dbConn);
-            if (command.ExecuteScalar() != null)
-                return true;
 
-            return false;
-        }
+        //private bool CheckForTable()
+        //{
+        //    sql = "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'Datas'";
+        //    command = new SQLiteCommand(sql, dbConn);
+        //    if (command.ExecuteScalar() != null)
+        //        return true;
 
-        // <summary>
-        // 
-        // </summary>
-        // <param name="command"></param>
+        //    return false;
+        //}
+
         private void ExecuteDatabaseQuery(string command)
         {
             SQLiteCommand cmd = new SQLiteCommand();

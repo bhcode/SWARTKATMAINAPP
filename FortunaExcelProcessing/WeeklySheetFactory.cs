@@ -14,10 +14,10 @@ namespace FortunaExcelProcessing
 
             switch (sheetName)
             {
-                case "paddocks":
+                case "Hives":
                     sheetChoser = new WeeklyProcessing.EditHivesTable();
                     break;
-                case "Weekly Comments":
+                case "Weekly Observations":
                     sheetChoser = new WeeklyProcessing.EditObservationsTable();
                     break;
                 case "Weekly Data":

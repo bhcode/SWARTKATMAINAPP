@@ -22,7 +22,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\FortunaExcelProcessing.xml</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -81,12 +82,10 @@
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CheckCellData.cs" />
@@ -99,11 +98,10 @@
     <Compile Include="ConsilidatedReport\processConsolidated.cs" />
     <Compile Include="DBExtras\Formulas.cs" />
     <Compile Include="DBExtras\Labels.cs" />
-    <Compile Include="DBExtras\Utils.cs" />
     <Compile Include="DBOperations.cs" />
     <Compile Include="ErrorHandling\Error.cs" />
     <Compile Include="ErrorHandling\ErrorReporter.cs" />
-    <Compile Include="FarmIdentificationManagement.cs" />
+    <Compile Include="BranchIDManagement.cs" />
     <Compile Include="FilePaths.cs" />
     <Compile Include="FormulaEntry.cs" />
     <Compile Include="ITableEditor.cs" />

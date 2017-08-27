@@ -21,7 +21,10 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             int first = col / 26;
             int second = col % 26;
             string code = "";
-            if (first > 0) code += (char)(first + 64);
+            if (first > 0)
+            {
+                code += (char)(first + 64);
+            }
             code += (char)(second + 65);
             return code;
         }
@@ -33,14 +36,14 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             return Encoding.UTF8.GetString(raw);
         }
 
-        public static void getDate()
+        public static void GetDate()
         {
             DateTime date = DateTime.Now.StartOfWeek(DayOfWeek.Monday);
             DateStorage.PartialDate = date.ToString("dd MMM");
             DateStorage.FullDate = date.ToString("yyyy-MM-dd");
         }
 
-        public static void getDate(string date1)
+        public static void GetDate(string date1)
         {
             DateTime dt = DateTime.Parse(date1);
             DateTime date = dt.StartOfWeek(DayOfWeek.Monday);
@@ -48,36 +51,35 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             DateStorage.FullDate = date.ToString("yyyy-MM-dd");
         }
 
-        public static void inputDataToSheet(string input, ICell cell)
+        public static void InputDataToSheet(string input, ICell cell)
         {
             double cellValue = double.Parse(input);
             cell.SetCellType(CellType.Numeric);
             cell.SetCellValue(cellValue);
         }
 
-        public static string getFarmName(int farmId)
+        public static string GetFarmName(int farmId)
         {
             string tmp = ReceiveResponse(string.Format("http://swartkat.fossul.com/gui/getfarmname?farmid={0}", farmId));
-            //Takes in the farmname and strips the " " off it, then returns it.
-            string stripper = tmp.Substring(1, tmp.Length - 2);
-            return stripper;
+            string stripped = tmp.Substring(1, tmp.Length - 2);
+            return stripped;
         }
 
-        public static string getFarmArea(int farmId)
+        public static string GetFarmArea(int farmId)
         {
             string tmp = ReceiveResponse(string.Format("http://swartkat.fossul.com/gui/getarea?farmid={0}", farmId));
-            string stripper = tmp.Substring(1, tmp.Length - 2);
-            return stripper;
+            string stripped = tmp.Substring(1, tmp.Length - 2);
+            return stripped;
         }
 
-        public static string getCows(int farmId)
+        public static string GetCows(int farmId)
         {
             string tmp = ReceiveResponse(string.Format("http://swartkat.fossul.com/gui/getcows?farmid={0}", farmId));
-            string stripper = tmp.Substring(1, tmp.Length - 2);
-            return stripper;
+            string stripped = tmp.Substring(1, tmp.Length - 2);
+            return stripped;
         }
 
-        public static Dictionary<int, string> getData(string fullDate)
+        public static Dictionary<int, string> GetData(string fullDate)
         {
             Dictionary<int, string> _databaseDatas = new Dictionary<int, string>();
 
@@ -85,7 +87,7 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             {
                 con.Open();
 
-                string cstring = $"SELECT farmid, data FROM Datas where date = '{fullDate}'";
+                string cstring = $"SELECT Branch_ID, Data_Array FROM Weekly_Data where Date_Sent = '{fullDate}'";
 
                 using (SQLiteCommand cmd = new SQLiteCommand(cstring, con))
                 {
@@ -107,7 +109,6 @@ namespace FortunaExcelProcessing.ConsilidatedReport
         public static int getNumberofFarms()
         {            
                 string tmp = ReceiveResponse(string.Format("http://swartkat.fossul.com/gui/getfarmcount"));
-                //string stripper = tmp.Substring(1, tmp.Length - 1);
                 return int.Parse(tmp);
         }
     }

@@ -13,9 +13,6 @@ public enum PaddockColumns
 
 public static class Util {
 
-    static int farmid;
-    static string date;
-
     public static string DForm()
     {
         return "yyyy-MM-dd hh:mm:ss";
@@ -31,7 +28,7 @@ public static class Util {
         using (SQLiteConnection dBConnection = new SQLiteConnection(string.Format("Data Source={0};Version=3;", FilePaths.DBFilePath)))
         {
             dBConnection.Open();
-            string sql = $"SELECT farmid FROM farms where name = '{fn}';";
+            string sql = $"SELECT Branch_ID FROM Branch where Branch_ID = '{fn}';";
             using (SQLiteCommand command = new SQLiteCommand(sql, dBConnection))
             {
                 if (command.ExecuteScalar() != null)

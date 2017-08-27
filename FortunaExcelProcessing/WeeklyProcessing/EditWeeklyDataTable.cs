@@ -44,8 +44,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
             {
                 if (CheckCellData.CellTypeNumeric(_sheet.GetRow(7).GetCell(c)) != -1)
                 {
-                    //Console.WriteLine("I'm working!");
-                    string date = CheckCellData.CellWeirdDate(_sheet.GetRow(3).GetCell(c)).ToString("yyyy-MM-dd");
+                    string date = CheckCellData.CellTypeDate(_sheet.GetRow(3).GetCell(c)).ToString("yyyy-MM-dd");
 
                     if (!checkForExistingColumn(date, FarmId))
                     {
@@ -57,7 +56,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                         }
 
                         output = output + CheckCellData.CellTypeNumeric(_sheet.GetRow(dataRows.Length - 1).GetCell(c)) + "]";
-                        command.CommandText = $"INSERT INTO Datas(Branch_ID, Date_Sent, Data_Array) VALUES({FarmId}, @Date_Sent,'{output}');";
+                        command.CommandText = $"INSERT INTO Weekly_Data(Branch_ID, Date_Sent, Data_Array) VALUES({FarmId}, @Date_Sent,'{output}');";
                         command.Parameters.AddWithValue("@Date_Sent", date);
                         command.ExecuteNonQuery();
                         output = "";
@@ -89,17 +88,6 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                 return true;
             return false;
         }
-
-
-        //private bool CheckForTable()
-        //{
-        //    sql = "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'Datas'";
-        //    command = new SQLiteCommand(sql, dbConn);
-        //    if (command.ExecuteScalar() != null)
-        //        return true;
-
-        //    return false;
-        //}
 
         private void ExecuteDatabaseQuery(string command)
         {

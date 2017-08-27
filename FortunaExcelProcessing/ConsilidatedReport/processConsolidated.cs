@@ -10,16 +10,17 @@ namespace FortunaExcelProcessing.ConsilidatedReport
 {
     public class processConsolidated
     {
-        static ISheet _sheet; static IWorkbook _wb;
+        static ISheet _sheet;
+        static IWorkbook _wb;
         static int _numOfFarms; static string _farmArea; static string _farmName;
-        static int[] indent = InitRowLabels.indentation();
-        static List<string> rowLabels = InitRowLabels.labelList();
+        static int[] _indent = InitRowLabels.indentation();
+        static List<string> _rowLabels = InitRowLabels.labelList();
         //static int[] calcedCells = InitFormulae.calcCellArray();
-        static int[] dataCells = InitFormulae.dataCellArray();
+        static int[] _dataCells = InitFormulae.dataCellArray();
 
         public void createWorkBook(string path, string date, Dictionary<int, string> dict)
         {
-            ConsolUtil.getDate(date);
+            ConsolUtil.GetDate(date);
             _wb = new XSSFWorkbook();
             _sheet = _wb.CreateSheet(DateStorage.PartialDate);
             workbookData(dict);
@@ -52,8 +53,8 @@ namespace FortunaExcelProcessing.ConsilidatedReport
 
                 string stripper = b.Value.Substring(1, b.Value.Length - 2);
                 string[] sArray = stripper.Split(',');
-                _farmName = ConsolUtil.getFarmName(b.Key);
-                _farmArea = ConsolUtil.getFarmArea(b.Key);
+                _farmName = ConsolUtil.GetFarmName(b.Key);
+                _farmArea = ConsolUtil.GetFarmArea(b.Key);
 
                 for (int i = 0; i < 33; i++)
                 {
@@ -83,7 +84,7 @@ namespace FortunaExcelProcessing.ConsilidatedReport
                     if (i == 2) //Farm Area
                     {
                         cell = _sheet.GetRow(2).CreateCell(col);
-                        ConsolUtil.inputDataToSheet(_farmArea, cell);
+                        ConsolUtil.InputDataToSheet(_farmArea, cell);
                     }
 
                     if (i == 15) //Needs particular formatting
@@ -97,8 +98,8 @@ namespace FortunaExcelProcessing.ConsilidatedReport
                         //FormulaFormatting.inputCellFiftyFive(cell, 55, _farmArea);
                     }
 
-                    cell = _sheet.GetRow(dataCells[i]).CreateCell(col);
-                    ConsolUtil.inputDataToSheet(sArray[i], cell);
+                    cell = _sheet.GetRow(_dataCells[i]).CreateCell(col);
+                    ConsolUtil.InputDataToSheet(sArray[i], cell);
                 }
 
 
@@ -131,7 +132,7 @@ namespace FortunaExcelProcessing.ConsilidatedReport
 
             style = (XSSFCellStyle)_wb.CreateCellStyle();
 
-            if (indent.Contains(row))
+            if (_indent.Contains(row))
             {
                 cell = _sheet.CreateRow(row).CreateCell(1);
                 font.IsBold = false;
@@ -143,7 +144,7 @@ namespace FortunaExcelProcessing.ConsilidatedReport
                 font.IsBold = true;
                 style.SetFont(font);
             }
-            cell.SetCellValue(rowLabels[row]);
+            cell.SetCellValue(_rowLabels[row]);
             cell.CellStyle = style;
 
             //PRFM and EFF

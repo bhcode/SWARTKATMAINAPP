@@ -7,12 +7,12 @@ namespace FortunaExcelProcessing.WeeklyProcessing
 {
     class EditHivesTable : ITableEditor
     {
-        ISheet paddockSheet;
+        ISheet _paddockSheet;
         SQLiteConnection _dbCon;
 
         public void EditTable(ISheet sheet)
         {
-            paddockSheet = sheet;
+            _paddockSheet = sheet;
 
             _dbCon = new SQLiteConnection(string.Format("Data Source={0};Version=3;", FilePaths.DBFilePath));
 
@@ -35,9 +35,9 @@ namespace FortunaExcelProcessing.WeeklyProcessing
 
             if (!CheckForExistingData())
             {
-                for (int y = 0; y <= paddockSheet.LastRowNum; y++)
+                for (int y = 0; y <= _paddockSheet.LastRowNum; y++)
                 {
-                    IRow row = paddockSheet.GetRow(y);
+                    IRow row = _paddockSheet.GetRow(y);
                     if (row.GetCell(0) == null)
                         break;
 
@@ -59,7 +59,9 @@ namespace FortunaExcelProcessing.WeeklyProcessing
             string sql = $"SELECT Hive_ID FROM Hives WHERE Date_Sent = '{Util.Date}' AND  Branch_ID = '{Util.Farmid}'";
             SQLiteCommand command = new SQLiteCommand(sql, _dbCon);
             if (command.ExecuteScalar() != null)
+            {
                 return true;
+            }
             return false;
         }
     }

@@ -7,19 +7,12 @@ using NPOI.SS.UserModel;
 
 namespace FortunaExcelProcessing.ErrorHandling
 {
-    /// <summary>
-    /// The Error reporter is intended to take any exceptions from the GUI that occur when processing the excel documents
-    /// Please note that exceptions must be added to the list, 
-    /// </summary>
     public static class ErrorReporter
     {
         public static List<Error> SoftErrors { get; set; }
 
         public static List<Error> HardErrors { get; set; }
 
-        /// <summary>
-        /// Clear error lists
-        /// </summary>
         public static void ResetErrors()
         {
             SoftErrors = new List<Error>();

@@ -3,21 +3,20 @@ using System.Data.SQLite;
 
 namespace FortunaExcelProcessing
 {
-    public class FarmIdentificationManagement
+    public class BranchIDManagement
     {
-        SQLiteConnection dBConnection;
-
-
         /*---------------------------------------------------------------------------
-         |This needs to be initialized first before other DB/Operations are performed|
-         --------------------------------------------------------------------------- */
+        |This needs to be initialized first before other DB/Operations are performed|
+        --------------------------------------------------------------------------- */
+
+        SQLiteConnection _dBConnection;
 
         public void EditTable(int farmid, string farmName, double area)
         {
             Util.Date = DateTime.Now.StartOfWeek(DayOfWeek.Monday).ToString("yyyy-MM-dd");
-            using (dBConnection = new SQLiteConnection($"Data Source={FilePaths.DBFilePath};Version=3;"))
+            using (_dBConnection = new SQLiteConnection($"Data Source={FilePaths.DBFilePath};Version=3;"))
             {
-                dBConnection.Open();
+                _dBConnection.Open();
 
                 if (!CheckForExistingFarm(farmName))
                 {
@@ -27,33 +26,33 @@ namespace FortunaExcelProcessing
                         cmd.Parameters.AddWithValue("@farmid", farmid);
                         cmd.Parameters.AddWithValue("@farmname", farmName.Trim());
                         cmd.Parameters.AddWithValue("@farmarea", area);
-                        cmd.Connection = dBConnection;
+                        cmd.Connection = _dBConnection;
                         cmd.ExecuteNonQuery();
                     }
                 }
-                dBConnection.Close();
+                _dBConnection.Close();
             }
         }
 
         public void CreateFarmTable()
         {
-            dBConnection = new SQLiteConnection($"Data Source={FilePaths.DBFilePath};Version=3;");
-            dBConnection.Open();
+            _dBConnection = new SQLiteConnection($"Data Source={FilePaths.DBFilePath};Version=3;");
+            _dBConnection.Open();
             if (!Util.CheckForTable("Branch"))
             {
-                using (SQLiteCommand command = new SQLiteCommand("CREATE TABLE Branch (BID INTEGER PRIMARY KEY, Branch_ID INTEGER, Branch_Name VARCHAR(50));", dBConnection))
+                using (SQLiteCommand command = new SQLiteCommand("CREATE TABLE Branch (BID INTEGER PRIMARY KEY, Branch_ID INTEGER, Branch_Name VARCHAR(50));", _dBConnection))
                 {
                     command.ExecuteNonQuery();
                 }
             }
-            dBConnection.Close();
+            _dBConnection.Close();
         }
 
 
         private bool CheckForExistingFarm(string data)
         {
             string sql = $"SELECT Branch_ID FROM Branch WHERE name = '{data}'";
-            using (SQLiteCommand command = new SQLiteCommand(sql, dBConnection))
+            using (SQLiteCommand command = new SQLiteCommand(sql, _dBConnection))
             {
                 if (command.ExecuteScalar() != null)
                 {

@@ -10,15 +10,12 @@ using System.Data.SQLite;
 
 namespace FortunaExcelProcessing
 {
-    //https://github.com/tonyqus/npoi/tree/master/examples/xssf
-
     public class ProcessData
     {
         private FileStream _file;
         private IWorkbook _wb;
         private List<string> _tabNames = new List<string>();
 
-        #region public properties
         public IWorkbook Wb
         {
             get { return _wb; }
@@ -33,7 +30,6 @@ namespace FortunaExcelProcessing
         {
             _file = File.OpenRead(path);
         }
-        #endregion
 
         public void CreateWorkBook()
         {
@@ -53,11 +49,6 @@ namespace FortunaExcelProcessing
             }
 
             FilePaths.DBFilePath = (@"C:\Database\database.sqlite");
-
-            //if (!Util.CheckForTable("Formulae"))
-            //{
-            //    DBExtras.Formulas.MakeFormulae(@"C:\Database\database.sqlite");
-            //}
 
             if (!Util.CheckForTable("Labels"))
             {

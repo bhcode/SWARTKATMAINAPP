@@ -8,26 +8,28 @@ namespace FortunaExcelProcessing.WeeklyProcessing
     public class EditObservationsTable : ITableEditor
     {
         ISheet _sheet;
-        string sql; SQLiteCommand command; SQLiteConnection dBConnection;
+        string _sql;
+        SQLiteCommand _command;
+        SQLiteConnection _dBConnection;
 
-        public string[] category = { "'Animal Health'", "'Fertiliser Application'", "'Jobs Last Week'", "'Jobs This Week'", "'Stock'", "'General'", "'Resource Management Issues'" };
+        public string[] _category = { "'Animal Health'", "'Fertiliser Application'", "'Jobs Last Week'", "'Jobs This Week'", "'Stock'", "'General'", "'Resource Management Issues'" };
 
         public void EditTable(ISheet sheet)
         {
-            dBConnection = new SQLiteConnection(string.Format("Data Source={0};Version=3;", FilePaths.DBFilePath));
-            dBConnection.Open();
+            _dBConnection = new SQLiteConnection(string.Format("Data Source={0};Version=3;", FilePaths.DBFilePath));
+            _dBConnection.Open();
             _sheet = sheet;
 
             //Create the table if its not in the Database
             if (!Util.CheckForTable("Observations"))
             {
-                sql = "CREATE TABLE Observations(Observation_ID INTEGER PRIMARY KEY AUTOINCREMENT, Branch_ID INTEGER, Date_Sent VARCHAR(30), Category VARCHAR(512), Description VARCHAR(512), Weather VARCHAR(512));";
-                command = new SQLiteCommand(sql, dBConnection);
-                command.ExecuteNonQuery();
+                _sql = "CREATE TABLE Observations(Observation_ID INTEGER PRIMARY KEY AUTOINCREMENT, Branch_ID INTEGER, Date_Sent VARCHAR(30), Category VARCHAR(512), Description VARCHAR(512), Weather VARCHAR(512));";
+                _command = new SQLiteCommand(_sql, _dBConnection);
+                _command.ExecuteNonQuery();
             }
 
-            CommentsTable(dBConnection);
-            dBConnection.Close();
+            CommentsTable(_dBConnection);
+            _dBConnection.Close();
         }
 
         private string GetComment(ISheet sheet, int r, int c)
@@ -61,7 +63,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
             //Go through each column, to the last column with a date available
             for (int c = 2; c < _sheet.GetRow(3).LastCellNum; c++)
             {
-                string date = CheckCellData.CellWeirdDate(_sheet.GetRow(3).GetCell(c)).ToString("yyyy-MM-dd");
+                string date = CheckCellData.CellTypeDate(_sheet.GetRow(3).GetCell(c)).ToString("yyyy-MM-dd");
                 Util.Date = date;
 
                 //check for empty column, if 'emptycount' == 0 then column is empty
@@ -79,7 +81,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                 {
                     for (int r = 4; r < 11; r++)
                     {
-                        string cat = category[r - 4];
+                        string cat = _category[r - 4];
 
                         string cellData;
 
@@ -94,13 +96,13 @@ namespace FortunaExcelProcessing.WeeklyProcessing
 
                         if (cellData != null && cellData != "")
                         {
-                            command.CommandText = "INSERT INTO Observations(Branch_ID, Date_Sent, Category, Description, Weather) VALUES (@Branch_ID, @Date_Sent, @Category, @Description, @Weather)";
-                            command.Parameters.AddWithValue("@Branch_ID", BranchID);
-                            command.Parameters.AddWithValue("@Date_Sent", date);
-                            command.Parameters.AddWithValue("@Category", cat);
-                            command.Parameters.AddWithValue("@Description", cellData);
-                            command.Parameters.AddWithValue("@Weather", cellData);
-                            command.ExecuteNonQuery();
+                            _command.CommandText = "INSERT INTO Observations(Branch_ID, Date_Sent, Category, Description, Weather) VALUES (@Branch_ID, @Date_Sent, @Category, @Description, @Weather)";
+                            _command.Parameters.AddWithValue("@Branch_ID", BranchID);
+                            _command.Parameters.AddWithValue("@Date_Sent", date);
+                            _command.Parameters.AddWithValue("@Category", cat);
+                            _command.Parameters.AddWithValue("@Description", cellData);
+                            _command.Parameters.AddWithValue("@Weather", cellData);
+                            _command.ExecuteNonQuery();
                         }
                     }
                 }
@@ -109,9 +111,9 @@ namespace FortunaExcelProcessing.WeeklyProcessing
 
         private bool checkForExistingColumn(string date, int farmID)
         {
-            sql = $"SELECT Date_Sent FROM Observations where Date_Sent = '{date}' AND Branch_ID = '{farmID}'";
-            command = new SQLiteCommand(sql, dBConnection);
-            if (command.ExecuteScalar() != null)
+            _sql = $"SELECT Date_Sent FROM Observations where Date_Sent = '{date}' AND Branch_ID = '{farmID}'";
+            _command = new SQLiteCommand(_sql, _dBConnection);
+            if (_command.ExecuteScalar() != null)
             {
                 return true;
             }

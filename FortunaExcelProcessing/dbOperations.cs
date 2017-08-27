@@ -7,6 +7,7 @@ namespace FortunaExcelProcessing
 {
     class DBOperations
     {
+        //Full Command is Passed
         public static void ExecuteDatabaseQuery(string command, SQLiteConnection dbConn)
         {
             SQLiteCommand cmd = new SQLiteCommand();
@@ -16,6 +17,7 @@ namespace FortunaExcelProcessing
             cmd.ExecuteNonQuery();
         }
 
+        //Partial Command is passed with List to iterate through
         public static void ExecuteDatabaseQuery(string command, SQLiteConnection dbConn, List<string> data)
         {
             string tmp = command;

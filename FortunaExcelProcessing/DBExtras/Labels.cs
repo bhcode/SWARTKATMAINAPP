@@ -30,9 +30,7 @@ namespace FortunaExcelProcessing.DBExtras
 
                 foreach (string rl in rowLabels)
                 {
-                    command.CommandText = $"INSERT INTO Labels(label) VALUES('@label');";
-                    command.Parameters.AddWithValue("@label", rl);
-                    command.ExecuteNonQuery();
+                    DBOperations.ExecuteDatabaseQuery($"INSERT INTO Labels(label) VALUES({rl});", _dBConnection);
                 }
             }
             _dBConnection.Close();

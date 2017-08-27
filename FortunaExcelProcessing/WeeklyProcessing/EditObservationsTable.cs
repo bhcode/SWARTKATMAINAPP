@@ -12,7 +12,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
         SQLiteCommand _command;
         SQLiteConnection _dBConnection;
 
-        public string[] _category = { "'Animal Health'", "'Fertiliser Application'", "'Jobs Last Week'", "'Jobs This Week'", "'Stock'", "'General'", "'Resource Management Issues'" };
+        //public string[] _category = { "'Animal Health'", "'Fertiliser Application'", "'Jobs Last Week'", "'Jobs This Week'", "'Stock'", "'General'", "'Resource Management Issues'" };
 
         public void EditTable(ISheet sheet)
         {
@@ -32,18 +32,9 @@ namespace FortunaExcelProcessing.WeeklyProcessing
             _dBConnection.Close();
         }
 
-        private string GetComment(ISheet sheet, int r, int c)
+        private string GetComment(ICell cell)
         {
-            IRow row = sheet.GetRow(r);
-            if (row == null)
-            {
-                return "";
-            }
-            ICell cell = row.GetCell(c);
-            if (cell == null)
-            {
-                return "";
-            }
+
             if (cell.CellType == CellType.Numeric)
             {
                 return cell.NumericCellValue.ToString();
@@ -68,7 +59,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
 
                 //check for empty column, if 'emptycount' == 0 then column is empty
                 int emptycount = 0;
-                for (int r = 4; r < 11; r++)
+                for (int r = 4; r < 13; r++)
                 {
                     ICell checkCell = _sheet.GetRow(r).GetCell(c);
                     if (CheckCellData.CellTypeString(checkCell).Trim() == "" || checkCell == null)
@@ -77,32 +68,20 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                     }
                 }
 
-                if (!checkForExistingColumn(date, BranchID) && emptycount < 7)
+                if (!checkForExistingColumn(date, BranchID) && emptycount < 10)
                 {
-                    for (int r = 4; r < 11; r++)
+                    for (int r = 2; r < 13; r += 3)
                     {
-                        string cat = _category[r - 4];
-
-                        string cellData;
-
-                        if (CheckCellData.CellTypeNumeric(_sheet.GetRow(r).GetCell(c)) != -1)
-                        {
-                            cellData = CheckCellData.CellTypeNumeric(_sheet.GetRow(r).GetCell(c)).ToString().Trim();
-                        }
-                        else
-                        {
-                            cellData = CheckCellData.CellTypeString(_sheet.GetRow(r).GetCell(c)).Trim();
-                        }
-
-                        if (cellData != null && cellData != "")
+                        if (r != 5 || r != 9)
                         {
                             _command.CommandText = "INSERT INTO Observations(Branch_ID, Date_Sent, Category, Description, Weather) VALUES (@Branch_ID, @Date_Sent, @Category, @Description, @Weather)";
                             _command.Parameters.AddWithValue("@Branch_ID", BranchID);
                             _command.Parameters.AddWithValue("@Date_Sent", date);
-                            _command.Parameters.AddWithValue("@Category", cat);
-                            _command.Parameters.AddWithValue("@Description", cellData);
-                            _command.Parameters.AddWithValue("@Weather", cellData);
+                            _command.Parameters.AddWithValue("@Category", GetComment(_sheet.GetRow(r).GetCell(1)));
+                            _command.Parameters.AddWithValue("@Description", GetComment(_sheet.GetRow(r + 1).GetCell(1)));
+                            _command.Parameters.AddWithValue("@Weather", GetComment(_sheet.GetRow(r + 2).GetCell(1)));
                             _command.ExecuteNonQuery();
+
                         }
                     }
                 }

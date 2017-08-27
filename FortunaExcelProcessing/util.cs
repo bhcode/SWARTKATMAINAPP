@@ -4,11 +4,9 @@ using System.Data.SQLite;
 using FortunaExcelProcessing;
 
 
-public enum PaddockColumns
+public enum HiveCol
 {
-    PaddockIDCol = 0,
-    PaddockSizeCol = 1,
-    PaddockCropCol = 2
+    IDCol = 0, LocCol = 1, HiveBodyCol = 2, HoneySupCol = 3, FramesCol = 4, HiveSpeciesCol = 5, ForageCol = 6
 }
 
 public static class Util {

@@ -39,16 +39,10 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                 {
                     IRow row = _paddockSheet.GetRow(y);
                     if (row.GetCell(0) == null)
+                    {
                         break;
-
-                    string tmp;
-                    if (row.GetCell((int)PaddockColumns.PaddockCropCol) == null)
-                        tmp = "none";
-                    else
-                        tmp = row.GetCell((int)PaddockColumns.PaddockCropCol).ToString();
-
-                    string data = string.Format("{0},'{1}','{2}',{3},'{4}')", Util.Farmid, Util.Date, row.GetCell((int)PaddockColumns.PaddockIDCol), row.GetCell((int)PaddockColumns.PaddockSizeCol), tmp);
-
+                    }
+                    string data = $"{Util.Farmid},'{Util.Date}','{row.GetCell((int)HiveCol.LocCol)}','{row.GetCell((int)HiveCol.HiveBodyCol)}','{row.GetCell((int)HiveCol.HoneySupCol)}','{ row.GetCell((int)HiveCol.FramesCol)}','{row.GetCell((int)HiveCol.HiveSpeciesCol)}','{row.GetCell((int)HiveCol.ForageCol)}'";
                     DBOperations.ExecuteDatabaseQuery("INSERT INTO Hives VALUES(" + data, dbCon);
                 }
             }

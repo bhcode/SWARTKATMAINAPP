@@ -7,6 +7,7 @@ using NPOI.XSSF;
 using System.IO;
 using NPOI.SS.UserModel;
 using System.Data.SQLite;
+using FortunaExcelProcessing.Properties;
 
 namespace FortunaExcelProcessing
 {
@@ -41,24 +42,27 @@ namespace FortunaExcelProcessing
             }
         }
 
+        /// <summary>
+        /// creates a new local database if the directory or database does not currently exist
+        /// Creates and populates a labels table
+        /// </summary>
         public void createSQLiteDB()
         {
-            if (!File.Exists(@"C:\Database\"))
+            if (!Directory.Exists(settings.Default.WorkingFolder))
             {
-                Directory.CreateDirectory(@"C:\Database\");
+                Directory.CreateDirectory(settings.Default.WorkingFolder);
             }
-
-            FilePaths.DBFilePath = (@"C:\Database\database.sqlite");
 
             if (!Util.CheckForTable("Labels"))
             {
-                DBExtras.Labels.MakeLabels(@"C:\Database\database.sqlite");
+                DBExtras.Labels.MakeLabels(settings.Default.DbFilePath); //create labels table and populate it
             }
 
-            if (!File.Exists(FilePaths.DBFilePath))
+            if (!File.Exists(settings.Default.DbFilePath))
             {
-                SQLiteConnection.CreateFile(FilePaths.DBFilePath);
+                SQLiteConnection.CreateFile(settings.Default.DbFilePath); //create database at the specified file path
             }
+
 
         }
 
@@ -71,7 +75,11 @@ namespace FortunaExcelProcessing
                 {
                     o.EditTable(_wb.GetSheet(tabName));
                 }
+                else
+                    throw new Exception("Object is null");
             }
+            else
+                throw new Exception("Sheet does not exist");
         }
 
         public void CloseWorkbook()

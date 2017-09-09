@@ -2,6 +2,7 @@
 using System.Text;
 using NPOI.SS.UserModel;
 using System.Data.SQLite;
+using FortunaExcelProcessing.Properties;
 
 namespace FortunaExcelProcessing.WeeklyProcessing
 {
@@ -16,7 +17,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
 
         public void EditTable(ISheet sheet)
         {
-            _dBConnection = new SQLiteConnection(string.Format("Data Source={0};Version=3;", FilePaths.DBFilePath));
+            _dBConnection = new SQLiteConnection(string.Format("Data Source={0};Version=3;", settings.Default.DbFilePath));
             _dBConnection.Open();
             _sheet = sheet;
 
@@ -27,6 +28,8 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                 _command = new SQLiteCommand(_sql, _dBConnection);
                 _command.ExecuteNonQuery();
             }
+            else
+                throw new Exception("Table already exists");
 
             CommentsTable(_dBConnection);
             _dBConnection.Close();

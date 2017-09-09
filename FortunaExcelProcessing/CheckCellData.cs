@@ -28,22 +28,9 @@ namespace FortunaExcelProcessing
             return _cell.RichStringCellValue.ToString();
         }
 
-        //public static DateTime CellWeirdDate(ICell _cell)
-        //{
-        //    if (DateUtil.IsCellDateFormatted(_cell))
-        //    {
-        //        DateTime date = _cell.DateCellValue;
-        //        ICellStyle style = _cell.CellStyle;
-        //        string format = style.GetDataFormatString().Replace('m', 'M');
-        //        if (date.Month < 6)
-        //            date.AddYears(1);
-        //        return date;
-        //    }
-        //    return DateTime.MinValue;
-        //}
-
         public static double CellTypeNumeric(ICell _cell)
         {
+            
             if (_cell == null)
             {
                 //ErrorHandling.ErrorReporter.SoftErrors.Add(new ErrorHandling.Error(_cell, "Cell is not of the correct format"));

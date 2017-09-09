@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SQLite;
+using FortunaExcelProcessing.Properties;
 
 namespace FortunaExcelProcessing
 {
@@ -14,7 +15,7 @@ namespace FortunaExcelProcessing
         public void EditTable(int farmid, string farmName, double area)
         {
             Util.Date = DateTime.Now.StartOfWeek(DayOfWeek.Monday).ToString("yyyy-MM-dd");
-            using (_dBConnection = new SQLiteConnection($"Data Source={FilePaths.DBFilePath};Version=3;"))
+            using (_dBConnection = new SQLiteConnection($"Data Source={settings.Default.DbFilePath};Version=3;"))
             {
                 _dBConnection.Open();
 
@@ -36,7 +37,7 @@ namespace FortunaExcelProcessing
 
         public void CreateFarmTable()
         {
-            _dBConnection = new SQLiteConnection($"Data Source={FilePaths.DBFilePath};Version=3;");
+            _dBConnection = new SQLiteConnection($"Data Source={settings.Default.DbFilePath};Version=3;");
             _dBConnection.Open();
             if (!Util.CheckForTable("Branch"))
             {

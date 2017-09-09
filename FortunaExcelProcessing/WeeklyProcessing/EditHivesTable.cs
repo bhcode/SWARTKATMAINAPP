@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using NPOI.SS.UserModel;
 using System.Data.SQLite;
+using FortunaExcelProcessing.Properties;
 
 namespace FortunaExcelProcessing.WeeklyProcessing
 {
@@ -14,14 +15,16 @@ namespace FortunaExcelProcessing.WeeklyProcessing
         {
             _paddockSheet = sheet;
 
-            _dbCon = new SQLiteConnection(string.Format("Data Source={0};Version=3;", FilePaths.DBFilePath));
+            _dbCon = new SQLiteConnection(string.Format("Data Source={0};Version=3;", settings.Default.DbFilePath));
 
             _dbCon.Open();
 
             if (!Util.CheckForTable("Hives"))
             {
-                DBOperations.ExecuteDatabaseQuery("CREATE TABLE Hives (Hive_ID INTEGER PRIMARY KEY AUTOINCREMENT, Branch_ID INT (11), Date_Sent VARCHAR(30), Location VARCHAR(50), Honey_Super VARCHAR(50), Frames INT, Hive_Species VARCHAR(50), Forage_Enviornment(50))", _dbCon);
+                DBOperations.ExecuteDatabaseQuery("CREATE TABLE Hives (Hive_ID INTEGER PRIMARY KEY AUTOINCREMENT, Branch_ID INT (11), Date_Sent VARCHAR(30), Location VARCHAR(50), Honey_Super VARCHAR(50), Frames INT, Hive_Species VARCHAR(50), Forage_Enviornment(50));", _dbCon);
             }
+            else
+                throw new Exception("Table already exists");
 
             ProcessData(_dbCon);
 

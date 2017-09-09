@@ -92,21 +92,35 @@
     <Compile Include="ConsilidatedReport\ConsolUtil.cs" />
     <Compile Include="ConsilidatedReport\DateStorage.cs" />
     <Compile Include="DateTimeExtensions.cs" />
-    <Compile Include="ConsilidatedReport\FormulaFormatting.cs" />
     <Compile Include="ConsilidatedReport\InitFormulae.cs" />
     <Compile Include="ConsilidatedReport\InitRowLabels.cs" />
     <Compile Include="ConsilidatedReport\processConsolidated.cs" />
-    <Compile Include="DBExtras\Formulas.cs" />
     <Compile Include="DBExtras\Labels.cs" />
     <Compile Include="DBOperations.cs" />
+    <Compile Include="enums.cs" />
     <Compile Include="ErrorHandling\Error.cs" />
     <Compile Include="ErrorHandling\ErrorReporter.cs" />
     <Compile Include="BranchIDManagement.cs" />
-    <Compile Include="FilePaths.cs" />
-    <Compile Include="FormulaEntry.cs" />
+    <Compile Include="GUI\ModifySettings.cs" />
     <Compile Include="ITableEditor.cs" />
+    <Compile Include="Objects\Comment.cs" />
+    <Compile Include="Objects\DateHolder.cs" />
+    <Compile Include="Objects\Farm.cs" />
+    <Compile Include="Objects\FarmSupplement.cs" />
+    <Compile Include="Objects\Label.cs" />
+    <Compile Include="Objects\Paddock.cs" />
+    <Compile Include="Objects\User.cs" />
+    <Compile Include="Objects\WeeklyData.cs" />
     <Compile Include="ProcessData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Routing\DownloadData.cs" />
+    <Compile Include="Routing\ServerCommunication.cs" />
+    <Compile Include="Routing\UploadData.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="WeeklyProcessing\EditObservationsTable.cs" />
     <Compile Include="WeeklyProcessing\EditHivesTable.cs" />
@@ -116,6 +130,13 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Properties\settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Instructions.txt" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

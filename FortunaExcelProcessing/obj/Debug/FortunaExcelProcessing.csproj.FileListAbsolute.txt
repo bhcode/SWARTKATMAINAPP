@@ -134,7 +134,6 @@ F:\programs\github\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\EntityFramew
 F:\programs\github\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\EntityFramework.SqlServer.xml
 F:\programs\github\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\NPOI.xml
 F:\programs\github\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\System.Data.SQLite.xml
-F:\programs\github\SWARTKATMAINAPP\FortunaExcelProcessing\obj\Debug\FortunaExcelProcessing.csprojResolveAssemblyReference.cache
 F:\programs\github\SWARTKATMAINAPP\FortunaExcelProcessing\obj\Debug\FortunaExcelProcessing.dll
 F:\programs\github\SWARTKATMAINAPP\FortunaExcelProcessing\obj\Debug\FortunaExcelProcessing.pdb
 C:\github\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\FortunaExcelProcessing.dll.config
@@ -183,7 +182,6 @@ D:\Users\Thrain\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debu
 D:\Users\Thrain\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\Newtonsoft.Json.xml
 D:\Users\Thrain\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\NPOI.xml
 D:\Users\Thrain\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\System.Data.SQLite.xml
-F:\programs\github\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\FortunaExcelProcessing.xml
 F:\programs\github\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\Newtonsoft.Json.dll
 F:\programs\github\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\Newtonsoft.Json.xml
 C:\Users\ambro\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\FortunaExcelProcessing.dll.config
@@ -207,3 +205,4 @@ C:\Users\ambro\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug
 C:\Users\ambro\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\System.Data.SQLite.xml
 C:\Users\ambro\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\obj\Debug\FortunaExcelProcessing.dll
 C:\Users\ambro\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\obj\Debug\FortunaExcelProcessing.pdb
+F:\programs\github\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\System.Data.SQLite.dll.config

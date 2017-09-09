@@ -10,6 +10,7 @@ using System.Data.SQLite;
 //using Newtonsoft.Json;
 using System.Net;
 using System.Text;
+using FortunaExcelProcessing.Properties;
 
 
 namespace FortunaExcelProcessing.ConsilidatedReport
@@ -83,7 +84,7 @@ namespace FortunaExcelProcessing.ConsilidatedReport
         {
             Dictionary<int, string> _databaseDatas = new Dictionary<int, string>();
 
-            using (SQLiteConnection con = new SQLiteConnection(FilePaths.DBConString))
+            using (SQLiteConnection con = new SQLiteConnection(settings.Default.DbConString))
             {
                 con.Open();
 

@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FortunaExcelProcessing.Properties" GeneratedClassName="settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="WorkingFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Project\Temp</Value>
+    </Setting>
+    <Setting Name="DbName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">test</Value>
+    </Setting>
+    <Setting Name="DbFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Project\Temp\test.sqlite</Value>
+    </Setting>
+    <Setting Name="ReportName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DbConString" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>

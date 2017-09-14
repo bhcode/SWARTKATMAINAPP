@@ -37,15 +37,21 @@ namespace FortunaExcelProcessing.WeeklyProcessing
 
         private string GetComment(ICell cell)
         {
+            if (cell == null)
+                return "Null";
 
-            if (cell.CellType == CellType.Numeric)
+            if (cell.ToString().Length > 0)
             {
-                return cell.NumericCellValue.ToString();
+                if (cell.CellType == CellType.Numeric)
+                    return cell.NumericCellValue.ToString();
+
+                if (cell.CellType == CellType.String)
+                    return cell.StringCellValue;
+
+                return "Comment Error! c:" + cell.ColumnIndex + ", r:" + cell.RowIndex;
             }
-            if (cell.CellType == CellType.String) return cell.StringCellValue;
-            {
-                return cell.ToString();
-            }
+            else
+                return "Empty Comment";
         }
 
         private void CommentsTable(SQLiteConnection dBConnection)
@@ -55,14 +61,14 @@ namespace FortunaExcelProcessing.WeeklyProcessing
             Console.WriteLine(BranchID);
 
             //Go through each column, to the last column with a date available
-            for (int c = 2; c < _sheet.GetRow(3).LastCellNum; c++)
+            for (int c = 1; c < _sheet.GetRow(1).LastCellNum; c++)
             {
-                string date = CheckCellData.CellTypeDate(_sheet.GetRow(3).GetCell(c)).ToString("yyyy-MM-dd");
+                string date = CheckCellData.CellTypeDate(_sheet.GetRow(1).GetCell(c)).ToString("yyyy-MM-dd");
                 Util.Date = date;
 
                 //check for empty column, if 'emptycount' == 0 then column is empty
                 int emptycount = 0;
-                for (int r = 4; r < 13; r++)
+                for (int r = 2; r < 13; r++)
                 {
                     ICell checkCell = _sheet.GetRow(r).GetCell(c);
                     if (CheckCellData.CellTypeString(checkCell).Trim() == "" || checkCell == null)
@@ -73,7 +79,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
 
                 if (!checkForExistingColumn(date, BranchID) && emptycount < 10)
                 {
-                    for (int r = 2; r < 13; r += 3)
+                    for (int r = 2; r < 13; r += 4)
                     {
                         if (r != 5 || r != 9)
                         {

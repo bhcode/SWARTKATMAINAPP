@@ -13,7 +13,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
     {
         ISheet _sheet;
 
-        private int[] dataRows = { 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41 };
+        private int[] dataRows = { 4, 5, 6, 7, 9, 10, 11, 12, 14, 15, 16, 17, 19, 20, 21, 22, 23, 25, 26, 27, 29, 30, 32, 33, 34, 35, 36, 37, 38, 39 };
 
         private string[] dataLabels = { "Week Ending:","Production","Honey (kg)", "Honey to Date (kg)" , "Avg Honey Per Hive (kg)", "Beeswax (kg)","Feeding","Honey Store","Pollen Store","Honey Feed","Pollen Feed","Ener-H-Plus","HFCS-55",
                                         "Vita Feed Gold","Pollen Patty","Living Conditions","Hive Condition","Temper","Odor","Population","Laying Pattern",
@@ -43,9 +43,16 @@ namespace FortunaExcelProcessing.WeeklyProcessing
         private void WeeklyDataTable(SQLiteConnection dbConn)
         {
             int FarmId = 1;//Util.GetFarmID(CheckCellData.CellTypeString(_sheet.GetRow(2).GetCell(1)));
+            //file file = File.CreateText("debug.txt");
+            StreamWriter file = new StreamWriter("debug.txt");
+            file.Close();
 
-            for (int c = 3; c < _sheet.GetRow(6).LastCellNum; c++)
+            for (int c = 1; c < _sheet.GetRow(1).LastCellNum; c++)
             {
+                using (StreamWriter sw = File.AppendText("debug.txt"))
+                {
+                   sw.WriteLine("Column: " + c);
+                }
                 if (CheckCellData.CellTypeNumeric(_sheet.GetRow(7).GetCell(c)) != -1)
                 {
                     string date = CheckCellData.CellTypeDate(_sheet.GetRow(3).GetCell(c)).ToString("yyyy-MM-dd");
@@ -55,16 +62,27 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                         string output = "[";
                         for (int row = 0; row < dataRows.Length - 1; row++)
                         {
+                            using (StreamWriter sw = File.AppendText("debug.txt"))
+                            {
+                                sw.WriteLine("--Row: " + (dataRows[row] + 1));
+                            }
                             if (row != dataRows.Length)
                             {
-                                if (_sheet.GetRow(dataRows[row]).GetCell(c) == null) {
+                                if (_sheet.GetRow(dataRows[row]).GetCell(c) == null)
+                                {
                                     continue;
                                 }
-                                else {
-                                    output = output + CheckCellData.CellTypeNumeric(_sheet.GetRow(dataRows[row]).GetCell(c)) + ",";
+                                else
+                                {
+
+                                    string tmp = CheckCellData.CellTypeNumeric(_sheet.GetRow(dataRows[row]).GetCell(c)).ToString();
+                                    using (StreamWriter sw = File.AppendText("debug.txt"))
+                                    {
+                                        sw.WriteLine("-- --{" + tmp + "}");
+                                    }
+                                    output = output + tmp + ",";
                                 }
                             }
-                                
                         }
 
                         output = output + CheckCellData.CellTypeNumeric(_sheet.GetRow(dataRows.Length - 1).GetCell(c)) + "]";

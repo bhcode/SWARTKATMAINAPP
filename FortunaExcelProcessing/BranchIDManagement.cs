@@ -12,28 +12,28 @@ namespace FortunaExcelProcessing
 
         SQLiteConnection _dBConnection;
 
-        public void EditTable(int farmid, string farmName, double area)
-        {
-            Util.Date = DateTime.Now.StartOfWeek(DayOfWeek.Monday).ToString("yyyy-MM-dd");
-            using (_dBConnection = new SQLiteConnection($"Data Source={settings.Default.DbFilePath};Version=3;"))
-            {
-                _dBConnection.Open();
+        //public void EditTable(int farmid, string farmName, double area)
+        //{
+        //    Util.Date = DateTime.Now.StartOfWeek(DayOfWeek.Monday).ToString("yyyy-MM-dd");
+        //    using (_dBConnection = new SQLiteConnection($"Data Source={settings.Default.DbFilePath};Version=3;"))
+        //    {
+        //        _dBConnection.Open();
 
-                if (!CheckForExistingFarm(farmName))
-                {
-                    using (SQLiteCommand cmd = new SQLiteCommand())
-                    {
-                        cmd.CommandText = "INSERT INTO  Branch (Branch_ID, Branch_Name) VALUES (@farmid,@farmname)";
-                        cmd.Parameters.AddWithValue("@farmid", farmid);
-                        cmd.Parameters.AddWithValue("@farmname", farmName.Trim());
-                        cmd.Parameters.AddWithValue("@farmarea", area);
-                        cmd.Connection = _dBConnection;
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-                _dBConnection.Close();
-            }
-        }
+        //        if (!CheckForExistingFarm(farmName))
+        //        {
+        //            using (SQLiteCommand cmd = new SQLiteCommand())
+        //            {
+        //                cmd.CommandText = "INSERT INTO  Branch (Branch_ID, Branch_Name) VALUES (@farmid,@farmname)";
+        //                cmd.Parameters.AddWithValue("@farmid", farmid);
+        //                cmd.Parameters.AddWithValue("@farmname", farmName.Trim());
+        //                cmd.Parameters.AddWithValue("@farmarea", area);
+        //                cmd.Connection = _dBConnection;
+        //                cmd.ExecuteNonQuery();
+        //            }
+        //        }
+        //        _dBConnection.Close();
+        //    }
+        //}
 
         public void CreateFarmTable()
         {
@@ -50,17 +50,17 @@ namespace FortunaExcelProcessing
         }
 
 
-        private bool CheckForExistingFarm(string data)
-        {
-            string sql = $"SELECT Branch_ID FROM Branch WHERE name = '{data}'";
-            using (SQLiteCommand command = new SQLiteCommand(sql, _dBConnection))
-            {
-                if (command.ExecuteScalar() != null)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
+        //private bool CheckForExistingFarm(string data)
+        //{
+        //    string sql = $"SELECT Branch_ID FROM Branch WHERE name = '{data}'";
+        //    using (SQLiteCommand command = new SQLiteCommand(sql, _dBConnection))
+        //    {
+        //        if (command.ExecuteScalar() != null)
+        //        {
+        //            return true;
+        //        }
+        //    }
+        //    return false;
+        //}
     }
 }

@@ -50,11 +50,18 @@ namespace FortunaExcelProcessing
             {
                 return DateTime.MinValue;
             }
-            if (_cell.CellType != CellType.Numeric)
+            if (DateUtil.IsCellDateFormatted(_cell))
             {
-                return DateTime.MinValue;
+                DateTime date = _cell.DateCellValue;
+                ICellStyle style = _cell.CellStyle;
+                string format = style.GetDataFormatString().Replace('m', 'M');
+                return date;
             }
-            return _cell.DateCellValue;
+            //if (_cell.CellType != CellType.)
+            //{
+            //    return DateTime.MinValue;
+            //}
+            return DateTime.MaxValue;
         }
 
         public static string CellTypeUnknown(ICell _cell)

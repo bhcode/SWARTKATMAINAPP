@@ -207,3 +207,4 @@ C:\Users\ambro\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\obj\Debug
 C:\Users\ambro\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\obj\Debug\FortunaExcelProcessing.pdb
 F:\programs\github\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\System.Data.SQLite.dll.config
 C:\Users\ambro\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\obj\Debug\FortunaExcelProcessing.csprojResolveAssemblyReference.cache
+F:\programs\github\SWARTKATMAINAPP\FortunaExcelProcessing\obj\Debug\FortunaExcelProcessing.csprojResolveAssemblyReference.cache

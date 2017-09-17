@@ -4,23 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class Comment
+public class Observation
 {
-    int farmId;
+    int branchId;
     DateTime date;
     string category;
     string description;
+    string weather;
 
-    public int FarmId
+    public int BranchId
     {
         get
         {
-            return farmId;
+            return branchId;
         }
 
         set
         {
-            farmId = value;
+            branchId = value;
         }
     }
 
@@ -63,11 +64,14 @@ public class Comment
         }
     }
 
-    public Comment(int farmid, DateTime sdate, string cate, string desc)
+    public string Weather { get => weather; set => weather = value; }
+
+    public Observation(int farmid, DateTime sdate, string cate, string desc, string weath)
     {
-        FarmId = farmid;
+        BranchId = farmid;
         Date = sdate;
         Category = cate;
         Description = desc;
+        Weather = weath;
     }
 }

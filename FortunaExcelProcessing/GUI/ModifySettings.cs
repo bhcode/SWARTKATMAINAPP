@@ -29,6 +29,21 @@ namespace FortunaExcelProcessing.GUI
             return settings.Default.ReportName;
         }
 
+        public static string GetWinColour()
+        {
+            return settings.Default.WinColour;
+        }
+
+        public static string GetWinTheme()
+        {
+            return settings.Default.WinTheme;
+        }
+
+        public static string GetWebsiteUrl()
+        {
+            return settings.Default.Website;
+        }
+
         public static void UpdateWorkingPath(string newPath)
         {
             settings.Default.WorkingFolder = newPath;
@@ -39,6 +54,18 @@ namespace FortunaExcelProcessing.GUI
         public static void UpdateDbFilePath()
         {
             settings.Default.DbFilePath = GetWorkingPath() + "//" + GetDbName() + ".sqlite";
+            settings.Default.Save();
+        }
+
+        public static void UpdateWinColour(string newColour)
+        {
+            settings.Default.WinColour = newColour;
+            settings.Default.Save();
+        }
+
+        public static void UpdateWinTheme(string newTheme)
+        {
+            settings.Default.WinTheme = newTheme;
             settings.Default.Save();
         }
 

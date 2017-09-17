@@ -32,10 +32,10 @@ namespace FortunaExcelProcessing
             _file = File.OpenRead(path);
         }
 
-        public void CreateWorkBook()
+        public void OpenWorkBook()
         {
             _wb = WorkbookFactory.Create(_file);
-            
+
             for (int i = 0; i < _wb.NumberOfSheets; i++)
             {
                 _tabNames.Add(_wb.GetSheetName(i).ToString());
@@ -85,6 +85,20 @@ namespace FortunaExcelProcessing
         public void CloseWorkbook()
         {
             _wb.Close();
+        }
+
+        public bool ProcessAll()
+        {
+            bool weekly = false, obs = false, hive = false;
+
+            Task.Factory.StartNew(() => { processSheet("Weekly Data"); weekly = true; });
+            Task.Factory.StartNew(() => { processSheet("Weekly Observations"); obs = true; });
+            Task.Factory.StartNew(() => { processSheet("Hives"); hive = true; });
+
+            while(weekly == obs == hive == false) { }
+
+            CloseWorkbook();
+            return true;
         }
     }
 }

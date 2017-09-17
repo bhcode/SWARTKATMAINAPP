@@ -82,5 +82,56 @@ namespace FortunaExcelProcessing.Properties {
                 this["DbConString"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://swartkat.fossul.com")]
+        public string Website {
+            get {
+                return ((string)(this["Website"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("api")]
+        public string GUIController {
+            get {
+                return ((string)(this["GUIController"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("api")]
+        public string DBController {
+            get {
+                return ((string)(this["DBController"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("BaseLight")]
+        public string WinTheme {
+            get {
+                return ((string)(this["WinTheme"]));
+            }
+            set {
+                this["WinTheme"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Yellow")]
+        public string WinColour {
+            get {
+                return ((string)(this["WinColour"]));
+            }
+            set {
+                this["WinColour"] = value;
+            }
+        }
     }
 }

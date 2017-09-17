@@ -96,19 +96,20 @@
     <Compile Include="ConsilidatedReport\InitRowLabels.cs" />
     <Compile Include="ConsilidatedReport\processConsolidated.cs" />
     <Compile Include="DBExtras\Labels.cs" />
+    <Compile Include="DBExtras\ReadDB.cs" />
     <Compile Include="DBOperations.cs" />
     <Compile Include="enums.cs" />
     <Compile Include="ErrorHandling\Error.cs" />
     <Compile Include="ErrorHandling\ErrorReporter.cs" />
     <Compile Include="BranchIDManagement.cs" />
     <Compile Include="GUI\ModifySettings.cs" />
+    <Compile Include="GUI\UploadDB.cs" />
     <Compile Include="ITableEditor.cs" />
-    <Compile Include="Objects\Comment.cs" />
+    <Compile Include="Objects\Branch.cs" />
     <Compile Include="Objects\DateHolder.cs" />
-    <Compile Include="Objects\Farm.cs" />
-    <Compile Include="Objects\FarmSupplement.cs" />
+    <Compile Include="Objects\Hive.cs" />
     <Compile Include="Objects\Label.cs" />
-    <Compile Include="Objects\Paddock.cs" />
+    <Compile Include="Objects\Observation.cs" />
     <Compile Include="Objects\User.cs" />
     <Compile Include="Objects\WeeklyData.cs" />
     <Compile Include="ProcessData.cs" />
@@ -134,9 +135,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>settings.Designer.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Instructions.txt" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

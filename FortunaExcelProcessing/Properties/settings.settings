@@ -17,5 +17,20 @@
     <Setting Name="DbConString" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="Website" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://swartkat.fossul.com</Value>
+    </Setting>
+    <Setting Name="GUIController" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">api</Value>
+    </Setting>
+    <Setting Name="DBController" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">api</Value>
+    </Setting>
+    <Setting Name="WinTheme" Type="System.String" Scope="User">
+      <Value Profile="(Default)">BaseLight</Value>
+    </Setting>
+    <Setting Name="WinColour" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Yellow</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

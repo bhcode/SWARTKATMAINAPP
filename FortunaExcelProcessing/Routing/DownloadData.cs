@@ -1,43 +1,68 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
+using FortunaExcelProcessing.Properties;
+using FortunaExcelProcessing.Objects;
 
-class DownloadData
+public class DownloadData
 {
-    public static List<User> GetAllUsers()
+    static string GuiControllerUrl = settings.Default.Website + "/" + settings.Default.GUIController;
+    static string token = "Ltdq242pY8E4Nb36gP8y";
+
+    public static bool IsLoginCorrect(string email, string password)
     {
-        string tmp = ServerCommunication.DownloadDataGet("http://swartkat.fossul.com/gui/getusers");
-        return JsonConvert.DeserializeObject<List<User>>(tmp);
+        string tmp = ServerCommunication.DownloadDataGet(string.Format("{0}/finduser?t={3}&email={1}&password={2}", GuiControllerUrl, email, password, token));
+        tmp = tmp.Substring(1, tmp.Length - 2);
+        return bool.Parse(tmp);
     }
 
-    public static List<Farm> GetAllFarms()
+    public static Branch GetUserBranch(string email)
     {
-        string tmp = ServerCommunication.DownloadDataGet("http://swartkat.fossul.com/gui/getfarms");
-        return JsonConvert.DeserializeObject<List<Farm>>(tmp);
-    }
-
-    public static Farm GetUserFarm(string email)
-    {
-        string tmp = ServerCommunication.DownloadDataGet(string.Format("http://swartkat.fossul.com/gui/getusersfarm?email={0}", email));
-        return JsonConvert.DeserializeObject<Farm>(tmp);
-    }
-
-    public static Dictionary<int, string> GetWeeklyFarmData(string date)
-    {
-        string tmp = ServerCommunication.DownloadDataGet(string.Format("http://swartkat.fossul.com/gui/getdata?fulldate={0}", date)); //JSON decoded
-        return JsonConvert.DeserializeObject<Dictionary<int, string>>(tmp);
+        string tmp = ServerCommunication.DownloadDataGet(string.Format("{0}/getusersfarm?t={2}&email={1}", GuiControllerUrl, email, token));
+        return JsonConvert.DeserializeObject<Branch>(tmp);
     }
 
     public static PermissionLevel GetUserRole(string userEmail)
     {
-        string tmp = ServerCommunication.DownloadDataGet(string.Format("http://swartkat.fossul.com/gui/getuserrole?email={0}", userEmail));
+        string tmp = ServerCommunication.DownloadDataGet(string.Format("{0}/getuserrole?t={2}&email={1}", GuiControllerUrl, userEmail, token));
         return (PermissionLevel)(int.Parse(tmp));
     }
+
+    //get branch name (string)
+
+    //get branch area (double)
+
+    //get cons data
+
+    //get branch dates
+
+    public static List<User> GetAllUsers()
+    {
+        string tmp = ServerCommunication.DownloadDataGet(string.Format("{0}/getusers?t={1}", GuiControllerUrl, token));
+        return JsonConvert.DeserializeObject<List<User>>(tmp);
+    }
+
+    public static List<Branch> GetAllBranches()
+    {
+        string tmp = ServerCommunication.DownloadDataGet(string.Format("{0}/getbranches", GuiControllerUrl, token)); //{0}/getbranches?t={1}
+        return JsonConvert.DeserializeObject<List<Branch>>(tmp);
+    }
+
+
+    //OLD ROUTES VVVV
+
+    public static Dictionary<int, string> GetWeeklyFarmData(string date)
+    {
+        string tmp = ServerCommunication.DownloadDataGet(string.Format("{0}/getdata?fulldate={1}", GuiControllerUrl, date)); //JSON decoded
+        return JsonConvert.DeserializeObject<Dictionary<int, string>>(tmp);
+    }
+
+
 
     public static List<DateHolder> GetUserWeeklyDataDates(int userID)
     {
         try
         {
-            string tmp = ServerCommunication.DownloadDataGet(string.Format("http://swartkat.fossul.com/gui/getfarmdates?userid={0}", userID));
+            string tmp = ServerCommunication.DownloadDataGet(string.Format("{0}/getfarmdates?userid={1}", GuiControllerUrl, userID));
             return JsonConvert.DeserializeObject<List<DateHolder>>(tmp);
         }
         catch
@@ -48,14 +73,9 @@ class DownloadData
 
     public static List<DateHolder> GetUserWeeklyDataDates()
     {
-        string tmp = ServerCommunication.DownloadDataGet(string.Format("http://swartkat.fossul.com/gui/getuploaddates"));
+        string tmp = ServerCommunication.DownloadDataGet(string.Format("{0}/getuploaddates", GuiControllerUrl));
         return JsonConvert.DeserializeObject<List<DateHolder>>(tmp);
     }
 
-    public static bool GetLoginSuccess(string email, string password)
-    {
-        string tmp = ServerCommunication.DownloadDataGet(string.Format("http://swartkat.fossul.com/gui/finduser?email={0}&password={1}", email, password));
-        tmp = tmp.Substring(1, tmp.Length - 2);
-        return bool.Parse(tmp);
-    }
+
 }

@@ -101,4 +101,14 @@ public class User
     }
 
     public User() { }
+    
+    public User(string name, string email, string password, int id = 0)
+    {
+        Name = name;
+        Email = email;
+        Password = password;
+
+        if (id != 0)
+            Id = id;
+    }
 }

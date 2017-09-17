@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 public class WeeklyData
 {
-    int farmId;
+    int banchId;
     DateTime date;
     string data;
 
-    public int FarmId
+    public int BranchId
     {
         get
         {
-            return farmId;
+            return banchId;
         }
 
         set
         {
-            farmId = value;
+            banchId = value;
         }
     }
 
@@ -49,9 +49,9 @@ public class WeeklyData
         }
     }
 
-    public WeeklyData(int farmid, DateTime sdate, string data)
+    public WeeklyData(int branchid, DateTime sdate, string data)
     {
-        FarmId = farmid;
+        BranchId = branchid;
         Date = sdate;
         Data = data;
     }

@@ -55,7 +55,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                 }
                 if (CheckCellData.CellTypeNumeric(_sheet.GetRow(7).GetCell(c)) != -1)
                 {
-                    string date = CheckCellData.CellTypeDate(_sheet.GetRow(3).GetCell(c)).ToString("yyyy-MM-dd");
+                    string date = CheckCellData.CellTypeDate(_sheet.GetRow(1).GetCell(c)).ToString("yyyy-MM-dd");
 
                     if (!checkForExistingColumn(date, FarmId))
                     {

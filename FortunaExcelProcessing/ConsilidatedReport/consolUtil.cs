@@ -44,9 +44,9 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             DateStorage.FullDate = date.ToString("yyyy-MM-dd");
         }
 
-        public static void GetDate(string date1)
+        public static void GetDate(string datePassed)
         {
-            DateTime dt = DateTime.Parse(date1);
+            DateTime dt = DateTime.Parse(datePassed);
             DateTime date = dt.StartOfWeek(DayOfWeek.Monday);
             DateStorage.PartialDate = date.ToString("dd MMM");
             DateStorage.FullDate = date.ToString("yyyy-MM-dd");
@@ -61,21 +61,14 @@ namespace FortunaExcelProcessing.ConsilidatedReport
 
         public static string GetFarmName(int farmId)
         {
-            string tmp = ReceiveResponse(string.Format("http://swartkat.fossul.com/gui/getfarmname?farmid={0}", farmId));
+            string tmp = ReceiveResponse(string.Format("http://swartkat.fossul.com/api/getfarmname?branchid={0}&t=Ltdq242pY8E4Nb36gP8y", farmId));
             string stripped = tmp.Substring(1, tmp.Length - 2);
             return stripped;
         }
 
         public static string GetFarmArea(int farmId)
         {
-            string tmp = ReceiveResponse(string.Format("http://swartkat.fossul.com/gui/getarea?farmid={0}", farmId));
-            string stripped = tmp.Substring(1, tmp.Length - 2);
-            return stripped;
-        }
-
-        public static string GetCows(int farmId)
-        {
-            string tmp = ReceiveResponse(string.Format("http://swartkat.fossul.com/gui/getcows?farmid={0}", farmId));
+            string tmp = ReceiveResponse(string.Format("http://swartkat.fossul.com/api/getarea?branchid={0}&t=Ltdq242pY8E4Nb36gP8y", farmId));
             string stripped = tmp.Substring(1, tmp.Length - 2);
             return stripped;
         }
@@ -109,7 +102,7 @@ namespace FortunaExcelProcessing.ConsilidatedReport
 
         public static int getNumberofFarms()
         {            
-                string tmp = ReceiveResponse(string.Format("http://swartkat.fossul.com/gui/getfarmcount"));
+                string tmp = ReceiveResponse(string.Format("http://swartkat.fossul.com/api/getbranchcount?t=Ltdq242pY8E4Nb36gP8y"));
                 return int.Parse(tmp);
         }
     }

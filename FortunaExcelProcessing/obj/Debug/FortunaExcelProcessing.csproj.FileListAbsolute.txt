@@ -208,3 +208,27 @@ C:\Users\ambro\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\obj\Debug
 F:\programs\github\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\System.Data.SQLite.dll.config
 C:\Users\ambro\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\obj\Debug\FortunaExcelProcessing.csprojResolveAssemblyReference.cache
 F:\programs\github\SWARTKATMAINAPP\FortunaExcelProcessing\obj\Debug\FortunaExcelProcessing.csprojResolveAssemblyReference.cache
+D:\GITHub Clones\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\FortunaExcelProcessing.dll.config
+D:\GITHub Clones\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\FortunaExcelProcessing.dll
+D:\GITHub Clones\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\FortunaExcelProcessing.pdb
+D:\GITHub Clones\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\EntityFramework.dll
+D:\GITHub Clones\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\EntityFramework.SqlServer.dll
+D:\GITHub Clones\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\ICSharpCode.SharpZipLib.dll
+D:\GITHub Clones\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\Newtonsoft.Json.dll
+D:\GITHub Clones\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\NPOI.dll
+D:\GITHub Clones\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\NPOI.OOXML.dll
+D:\GITHub Clones\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\NPOI.OpenXml4Net.dll
+D:\GITHub Clones\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\NPOI.OpenXmlFormats.dll
+D:\GITHub Clones\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\System.Data.SQLite.dll
+D:\GITHub Clones\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\System.Data.SQLite.EF6.dll
+D:\GITHub Clones\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\System.Data.SQLite.Linq.dll
+D:\GITHub Clones\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\EntityFramework.xml
+D:\GITHub Clones\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\EntityFramework.SqlServer.xml
+D:\GITHub Clones\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\Newtonsoft.Json.xml
+D:\GITHub Clones\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\NPOI.xml
+D:\GITHub Clones\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\System.Data.SQLite.xml
+D:\GITHub Clones\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\System.Data.SQLite.dll.config
+D:\GITHub Clones\SWARTKATMAINAPP\FortunaExcelProcessing\obj\Debug\FortunaExcelProcessing.csprojResolveAssemblyReference.cache
+D:\GITHub Clones\SWARTKATMAINAPP\FortunaExcelProcessing\obj\Debug\FortunaExcelProcessing.csproj.CoreCompileInputs.cache
+D:\GITHub Clones\SWARTKATMAINAPP\FortunaExcelProcessing\obj\Debug\FortunaExcelProcessing.dll
+D:\GITHub Clones\SWARTKATMAINAPP\FortunaExcelProcessing\obj\Debug\FortunaExcelProcessing.pdb

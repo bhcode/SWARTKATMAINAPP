@@ -44,6 +44,24 @@ namespace FortunaExcelProcessing.GUI
             return settings.Default.Website;
         }
 
+        public static bool GetIsLoginRemembered()
+        {
+            return settings.Default.LoginRemember;
+        }
+
+        public static User GetRememberedUser()
+        {
+            return new User("", settings.Default.LoginEmail, settings.Default.LoginPassword);
+        }
+
+        public static void UpdateRememberedUser(User user)
+        {
+            settings.Default.LoginRemember = true;
+            settings.Default.LoginEmail = user.Email;
+            settings.Default.LoginPassword = user.Password;
+            settings.Default.Save();
+        }
+
         public static void UpdateWorkingPath(string newPath)
         {
             settings.Default.WorkingFolder = newPath;

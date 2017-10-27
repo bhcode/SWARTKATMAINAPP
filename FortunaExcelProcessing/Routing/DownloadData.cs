@@ -17,8 +17,17 @@ public class DownloadData
 
     public static Branch GetUserBranch(string email)
     {
-        string tmp = ServerCommunication.DownloadDataGet(string.Format("{0}/getusersfarm?t={2}&email={1}", GuiControllerUrl, email, token));
-        return JsonConvert.DeserializeObject<Branch>(tmp);
+        string tmp = ServerCommunication.DownloadDataGet(string.Format("{0}/getusersbranch?t={2}&email={1}", GuiControllerUrl, email, token));
+        string[] bits = tmp.Split('"');
+        try
+        {
+            Branch branch = new Branch(int.Parse(bits[1]), bits[3], double.Parse(bits[5]));
+            return branch;
+        }
+        catch
+        {
+            return null;
+        }
     }
 
     public static PermissionLevel GetUserRole(string userEmail)
@@ -43,7 +52,7 @@ public class DownloadData
 
     public static List<Branch> GetAllBranches()
     {
-        string tmp = ServerCommunication.DownloadDataGet(string.Format("{0}/getbranches", GuiControllerUrl, token)); //{0}/getbranches?t={1}
+        string tmp = ServerCommunication.DownloadDataGet(string.Format("{0}/getbranches?t={1}", GuiControllerUrl, token)); //{0}/getbranches?t={1}
         return JsonConvert.DeserializeObject<List<Branch>>(tmp);
     }
 

@@ -17,7 +17,7 @@ namespace FortunaExcelProcessing.DBExtras
             List<WeeklyData> list = new List<WeeklyData>();
             using (SQLiteConnection conn = new SQLiteConnection(CSTRING))
             {
-                string query = "select Branch_ID, Date_Sent, Data_Array from Datas";
+                string query = "select Branch_ID, Date_Sent, Data_Array from Weekly_Data";
                 conn.Open();
                 SQLiteCommand cmd = new SQLiteCommand(query, conn);
                 SQLiteDataReader reader = cmd.ExecuteReader();
@@ -38,7 +38,7 @@ namespace FortunaExcelProcessing.DBExtras
             List<Observation> list = new List<Observation>();
             using (SQLiteConnection conn = new SQLiteConnection(CSTRING))
             {
-                string query = "select Branch_ID, Date_Sent, Category, Description, Weather from Comments";
+                string query = "select Branch_ID, Date_Sent, Category, Description, Weather from Observations";
                 conn.Open();
                 SQLiteCommand cmd = new SQLiteCommand(query, conn);
                 SQLiteDataReader reader = cmd.ExecuteReader();
@@ -61,7 +61,7 @@ namespace FortunaExcelProcessing.DBExtras
             List<Hive> list = new List<Hive>();
             using (SQLiteConnection conn = new SQLiteConnection(CSTRING))
             {
-                string query = "select Branch_ID, Date_Sent, Location, Hive_Body, Honey_Super, Frames, Hive_Species, Forage_Enviornment from farmSupplements";
+                string query = "select Branch_ID, Date_Sent, Location, Hive_Body, Honey_Super, Frames, Hive_Species, Forage_Enviornment from Hives";
                 conn.Open();
                 SQLiteCommand cmd = new SQLiteCommand(query, conn);
                 SQLiteDataReader reader = cmd.ExecuteReader();
@@ -74,7 +74,8 @@ namespace FortunaExcelProcessing.DBExtras
                     string honeySuper = reader.GetString(4);
                     int frames = reader.GetInt32(5);
                     string species = reader.GetString(6);
-                    string forageEnv = reader.GetString(7);
+                    string forageEnv = "n/a";
+                    try { forageEnv = reader.GetString(7); } catch { }
                     list.Add(new Hive(branchId, date, location, hiveBody, honeySuper, frames, species, forageEnv));
                 }
                 conn.Close();

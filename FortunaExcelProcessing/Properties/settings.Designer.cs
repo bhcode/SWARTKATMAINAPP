@@ -12,7 +12,7 @@ namespace FortunaExcelProcessing.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.3.0.0")]
     internal sealed partial class settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static settings defaultInstance = ((settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new settings())));
@@ -131,6 +131,42 @@ namespace FortunaExcelProcessing.Properties {
             }
             set {
                 this["WinColour"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LoginRemember {
+            get {
+                return ((bool)(this["LoginRemember"]));
+            }
+            set {
+                this["LoginRemember"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LoginEmail {
+            get {
+                return ((string)(this["LoginEmail"]));
+            }
+            set {
+                this["LoginEmail"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LoginPassword {
+            get {
+                return ((string)(this["LoginPassword"]));
+            }
+            set {
+                this["LoginPassword"] = value;
             }
         }
     }

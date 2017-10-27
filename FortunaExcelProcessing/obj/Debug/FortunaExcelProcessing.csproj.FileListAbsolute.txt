@@ -232,3 +232,27 @@ D:\GITHub Clones\SWARTKATMAINAPP\FortunaExcelProcessing\obj\Debug\FortunaExcelPr
 D:\GITHub Clones\SWARTKATMAINAPP\FortunaExcelProcessing\obj\Debug\FortunaExcelProcessing.csproj.CoreCompileInputs.cache
 D:\GITHub Clones\SWARTKATMAINAPP\FortunaExcelProcessing\obj\Debug\FortunaExcelProcessing.dll
 D:\GITHub Clones\SWARTKATMAINAPP\FortunaExcelProcessing\obj\Debug\FortunaExcelProcessing.pdb
+C:\Users\poopie\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\FortunaExcelProcessing.dll.config
+C:\Users\poopie\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\FortunaExcelProcessing.dll
+C:\Users\poopie\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\FortunaExcelProcessing.pdb
+C:\Users\poopie\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\EntityFramework.dll
+C:\Users\poopie\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\poopie\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\ICSharpCode.SharpZipLib.dll
+C:\Users\poopie\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\Newtonsoft.Json.dll
+C:\Users\poopie\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\NPOI.dll
+C:\Users\poopie\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\NPOI.OOXML.dll
+C:\Users\poopie\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\NPOI.OpenXml4Net.dll
+C:\Users\poopie\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\NPOI.OpenXmlFormats.dll
+C:\Users\poopie\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\System.Data.SQLite.dll
+C:\Users\poopie\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\poopie\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\poopie\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\EntityFramework.xml
+C:\Users\poopie\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\poopie\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\Newtonsoft.Json.xml
+C:\Users\poopie\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\NPOI.xml
+C:\Users\poopie\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\System.Data.SQLite.xml
+C:\Users\poopie\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\bin\Debug\System.Data.SQLite.dll.config
+C:\Users\poopie\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\obj\Debug\FortunaExcelProcessing.csprojResolveAssemblyReference.cache
+C:\Users\poopie\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\obj\Debug\FortunaExcelProcessing.csproj.CoreCompileInputs.cache
+C:\Users\poopie\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\obj\Debug\FortunaExcelProcessing.dll
+C:\Users\poopie\Documents\GitHub\SWARTKATMAINAPP\FortunaExcelProcessing\obj\Debug\FortunaExcelProcessing.pdb

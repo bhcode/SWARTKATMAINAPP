@@ -21,7 +21,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
 
             if (!Util.CheckForTable("Hives"))
             {
-                string _sql = "CREATE TABLE Hives(Hive_ID INTEGER PRIMARY KEY AUTOINCREMENT, Branch_ID INT (11), Date_Sent VARCHAR(30), Location VARCHAR(50), Hive_Body VARCHAR(50),  Honey_Super VARCHAR(50), Frames INT, Hive_Species VARCHAR(50), Forage_Enviornment VARCHAR(50));";
+                string _sql = "CREATE TABLE Hives(Hive_ID INTEGER PRIMARY KEY AUTOINCREMENT, Branch_ID INT (11), Date_Sent VARCHAR(30), Location VARCHAR(50), Hive_Body VARCHAR(50),  Honey_Super VARCHAR(50), Frames INT(11), Hive_Species VARCHAR(50), Forage_Enviornment VARCHAR(50));";
                 _command = new SQLiteCommand(_sql, _dbCon);
                 _command.ExecuteNonQuery();
             }
@@ -40,7 +40,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
 
             if (!CheckForExistingData())
             {
-                for (int y = 1; y <= _paddockSheet.LastRowNum; y++)
+                for (int y = 2; y <= _paddockSheet.LastRowNum; y++)
                 {
                     IRow row = _paddockSheet.GetRow(y);
                     if (row.GetCell(1) == null)

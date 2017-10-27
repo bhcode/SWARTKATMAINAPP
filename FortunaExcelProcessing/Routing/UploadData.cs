@@ -9,7 +9,7 @@ public class UploadData
 
     public static void CreateUser(User user)
     {
-        ServerCommunication.UploadDataGet(string.Format("{3}/createuser?t={0}&email={1}&password={2}", token, user.Email, user.Password, GuiControllerUrl)); //need to alter it to accept returns
+        ServerCommunication.UploadDataGet(string.Format("{3}/createuser?t={0}&username={3}&email={1}&password={2}", token, user.Email, user.Password, GuiControllerUrl, user.Name)); //need to alter it to accept returns
     }
 
     public static void CreateBranch(Branch branch)
@@ -37,7 +37,7 @@ public class UploadData
 
     public static void AssignBranch(string email, int branchId)
     {
-        ServerCommunication.UploadDataGet(string.Format("{2}/assignbranch?t={3}&farmid={0}&email={1}", branchId, email, GuiControllerUrl, token));
+        ServerCommunication.UploadDataGet(string.Format("{2}/assignbranch?t={3}&branchid={0}&email={1}", branchId, email, GuiControllerUrl, token));
     }
 
 

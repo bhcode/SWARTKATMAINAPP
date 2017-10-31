@@ -44,21 +44,31 @@ public class UploadData
 
     public static void UploadWeeklyData(WeeklyData wdata)
     {
-        ServerCommunication.UploadDataGet(string.Format("{3}/uploadweekly?branch_id={0}&date_sent={1}&data_array={2}", wdata.BranchId, wdata.Date.ToString("yyyy-MM-dd"), wdata.Data, DbControllerUrl));
+        string temp = string.Format("{3}/uploadweekly?t={4}&branch_id={0}&date_sent={1}&data_array={2}", wdata.BranchId, wdata.Date.ToString("yyyy-MM-dd"), wdata.Data, DbControllerUrl,token);
+        //System.IO.File.Create(@"C:\Database\" + temp + ".txt");
+        ServerCommunication.UploadDataGet(temp);
     }
 
     public static void UploadLabel(Label label)
     {
-        ServerCommunication.UploadDataGet(string.Format("{2}/uploadlabels?row={0}&label={1}", label.Row, label.LabelText, DbControllerUrl));
+        
+        string temp = string.Format("{2}/uploadlabels?t={3}&row={0}&label={1}", label.Row, label.LabelText, DbControllerUrl,token);
+        //System.IO.File.Create(@"C:\Database\" + temp + ".txt");
+        ServerCommunication.UploadDataGet(temp);
+        
     }
 
     public static void UploadHive(Hive hive)
     {
-        ServerCommunication.UploadDataGet(string.Format("{8}/uploadhives?branch_id={0}&date_sent={1}&location={2}&hive_body={3}&honey_super={4}&frames={5}&hive_species={6}&forage_environment={7}", hive.BranchId, hive.Date, hive.Location, hive.HiveBody, hive.HoneySuper, hive.Frames, hive.Species, hive.ForageEnv, DbControllerUrl));
+        string temp = string.Format("{8}/uploadhives?t={9}&branch_id={0}&date_sent={1}&location={2}&hive_body={3}&honey_super={4}&frames={5}&hive_species={6}&forage_environment={7}", hive.BranchId, hive.Date, hive.Location, hive.HiveBody, hive.HoneySuper, hive.Frames, hive.Species, hive.ForageEnv, DbControllerUrl, token);
+        //System.IO.File.Create(@"C:\Database\" + temp + ".txt");
+        ServerCommunication.UploadDataGet(temp);
     }
 
     public static void UploadObservation(Observation obs)
     {
-        ServerCommunication.UploadDataGet(string.Format("{5}/uploadobservations?branch_id={0}&date_sent={1}&category={2}&description={3}&weather={4}", obs.BranchId, obs.Date.ToString("yyyy-MM-dd"), obs.Category, obs.Description, obs.Weather, DbControllerUrl));
+        string temp = string.Format("{5}/uploadobservations?t={6}&branch_id={0}&date_sent={1}&category={2}&description={3}&weather={4}", obs.BranchId, obs.Date.ToString("yyyy-MM-dd"), obs.Category, obs.Description, obs.Weather, DbControllerUrl, token);
+        //System.IO.File.Create(@"C:\Database\" + temp + ".txt");
+        ServerCommunication.UploadDataGet(temp);
     }
 }

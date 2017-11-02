@@ -14,17 +14,25 @@ namespace FortunaExcelProcessing
         {
             if (_cell == null)
             {
-                //ErrorHandling.ErrorReporter.SoftErrors.Add(new ErrorHandling.Error(_cell, "Cell is null"));
-                return "";
+                return "-1";
             }
-            if (_cell.CellType == CellType.String)
+            else if (_cell.CellType == CellType.String)
             {
                 return _cell.RichStringCellValue.ToString();
             }
-            if (_cell.CellType == CellType.Numeric)
+            else
             {
-                return _cell.NumericCellValue.ToString();
+                _cell.SetCellType(CellType.String);
             }
+
+            //if (_cell.CellType == CellType.Numeric)
+            //{
+            //    return _cell.NumericCellValue.ToString();
+            //}
+            //if (_cell.CellType == CellType.Formula)
+            //{
+            //    return _cell.NumericCellValue.ToString();
+            //}
             return _cell.RichStringCellValue.ToString();
         }
 

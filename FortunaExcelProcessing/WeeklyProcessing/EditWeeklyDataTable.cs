@@ -13,7 +13,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
     {
         ISheet _sheet;
 
-        private int[] dataRows = { 4, 5, 6, 7, 9, 10, 11, 12, 14, 15, 16, 17, 19, 20, 21, 22, 23, 25, 26, 27, 29, 30, 32, 33, 34, 35, 36, 37, 38, 39 };
+        private int[] dataRows = { 4, 5, 6, 7, 9, 10, 11, 12, 14, 15, 16, 17, 19, 20, 21, 22, 23, 25, 26, 27, 29, 30, 32, 33, 34, 35, 37, 38, 39 };
 
         private string[] dataLabels = { "Week Ending:","Production","Honey (kg)", "Honey to Date (kg)" , "Avg Honey Per Hive (kg)", "Beeswax (kg)","Feeding","Honey Store","Pollen Store","Honey Feed","Pollen Feed","Ener-H-Plus","HFCS-55",
                                         "Vita Feed Gold","Pollen Patty","Living Conditions","Hive Condition","Temper","Odor","Population","Laying Pattern",
@@ -49,10 +49,10 @@ namespace FortunaExcelProcessing.WeeklyProcessing
 
             for (int c = 1; c < _sheet.GetRow(1).LastCellNum; c++)
             {
-                using (StreamWriter sw = File.AppendText("debug.txt"))
-                {
-                   sw.WriteLine("Column: " + c);
-                }
+                //using (StreamWriter sw = File.AppendText("debug.txt"))
+                //{
+                //   sw.WriteLine("Column: " + c);
+                //}
                 if (CheckCellData.CellTypeNumeric(_sheet.GetRow(7).GetCell(c)) != -1)
                 {
                     string date = CheckCellData.CellTypeDate(_sheet.GetRow(1).GetCell(c)).ToString("yyyy-MM-dd");
@@ -60,12 +60,12 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                     if (!checkForExistingColumn(date, FarmId))
                     {
                         string output = "[";
-                        for (int row = 0; row < dataRows.Length - 1; row++)
+                        for (int row = 0; row < dataRows.Length ; row++)
                         {
-                            using (StreamWriter sw = File.AppendText("debug.txt"))
-                            {
-                                sw.WriteLine("--Row: " + (dataRows[row] + 1));
-                            }
+                            //using (StreamWriter sw = File.AppendText("debug.txt"))
+                            //{
+                            //    sw.WriteLine("--Row: " + (dataRows[row] + 1));
+                            //}
                             if (row != dataRows.Length)
                             {
                                 if (_sheet.GetRow(dataRows[row]).GetCell(c) == null)
@@ -74,18 +74,17 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                                 }
                                 else
                                 {
-
-                                    string tmp = CheckCellData.CellTypeNumeric(_sheet.GetRow(dataRows[row]).GetCell(c)).ToString();
-                                    using (StreamWriter sw = File.AppendText("debug.txt"))
-                                    {
-                                        sw.WriteLine("-- --{" + tmp + "}");
-                                    }
+                                    string tmp = CheckCellData.CellTypeString(_sheet.GetRow(dataRows[row]).GetCell(c)).ToString();
+                                    //using (StreamWriter sw = File.AppendText("debug.txt"))
+                                    //{
+                                    //    sw.WriteLine("-- --{" + tmp + "}");
+                                    //}
                                     output = output + tmp + ",";
                                 }
                             }
                         }
-
-                        output = output + CheckCellData.CellTypeNumeric(_sheet.GetRow(dataRows.Length - 1).GetCell(c)) + "]";
+                        output = output.Substring(0, output.Length - 1);
+                        output = output + /*CheckCellData.CellTypeNumeric(_sheet.GetRow(dataRows.Length - 1).GetCell(c)) +*/ "]";
                         command.CommandText = $"INSERT INTO Weekly_Data(Branch_ID, Date_Sent, Data_Array) VALUES({FarmId}, @Date_Sent,'{output}');";
                         command.Parameters.AddWithValue("@Date_Sent", date);
                         command.ExecuteNonQuery();

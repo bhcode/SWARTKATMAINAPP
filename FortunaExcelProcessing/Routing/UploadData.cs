@@ -60,7 +60,7 @@ public class UploadData
 
     public static void UploadHive(Hive hive)
     {
-        string temp = string.Format("{8}/uploadhives?t={9}&branch_id={0}&date_sent={1}&location={2}&hive_body={3}&honey_super={4}&frames={5}&hive_species={6}&forage_environment={7}", hive.BranchId, hive.Date, hive.Location, hive.HiveBody, hive.HoneySuper, hive.Frames, hive.Species, hive.ForageEnv, DbControllerUrl, token);
+        string temp = string.Format("{8}/uploadhives?t={9}&branch_id={0}&date_sent={1}&location={2}&hive_body={3}&honey_super={4}&frames={5}&hive_species={6}&forage_environment={7}", hive.BranchId, hive.Date.ToString("yyyy-MM-dd"), hive.Location, hive.HiveBody, hive.HoneySuper, hive.Frames, hive.Species, hive.ForageEnv, DbControllerUrl, token);
         //System.IO.File.Create(@"C:\Database\" + temp + ".txt");
         ServerCommunication.UploadDataGet(temp);
     }

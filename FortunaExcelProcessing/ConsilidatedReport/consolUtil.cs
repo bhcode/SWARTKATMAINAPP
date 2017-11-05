@@ -54,21 +54,30 @@ namespace FortunaExcelProcessing.ConsilidatedReport
 
         public static void InputDataToSheet(string input, ICell cell)
         {
-            double cellValue = double.Parse(input);
-            cell.SetCellType(CellType.Numeric);
-            cell.SetCellValue(cellValue);
+            try
+            {
+                double cellValue = double.Parse(input);
+                cell.SetCellType(CellType.Numeric);
+                cell.SetCellValue(cellValue);
+            }
+            catch
+            {
+                cell.SetCellType(CellType.String);
+                cell.SetCellValue(input);
+            }
+            
         }
 
         public static string GetFarmName(int farmId)
         {
-            string tmp = ReceiveResponse(string.Format("http://swartkat.fossul.com/api/getfarmname?branchid={0}&t=Ltdq242pY8E4Nb36gP8y", farmId));
+            string tmp = ReceiveResponse(string.Format("http://swartkat.fossul.com/api/getbranchname?branch_id={0}&t=Ltdq242pY8E4Nb36gP8y", farmId));
             string stripped = tmp.Substring(1, tmp.Length - 2);
             return stripped;
         }
 
         public static string GetFarmArea(int farmId)
         {
-            string tmp = ReceiveResponse(string.Format("http://swartkat.fossul.com/api/getarea?branchid={0}&t=Ltdq242pY8E4Nb36gP8y", farmId));
+            string tmp = ReceiveResponse(string.Format("http://swartkat.fossul.com/api/getarea?branch_id={0}&t=Ltdq242pY8E4Nb36gP8y", farmId));
             string stripped = tmp.Substring(1, tmp.Length - 2);
             return stripped;
         }

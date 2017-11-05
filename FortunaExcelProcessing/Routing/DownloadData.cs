@@ -59,30 +59,30 @@ public class DownloadData
 
     //OLD ROUTES VVVV
 
-    public static Dictionary<int, string> GetWeeklyFarmData(string date)
+    public static List<DataHolder> GetWeeklyData(string date)
     {
-        string tmp = ServerCommunication.DownloadDataGet(string.Format("{0}/getdata?fulldate={1}", GuiControllerUrl, date)); //JSON decoded
-        return JsonConvert.DeserializeObject<Dictionary<int, string>>(tmp);
+        string tmp = ServerCommunication.DownloadDataGet(string.Format("{0}/getdata?t={2}&fulldate={1}", GuiControllerUrl, date, token)); //JSON decoded
+        return JsonConvert.DeserializeObject<List<DataHolder>>(tmp);
     }
 
 
 
     public static List<DateHolder> GetUserWeeklyDataDates(int userID)
     {
-        try
-        {
-            string tmp = ServerCommunication.DownloadDataGet(string.Format("{0}/getfarmdates?userid={1}", GuiControllerUrl, userID));
+        //try
+        //{
+            string tmp = ServerCommunication.DownloadDataGet(string.Format("{0}/getuploaddates?t={1}", GuiControllerUrl, token));
             return JsonConvert.DeserializeObject<List<DateHolder>>(tmp);
-        }
-        catch
-        {
-            return null;
-        }
+        //}
+        //catch
+        //{
+        //    return null;
+        //}
     }
 
     public static List<DateHolder> GetUserWeeklyDataDates()
     {
-        string tmp = ServerCommunication.DownloadDataGet(string.Format("{0}/getuploaddates", GuiControllerUrl));
+        string tmp = ServerCommunication.DownloadDataGet(string.Format("{0}/getuploaddates?t={1}", GuiControllerUrl,token));
         return JsonConvert.DeserializeObject<List<DateHolder>>(tmp);
     }
 

@@ -37,7 +37,7 @@ namespace FortunaExcelProcessing.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("test")]
+        [global::System.Configuration.DefaultSettingValueAttribute("TempDB")]
         public string DbName {
             get {
                 return ((string)(this["DbName"]));

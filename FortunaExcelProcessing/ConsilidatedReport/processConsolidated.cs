@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Data.SQLite;
+using FortunaExcelProcessing.Objects;
 
 namespace FortunaExcelProcessing.ConsilidatedReport
 {
@@ -15,15 +16,17 @@ namespace FortunaExcelProcessing.ConsilidatedReport
         static int _numOfFarms; static string _farmArea; static string _farmName;
         static int[] _indent = InitRowLabels.indentation();
         static List<string> _rowLabels = InitRowLabels.labelList();
-        //static int[] calcedCells = InitFormulae.calcCellArray();
         static int[] _dataCells = InitFormulae.dataCellArray();
 
-        public void createWorkBook(string path, string date, Dictionary<int, string> dict)
+        public void createWorkBook(string path, string date, List<DataHolder> dict)
         {
             ConsolUtil.GetDate(date);
             _wb = new XSSFWorkbook();
             _sheet = _wb.CreateSheet(DateStorage.PartialDate);
             workbookData(dict);
+
+            if (File.Exists(path))
+                File.Delete(path);
 
             using (FileStream fs = File.Create(path))
             {
@@ -32,89 +35,58 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             }
         }
 
-        private static void workbookData(Dictionary<int, string> dict)
+        private static void workbookData(List<DataHolder> dict)
         {
             _numOfFarms = ConsolUtil.getNumberofFarms();
 
-            for (int row = 0; row < 64; row++)
+            for (int row = 0; row < _rowLabels.Count; row++)
             {
-                rowLabeler(row);
+                rowLabeler(row, dict);
             }
-            _sheet.AutoSizeColumn(1);
+            
 
+            int col = 1;
 
-            Dictionary<int, string> databaseDatas = dict;
-
-            int col = 2;
-
-            foreach (var b in databaseDatas)
+            foreach (DataHolder b in dict)
             {
                 ICell cell;
 
-                string stripper = b.Value.Substring(1, b.Value.Length - 2);
+                string stripper = b.Data_array.Substring(1, b.Data_array.Length - 2);
                 string[] sArray = stripper.Split(',');
-                _farmName = ConsolUtil.GetFarmName(b.Key);
-                _farmArea = ConsolUtil.GetFarmArea(b.Key);
 
-                for (int i = 0; i < 33; i++)
                 {
-                    if (i == 0) //Farm Name
-                    {
-                        XSSFCellStyle style = (XSSFCellStyle)_wb.CreateCellStyle();
-                        XSSFFont font = (XSSFFont)_wb.CreateFont();
-                        cell = _sheet.GetRow(0).CreateCell(col);
-                        font.FontHeightInPoints = 10;
-                        style.SetFont(font);
-                        cell.CellStyle = style;
-                        cell.SetCellValue(_farmName);
-                    }
-                    if (i == 1) //Farm Date
-                    {
-                        XSSFCellStyle style = (XSSFCellStyle)_wb.CreateCellStyle();
-                        XSSFFont font = (XSSFFont)_wb.CreateFont();
-                        cell = _sheet.GetRow(1).CreateCell(col);
-                        font.FontHeightInPoints = 12;
-                        font.SetColor(new XSSFColor(new byte[3] { 192, 0, 0 }));
-                        style.Alignment = HorizontalAlignment.Center;
-                        style.SetFont(font);
-                        cell.CellStyle = style;
-                        cell.SetCellValue(DateStorage.PartialDate);
-                    }
+                    XSSFCellStyle style = (XSSFCellStyle)_wb.CreateCellStyle();
+                    XSSFFont font = (XSSFFont)_wb.CreateFont();
 
-                    if (i == 2) //Farm Area
-                    {
-                        cell = _sheet.GetRow(2).CreateCell(col);
-                        ConsolUtil.InputDataToSheet(_farmArea, cell);
-                    }
-
-                    if (i == 15) //Needs particular formatting
-                    {
-                        cell = _sheet.GetRow(15).CreateCell(col);
-                        //FormulaFormatting.inputCellFifteen(cell, 15, b.Key);
-                    }
-                    else if (i == 55) //Needs particular formatting
-                    {
-                        cell = _sheet.GetRow(55).CreateCell(col);
-                        //FormulaFormatting.inputCellFiftyFive(cell, 55, _farmArea);
-                    }
-
-                    cell = _sheet.GetRow(_dataCells[i]).CreateCell(col);
-                    ConsolUtil.InputDataToSheet(sArray[i], cell);
+                    cell = _sheet.GetRow(0).CreateCell(col);
+                    style.Alignment = HorizontalAlignment.Left;
+                    cell.SetCellValue(ConsolUtil.GetFarmName(b.Branch_id));
+                    font.FontHeightInPoints = 10;
+                    style.SetFont(font);
+                    cell.CellStyle = style;
                 }
 
+                for (int i = 0; i < sArray.Length; i++)
+                {
+                    XSSFCellStyle style = (XSSFCellStyle)_wb.CreateCellStyle();
+                    XSSFFont font = (XSSFFont)_wb.CreateFont();
 
-                //Dictionary<int, string> formulae = InitFormulae.formulaeList();
-                //foreach (var formula in formulae)
-                //{
-                //    cell = _sheet.GetRow(formula.Key).CreateCell(col);
-                //    //FormulaFormatting.inputCellFormula(string.Format(formula.Value, ConsolUtil.NumToColName(col)), cell);
-                //}
+                    cell = _sheet.GetRow(_dataCells[i]).CreateCell(col);
+                    style.Alignment = HorizontalAlignment.Left;
+                    ConsolUtil.InputDataToSheet(sArray[i], cell);
+                    font.FontHeightInPoints = 10;
+                    style.SetFont(font);
+                    cell.CellStyle = style;
+                }
                 col++;
             }
+            _sheet.AutoSizeColumn(1);
+            _sheet.AutoSizeColumn(2);
+            _sheet.AutoSizeColumn(1);
         }
 
 
-        private static void rowLabeler(int row)
+        private static void rowLabeler(int row, List<DataHolder> dict)
         {
             ICell cell; XSSFCellStyle style; XSSFFont font;
 
@@ -122,42 +94,35 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             if (row == 0)
             {
                 font.FontHeightInPoints = 14;
+                font.IsBold = true;
+            }
+            else if (row == 1 || row == 6 || row == 11 || row == 16 || row == 22 || row == 26 || row == 29 || row == 34)
+            {
+                font.FontHeightInPoints = 12;
+                font.IsBold = true;
             }
             else
             {
                 font.FontHeightInPoints = 12;
+                font.IsBold = false;
             }
 
             font.FontName = "Arial";
 
             style = (XSSFCellStyle)_wb.CreateCellStyle();
+            style.SetFont(font);
 
             if (_indent.Contains(row))
             {
                 cell = _sheet.CreateRow(row).CreateCell(1);
-                font.IsBold = false;
-                style.SetFont(font);
             }
             else
             {
                 cell = _sheet.CreateRow(row).CreateCell(0);
-                font.IsBold = true;
-                style.SetFont(font);
             }
             cell.SetCellValue(_rowLabels[row]);
+            //cell.SetCellValue(dict[row].Data_array);
             cell.CellStyle = style;
-
-            //PRFM and EFF
-            if (row == 31)
-            {
-                ICell pCell = _sheet.GetRow(31).CreateCell(0);
-                pCell.SetCellValue("Prfm. Index");
-            }
-            if (row == 33)
-            {
-                ICell eCell = _sheet.GetRow(33).CreateCell(0);
-                eCell.SetCellValue("Eff. Index");
-            }
         }
     }
 }

@@ -106,6 +106,7 @@
     <Compile Include="GUI\UploadDB.cs" />
     <Compile Include="ITableEditor.cs" />
     <Compile Include="Objects\Branch.cs" />
+    <Compile Include="Objects\DataHolder.cs" />
     <Compile Include="Objects\DateHolder.cs" />
     <Compile Include="Objects\Hive.cs" />
     <Compile Include="Objects\Label.cs" />

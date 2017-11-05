@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 public class DateHolder
 {
-    public DateTime sdate;
+    public DateTime date_sent;
 }

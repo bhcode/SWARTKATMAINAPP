@@ -16,16 +16,16 @@ namespace FortunaExcelProcessing.GUI
         public bool UploadAll()
         {
             //Task.Factory.StartNew(() => { UploadLabels(); });
-            //Task.Factory.StartNew(() => { UploadHives(); });
-            //Task.Factory.StartNew(() => { UploadWeeklyData(); });
+            Task.Factory.StartNew(() => { UploadHives(); });
+            Task.Factory.StartNew(() => { UploadWeeklyData(); });
             //Task.Factory.StartNew(() => { UploadObservations(); });
 
             //while (lab != true && hive != true && weekly != true && obs != true) {}
 
-            UploadWeeklyData();
-            UploadHives();
+            //UploadWeeklyData();
+            //UploadHives();
             UploadObservations();
-            UploadLabels();
+            //UploadLabels();
 
 
             return true;

@@ -14,12 +14,12 @@ public class UploadData
 
     public static void CreateBranch(Branch branch)
     {
-        ServerCommunication.UploadDataGet(string.Format("{3}/createmodbranch?t={3}&id={0}&name={1}&area={2}", 0, branch.Name, branch.Area, GuiControllerUrl, token));
+        ServerCommunication.UploadDataGet(string.Format("{3}/createmodbranch?t={4}&id={0}&name={1}&area={2}", 0, branch.Name, branch.Area, GuiControllerUrl, token));
     }
 
     public static void ModifyBranch(Branch branch)
     {
-        ServerCommunication.UploadDataGet(string.Format("{3}/createmodbranch?t={3}&id={0}&name={1}&area={2}", branch.Id, branch.Name, branch.Area, GuiControllerUrl));
+        ServerCommunication.UploadDataGet(string.Format("{3}/createmodbranch?t={4}&id={0}&name={1}&area={2}", branch.Id, branch.Name, branch.Area, GuiControllerUrl,token));
     }
 
     public static void ModifyPermissions(string email, int permission)
@@ -37,7 +37,7 @@ public class UploadData
 
     public static void AssignBranch(string email, int branchId)
     {
-        ServerCommunication.UploadDataGet(string.Format("{2}/assignbranch?t={3}&branchid={0}&email={1}", branchId, email, GuiControllerUrl, token));
+        ServerCommunication.UploadDataGet(string.Format("{2}/assignbranch?t={3}&branch_id={0}&email={1}", branchId, email, GuiControllerUrl, token));
     }
 
 

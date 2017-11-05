@@ -22,7 +22,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
 
         string sql; SQLiteCommand command; SQLiteConnection dbConn;
 
-        public void EditTable(ISheet sheet)
+        public void EditTable(ISheet sheet, int branchId)
         {
             dbConn = new SQLiteConnection($"Data Source={settings.Default.DbFilePath};Version=3;");
             dbConn.Open();
@@ -36,13 +36,13 @@ namespace FortunaExcelProcessing.WeeklyProcessing
             else
                 throw new Exception("Table already exists");
 
-            WeeklyDataTable(dbConn);
+            WeeklyDataTable(dbConn, branchId);
             dbConn.Close();
         }
 
-        private void WeeklyDataTable(SQLiteConnection dbConn)
+        private void WeeklyDataTable(SQLiteConnection dbConn, int FarmId)
         {
-            int FarmId = 1;//Util.GetFarmID(CheckCellData.CellTypeString(_sheet.GetRow(2).GetCell(1)));
+            //Util.GetFarmID(CheckCellData.CellTypeString(_sheet.GetRow(2).GetCell(1)));
             //file file = File.CreateText("debug.txt");
             StreamWriter file = new StreamWriter("debug.txt");
             file.Close();

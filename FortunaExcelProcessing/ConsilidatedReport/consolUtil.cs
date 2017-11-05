@@ -33,8 +33,15 @@ namespace FortunaExcelProcessing.ConsilidatedReport
         public static string ReceiveResponse(string url)
         {
             WebClient wc = new WebClient();
-            byte[] raw = wc.DownloadData(url);
-            return Encoding.UTF8.GetString(raw);
+            try
+            {
+                byte[] raw = wc.DownloadData(url);
+                return Encoding.UTF8.GetString(raw);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public static void GetDate()

@@ -12,7 +12,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
         SQLiteConnection _dbCon;
         SQLiteCommand _command;
 
-        public void EditTable(ISheet sheet)
+        public void EditTable(ISheet sheet, int branchId)
         {
             _paddockSheet = sheet;
 
@@ -28,12 +28,12 @@ namespace FortunaExcelProcessing.WeeklyProcessing
             else
                 throw new Exception("Table already exists");
 
-            ProcessData(_dbCon);
+            ProcessData(_dbCon, branchId);
 
             _dbCon.Close();
         }
 
-        private void ProcessData(SQLiteConnection dbCon)
+        private void ProcessData(SQLiteConnection dbCon, int branchId)
         {
             //default the date to the start of current week
             Util.Date = DateTime.Now.StartOfWeek(DayOfWeek.Monday).ToString("yyyy-MM-dd");
@@ -50,7 +50,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                     }
 
                     _command.CommandText = "INSERT INTO Hives(Branch_ID, Date_Sent, Location, Hive_Body, Honey_Super, Frames, Hive_Species, Forage_Enviornment) VALUES(@BranchId, @DateSent, @HiveLoc, @HiveBody, @HoneySup, @NumFrames, @Species, @ForangeEnv);";
-                    _command.Parameters.AddWithValue("@BranchId", Util.Farmid);
+                    _command.Parameters.AddWithValue("@BranchId", branchId);
                     _command.Parameters.AddWithValue("@DateSent", Util.Date);
                     _command.Parameters.AddWithValue("@HiveLoc", row.GetCell((int)HiveCol.LocCol));
                     _command.Parameters.AddWithValue("@HiveBody", row.GetCell((int)HiveCol.HiveBodyCol));

@@ -60,7 +60,14 @@ namespace FortunaExcelProcessing.ConsilidatedReport
 
                     cell = _sheet.GetRow(0).CreateCell(col);
                     style.Alignment = HorizontalAlignment.Left;
-                    cell.SetCellValue(ConsolUtil.GetFarmName(b.Branch_id));
+                    try
+                    {
+                        cell.SetCellValue(ConsolUtil.GetFarmName(b.Branch_id));
+                    }
+                    catch
+                    {
+                        cell.SetCellValue("N/A");
+                    }
                     font.FontHeightInPoints = 10;
                     style.SetFont(font);
                     cell.CellStyle = style;

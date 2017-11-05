@@ -15,7 +15,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
 
         //public string[] _category = { "'Animal Health'", "'Fertiliser Application'", "'Jobs Last Week'", "'Jobs This Week'", "'Stock'", "'General'", "'Resource Management Issues'" };
 
-        public void EditTable(ISheet sheet)
+        public void EditTable(ISheet sheet, int branchId)
         {
             _dBConnection = new SQLiteConnection(string.Format("Data Source={0};Version=3;", settings.Default.DbFilePath));
             _dBConnection.Open();
@@ -31,7 +31,7 @@ namespace FortunaExcelProcessing.WeeklyProcessing
             else
                 throw new Exception("Table already exists");
 
-            CommentsTable(_dBConnection);
+            CommentsTable(_dBConnection, branchId);
             _dBConnection.Close();
         }
 
@@ -54,10 +54,10 @@ namespace FortunaExcelProcessing.WeeklyProcessing
                 return "Empty Comment";
         }
 
-        private void CommentsTable(SQLiteConnection dBConnection)
+        private void CommentsTable(SQLiteConnection dBConnection, int BranchID)
         {
 
-            int BranchID = Util.GetFarmID(CheckCellData.CellTypeString(_sheet.GetRow(2).GetCell(1)));
+            //int BranchID = Util.GetFarmID(CheckCellData.CellTypeString(_sheet.GetRow(2).GetCell(1)));
             Console.WriteLine(BranchID);
 
             //Go through each column, to the last column with a date available

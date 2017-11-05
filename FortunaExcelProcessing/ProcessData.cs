@@ -66,14 +66,14 @@ namespace FortunaExcelProcessing
 
         }
 
-        public void processSheet(string tabName)
+        public void processSheet(string tabName, int branchId)
         {
             if (Util.CheckForSheet(tabName, _wb))
             {
                 ITableEditor o = WeeklySheetFactory.CreateSheet(tabName);
                 if (o != null)
                 {
-                    o.EditTable(_wb.GetSheet(tabName));
+                    o.EditTable(_wb.GetSheet(tabName), branchId);
                 }
                 else
                     throw new Exception("Object is null");
@@ -87,13 +87,13 @@ namespace FortunaExcelProcessing
             _wb.Close();
         }
 
-        public bool ProcessAll()
+        public bool ProcessAll(int branchId)
         {
             bool weekly = false, obs = false, hive = false;
 
-            Task.Factory.StartNew(() => { processSheet("Weekly Data"); weekly = true; });
-            Task.Factory.StartNew(() => { processSheet("Weekly Observations"); obs = true; });
-            Task.Factory.StartNew(() => { processSheet("Hives"); hive = true; });
+            Task.Factory.StartNew(() => { processSheet("Weekly Data", branchId); weekly = true; });
+            Task.Factory.StartNew(() => { processSheet("Weekly Observations", branchId); obs = true; });
+            Task.Factory.StartNew(() => { processSheet("Hives", branchId); hive = true; });
 
             while(weekly == obs == hive == false) { }
 

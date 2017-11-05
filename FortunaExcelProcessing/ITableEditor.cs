@@ -11,6 +11,6 @@ namespace FortunaExcelProcessing
 {
     public interface ITableEditor
     {
-        void EditTable(ISheet sheet);
+        void EditTable(ISheet sheet, int branchId);
     }
 }

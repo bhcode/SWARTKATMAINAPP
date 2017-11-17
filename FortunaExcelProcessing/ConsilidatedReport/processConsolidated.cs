@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Data.SQLite;
 using FortunaExcelProcessing.Objects;
+using System.Drawing;
 
 namespace FortunaExcelProcessing.ConsilidatedReport
 {
@@ -44,31 +45,35 @@ namespace FortunaExcelProcessing.ConsilidatedReport
                 rowLabeler(row, dict);
             }
             
-
             int col = 1;
 
             foreach (DataHolder b in dict)
             {
                 ICell cell;
-
+                
                 string stripper = b.Data_array.Substring(1, b.Data_array.Length - 2);
                 string[] sArray = stripper.Split(',');
 
                 {
                     XSSFCellStyle style = (XSSFCellStyle)_wb.CreateCellStyle();
                     XSSFFont font = (XSSFFont)_wb.CreateFont();
+                    font.FontName = "Arial";
 
                     cell = _sheet.GetRow(0).CreateCell(col);
+                    style.SetFillForegroundColor(new XSSFColor(Color.FromArgb(255, 242, 204)));
+                    style.FillPattern = FillPattern.SolidForeground;
                     style.Alignment = HorizontalAlignment.Left;
+
                     try
                     {
+                        
                         cell.SetCellValue(ConsolUtil.GetFarmName(b.Branch_id));
                     }
                     catch
                     {
                         cell.SetCellValue("N/A");
                     }
-                    font.FontHeightInPoints = 10;
+                    font.FontHeightInPoints = 14;
                     style.SetFont(font);
                     cell.CellStyle = style;
                 }
@@ -77,14 +82,16 @@ namespace FortunaExcelProcessing.ConsilidatedReport
                 {
                     XSSFCellStyle style = (XSSFCellStyle)_wb.CreateCellStyle();
                     XSSFFont font = (XSSFFont)_wb.CreateFont();
-
+                    
                     cell = _sheet.GetRow(_dataCells[i]).CreateCell(col);
                     style.Alignment = HorizontalAlignment.Left;
                     ConsolUtil.InputDataToSheet(sArray[i], cell);
-                    font.FontHeightInPoints = 10;
+                    
+                    font.FontHeightInPoints = 11;
                     style.SetFont(font);
                     cell.CellStyle = style;
                 }
+
                 col++;
             }
             _sheet.AutoSizeColumn(1);
@@ -110,14 +117,17 @@ namespace FortunaExcelProcessing.ConsilidatedReport
             }
             else
             {
-                font.FontHeightInPoints = 12;
-                font.IsBold = false;
+                font.FontHeightInPoints = 11;
+                font.IsBold = true;
             }
 
             font.FontName = "Arial";
 
             style = (XSSFCellStyle)_wb.CreateCellStyle();
             style.SetFont(font);
+            style.SetFillForegroundColor(new XSSFColor(Color.FromArgb(255, 242, 204)));
+            style.FillPattern = FillPattern.SolidForeground;
+            style.Alignment = HorizontalAlignment.Left;
 
             if (_indent.Contains(row))
             {
